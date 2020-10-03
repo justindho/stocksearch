@@ -94,13 +94,19 @@ app.get('/api/dailychartdata/:ticker', (req, res) => {
     if (response.statusCode == 200) {
       let json = JSON.parse(body);
       let startDate = json[0]['timestamp'];
-      console.log(startDate);
       requestOptions['url'] = `https://api.tiingo.com/iex/${ticker}/prices?startDate=${startDate}&forceFill=true&resampleFreq=${resampleFreq}&token=${TIINGO_API_KEY}`;
       returnResponse(res, requestOptions);
     } else {
       res.json({'error': true, 'errormsg': error, 'statusCode': response.statusCode});
     }
   })
+})
+
+
+app.get('/api/autocomplete/:query', (req, res) => {
+  const query = req.params.query.toUpperCase();
+  requestOptions['url'] = `https://api.tiingo.com/tiingo/utilities/search?query=${query}&limit=100&columns=ticker,name&token=${TIINGO_API_KEY}`;
+  returnResponse(res, requestOptions);
 })
 
 
