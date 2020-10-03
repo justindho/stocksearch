@@ -110,6 +110,30 @@ app.get('/api/autocomplete/:query', (req, res) => {
 })
 
 
+app.get('/api/news/:ticker', (req, res) => {
+  const ticker = req.params.ticker.toUpperCase();
+  requestOptions['url'] = `https://newsapi.org/v2/everything?q=${ticker}&apiKey=${NEWS_API_KEY}`;
+  request(requestOptions, (error, response, body) => {
+    if (response.statusCode === 200) {
+      let json = JSON.parse(body);
+      let data = json['articles'].map(x => {
+        return {
+          'url': x['url'],
+          'title': x['title'],
+          'description': x['description'],
+          'source': x['source'],
+          'urlToImage': x['urlToImage'],
+          'publishedAt': x['publishedAt'],
+        }
+      });
+      res.json(data);
+    } else {
+      res.json({'error': true, 'errormsg': error, 'statusCode': response.statusCode});
+    }
+  });
+})
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
