@@ -52,6 +52,29 @@ app.get('/api/companydescription/:ticker', (req, res) => {
   });
 })
 
+
+app.get('/api/latestprice/:ticker', (req, res) => {
+  const ticker = req.params.ticker.toUpperCase();
+
+  let requestOptions = {
+    'url': `https://api.tiingo.com/iex/?tickers=${ticker}&token=${TIINGO_API_KEY}`,
+    'method': 'GET',
+    'headers': {
+      'Content-Type': 'application/json',
+    }
+  }
+
+  request(requestOptions, (error, response, body) => {
+    let json = JSON.parse(body);
+    if (response.statusCode === 200) {
+      res.json(json);
+    } else {
+      res.json({'error': true});
+    }
+  });
+})
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
