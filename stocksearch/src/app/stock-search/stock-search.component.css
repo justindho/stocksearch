@@ -1,0 +1,35 @@
+#searchbutton {
+    /* color: #5E42C1; */
+    background-color: white;
+    border: none;
+}
+
+#searchdiv {
+    padding-top: 5%;
+    text-align: center;
+}
+
+#searchdiv > h1 {
+    font-size: 72px;
+    font-weight: bold;
+}
+
+#searchfield {
+    border-color: #5E42C1;
+    border-width: 2px;
+    border-radius: 25px;
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+}
+
+#searchfield > input {
+    border: none;
+    margin-top: auto;
+    margin-bottom: auto;
+    outline: none;
+}
+
+#searchInput {
+    vertical-align: middle;
+}
