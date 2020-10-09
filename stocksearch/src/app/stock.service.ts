@@ -38,9 +38,6 @@ export class StockService {
   getStockStatistics(): Observable<StockStatistics> {
     return of(MOCK_STOCK_STATISTICS);
   }
-  // getStockStatistics() {
-  //   return MOCK_STOCK_STATISTICS;
-  // }
 
   /** GET company meta data from the server */
   getCompanyMeta(): Observable<CompanyMeta> {
