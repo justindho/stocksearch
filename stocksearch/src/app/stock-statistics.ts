@@ -1,4 +1,4 @@
-export interface Stock {
+export interface StockStatistics {
     name: string;
     symbol: string;
     high: number;

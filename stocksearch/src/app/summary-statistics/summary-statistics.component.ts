@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Stock } from '../stock';
+import { StockService } from '../stock.service';
+import { StockStatistics } from '../stock-statistics';
 
 @Component({
   selector: 'app-summary-statistics',
@@ -8,11 +9,17 @@ import { Stock } from '../stock';
   styleUrls: ['./summary-statistics.component.css']
 })
 export class SummaryStatisticsComponent implements OnInit {
-  @Input() stock: Stock;
+  stockStatistics: StockStatistics;
 
-  constructor() { }
+  constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
+    this.getSummaryStatistics();
+  }
+
+  getSummaryStatistics(): void {
+    this.stockService.getStockStatistics()
+      .subscribe(statistics => this.stockStatistics = statistics);
   }
 
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { CompanyMeta } from '../company-meta';
 
-import { Stock } from '../stock';
+import { StockStatistics } from '../stock-statistics';
 
 @Component({
   selector: 'app-summary',
@@ -8,20 +9,22 @@ import { Stock } from '../stock';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
-  stock: Stock = {
-    name: "Amazon.com",
-    symbol: "AMZN",
-    high: 100,
-    mid: 100,
-    low: 100,
-    askPrice: 100,
-    open: 100,
-    askSize: 100,
-    prevClose: 100,
-    bidPrice: 100,
-    volume: 100,
-    bidSize: 100,
-  }
+  // stock: StockStatistics = {
+  //   name: "Amazon.com",
+  //   symbol: "AMZN",
+  //   high: 100,
+  //   mid: 100,
+  //   low: 100,
+  //   askPrice: 100,
+  //   open: 100,
+  //   askSize: 100,
+  //   prevClose: 100,
+  //   bidPrice: 100,
+  //   volume: 100,
+  //   bidSize: 100,
+  // }
+
+  // @Input() companyMeta: CompanyMeta;
 
   constructor() { }
 
