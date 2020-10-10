@@ -1,0 +1,23 @@
+#left-cell {
+    margin-left: 1em;
+    text-align: left;
+}
+
+#market-status {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+}
+
+#right-cell {
+    margin-right: 1em;
+    text-align: right;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+}

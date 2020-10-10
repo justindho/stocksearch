@@ -7,30 +7,30 @@ import { StockStatistics } from './stock-statistics';
 
 export const MOCK_COMPANY_META: CompanyMeta = {
   ticker: 'AMZN',
-  name: 'Amazon.com',
-  description: 'Amazon is an e-commerce company and has AWS',
-  startDate: 'Some time in 1995',
+  name: 'Amazon.com Inc',
+  description: 'Amazon is guided by four principles: customer obsession rather than competitor focus, passion for invention, commitment to operational excellence, and long-term thinking. Customer reviews, 1-Click shopping, personalized recommendations, Prime, Fulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Fire tablets, Fire TV, Amazon Echo, and Alexa are some of the products and services pioneered by Amazon.',
+  startDate: '1997-05-15',
   exchangeCode: 'NASDAQ',
 }
 
 export const MOCK_STOCK_STATISTICS: StockStatistics = {
-  prevClose: 100,
-  mid: 100,
-  lastSaleTimestamp: 'sometime',
-  open: 100,
+  prevClose: 3190.55,
+  mid: null,
+  lastSaleTimestamp: '2020-10-09T20:00:00+00:00',
+  open: 3210,
   askPrice: 100,
-  low: 100,
-  ticker: 'AAPL',
-  timestamp: 'sometime',
-  lastSize: 100,
-  tngoLast: 100,
-  last: 100,
-  high: 100,
+  low: 3197.83,
+  ticker: 'AMZN',
+  timestamp: '2020-10-09T20:00:00+00:00',
+  lastSize: null,
+  tngoLast: 3286.65,
+  last: 3286.65,
+  high: 3288.99,
   askSize: 100,
-  quoteTimestamp: 'sometime',
+  quoteTimestamp: '2020-10-09T20:00:00+00:00',
   bidPrice: 100,
   bidSize: 100,
-  volume: 100,
+  volume: 4907871,
 }
 
 @Injectable({
