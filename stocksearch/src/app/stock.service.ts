@@ -31,6 +31,8 @@ export const MOCK_STOCK_STATISTICS: StockStatistics = {
   bidPrice: 100,
   bidSize: 100,
   volume: 4907871,
+  change: 0,
+  changePercent: 0,
 }
 
 @Injectable({

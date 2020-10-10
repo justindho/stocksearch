@@ -16,4 +16,6 @@ export interface StockStatistics {
     bidPrice: number;
     bidSize: number;
     volume: number;
+    change: number;
+    changePercent: number;
 }
