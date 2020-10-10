@@ -1,16 +1,29 @@
-#left-cell {
+#companyName {
+    color: #7D6F71;
+    font-size: 1.5em;
+    font-style: bold;
+}
+
+#exchange, #timestamp {
+    color: #7D6F71;
+    font-size: 0.8em;
+}
+
+#lastPrice-cell, #ticker-cell {
+    font-size: 2em;
+    font-style: bold;
+}
+
+.left-cell {
     margin-left: 1em;
     text-align: left;
 }
 
-#market-status {
-    margin-left: auto;
-    margin-right: auto;
+#market-status-container {
     text-align: center;
-    width: 100%;
 }
 
-#right-cell {
+.right-cell {
     margin-right: 1em;
     text-align: right;
 }
@@ -18,6 +31,5 @@
 table {
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
-    width: 100%;
+    width: 70%;
 }

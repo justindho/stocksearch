@@ -1,18 +1,18 @@
 <table>
     <tr>
-        <td class="left-cell">{{ companyMeta.ticker }}</td>
-        <td class="right-cell">{{ stockStatistics.last }}</td>
+        <td id="ticker-cell" class="left-cell">{{ companyMeta.ticker }}</td>
+        <td id="lastPrice-cell" class="right-cell">{{ stockStatistics.last }}</td>
     </tr>
     <tr>
-        <td class="left-cell">{{ companyMeta.name }}</td>
-        <td class="right-cell">{{ stockStatistics.change }} ({{ stockStatistics.changePercent }}%)</td>
+        <td id="companyName" class="left-cell">{{ companyMeta.name }}</td>
+        <td id="changeStats" class="right-cell"><span id="arrow-container"></span>{{ stockStatistics.change }} ({{ stockStatistics.changePercent }}%)</td>
     </tr>
     <tr>
-        <td class="left-cell">{{ companyMeta.exchangeCode }}</td>
-        <td class="right-cell">{{ stockStatistics.timestamp }}</td>
+        <td id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
+        <td id="timestamp" class="right-cell">{{ stockStatistics.timestamp }}</td>
     </tr>
     <tr>
         <td class="left-cell"><button class="btn btn-success">Buy</button></td>
     </tr>
 </table>
-<p id="market-status">Market is Open</p>
+<p id="market-status-container"><span id="market-status"></span></p>
