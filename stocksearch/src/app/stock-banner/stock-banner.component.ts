@@ -65,6 +65,13 @@ export class StockBannerComponent implements OnInit {
           marketStatus.innerHTML = `Market Closed on ${this.stockStatistics['timestamp']}`;
           marketStatus.setAttribute('style', 'background-color:#F4D4DB; color:#85634E');
         }
+
+        // Check for null values
+        if (this.stockStatistics.mid === null) this.stockStatistics.mid = '-';
+        if (this.stockStatistics.bidPrice === null) this.stockStatistics.bidPrice = '-';
+        if (this.stockStatistics.bidSize === null) this.stockStatistics.bidSize = '-';
+        if (this.stockStatistics.askPrice === null) this.stockStatistics.askPrice = '-';
+        if (this.stockStatistics.askSize === null) this.stockStatistics.askSize = '-';
       });
   }
 

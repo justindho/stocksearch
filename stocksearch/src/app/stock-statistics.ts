@@ -1,9 +1,9 @@
 export interface StockStatistics {
     prevClose: number;
-    mid: number;
+    mid: string;
     lastSaleTimestamp: string;
     open: number;
-    askPrice: number;
+    askPrice: string;
     low: number;
     ticker: string;
     timestamp: string;
@@ -11,10 +11,10 @@ export interface StockStatistics {
     tngoLast: number;
     last: number;
     high: number;
-    askSize: number;
+    askSize: string;
     quoteTimestamp: string;
-    bidPrice: number;
-    bidSize: number;
+    bidPrice: string;
+    bidSize: string;
     volume: number;
     change: number;
     changePercent: number;
