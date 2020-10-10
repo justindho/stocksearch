@@ -1,14 +1,19 @@
 export interface StockStatistics {
-    name: string;
-    symbol: string;
-    high: number;
-    low: number;
-    open: number;
     prevClose: number;
-    volume: number;
     mid: number;
+    lastSaleTimestamp: string;
+    open: number;
     askPrice: number;
+    low: number;
+    ticker: string;
+    timestamp: string;
+    lastSize: number;
+    tngoLast: number;
+    last: number;
+    high: number;
     askSize: number;
+    quoteTimestamp: string;
     bidPrice: number;
     bidSize: number;
+    volume: number;
 }

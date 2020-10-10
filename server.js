@@ -12,6 +12,10 @@ const port = 3000;
 
 app.use(express.static(__dirname + '/public'));
 
+// Angular dist folder
+// app.use('/samples', express.static(path.join(__dirname, 'dist')));
+// app.use('/sample', sample);
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CompanyMeta } from '../company-meta';
-import { SummaryComponent } from '../summary/summary.component';
 import { StockService } from '../stock.service';
-import { StockStatistics } from '../stock-statistics';
 
 @Component({
   selector: 'app-stock-detail',
@@ -12,18 +10,18 @@ import { StockStatistics } from '../stock-statistics';
 })
 export class StockDetailComponent implements OnInit {
 
-  stockStatistics: StockStatistics;
   companyMeta: CompanyMeta;
 
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    // this.getSummaryStatistics();
+    this.getCompanyMeta();
   }
 
-  // getSummaryStatistics(): void {
-  //   this.stockService.getStockStatistics()
-  //     .subscribe(statistics => this.stockStatistics = statistics);
-  // }
+  getCompanyMeta(): void {
+    this.stockService.getCompanyMeta()
+      .subscribe(meta => this.companyMeta = meta);
+  }
+
 
 }
