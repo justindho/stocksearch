@@ -1,0 +1,11 @@
+<div class="grid-container">
+    <div *ngFor="let news of newslist"
+        >
+        <table>
+            <tr>
+                <td><img src="{{ news.urlToImage }}" /></td>
+                <td>{{ news.title }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
