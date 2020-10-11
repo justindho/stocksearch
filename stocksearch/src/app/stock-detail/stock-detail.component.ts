@@ -15,11 +15,11 @@ export class StockDetailComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.getCompanyMeta();
+    this.getCompanyMeta('AMZN');
   }
 
-  getCompanyMeta(): void {
-    this.stockService.getCompanyMeta()
+  getCompanyMeta(symbol: string): void {
+    this.stockService.getCompanyMeta(symbol)
       .subscribe(meta => this.companyMeta = meta);
   }
 

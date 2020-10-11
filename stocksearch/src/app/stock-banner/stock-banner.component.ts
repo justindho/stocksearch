@@ -22,7 +22,7 @@ export class StockBannerComponent implements OnInit {
   }
 
   getCompanyMeta(): void {
-    this.stockService.getCompanyMeta()
+    this.stockService.getCompanyMeta('AMZN')
       .subscribe(meta => this.companyMeta = meta);
   }
 
@@ -30,7 +30,6 @@ export class StockBannerComponent implements OnInit {
     this.stockService.getStockStatistics('AMZN')
       .subscribe(statistics => {
         this.stockStatistics = statistics[0];
-        console.log(this.stockStatistics);
         this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
         this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
         this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
