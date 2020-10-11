@@ -1,12 +1,10 @@
 <app-stock-banner></app-stock-banner>
 <div id="button-container" class="col-md-4">
     <div class="btn-group btn-group-lg" role="group">
-        <button type="button">Summary</button>
-        <button type="button">Top News</button>
-        <button type="button">Charts</button>
+        <button type="button" (click)="onSummaryButtonClick()">Summary</button>
+        <button type="button" (click)="onNewsButtonClick()">Top News</button>
+        <button type="button" (click)="onChartsButtonClick()">Charts</button>
     </div>
 </div>
-<div id="stock-info">
-    <app-summary></app-summary>
-    <app-news></app-news>
-</div>
+<app-summary id="summaryDiv"></app-summary>
+<app-news id="newsDiv"></app-news>
