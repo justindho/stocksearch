@@ -15,13 +15,15 @@ export class NewsComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.getNews();
+    this.getNews('AMZN');
   }
 
-  getNews(): void {
-    this.stockService.getNews()
-      .subscribe(news => this.newslist = news);
-    this.newslist.forEach(news => news.publishedAt = this.formatTimestamp(news.publishedAt));
+  getNews(symbol: string): void {
+    this.stockService.getNews(symbol)
+      .subscribe(news => {
+        this.newslist = news;
+        this.newslist.forEach(news => news.publishedAt = this.formatTimestamp(news.publishedAt));
+      });
   }
 
   formatTimestamp(timestamp: string): string {
