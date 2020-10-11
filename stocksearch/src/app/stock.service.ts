@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { CompanyMeta } from './company-meta';
+import { DailyChartData } from './daily-chart-data';
 import { News } from './news';
 import { StockStatistics } from './stock-statistics';
 
@@ -19,6 +20,11 @@ export class StockService {
   /** GET company meta data from the server */
   getCompanyMeta(symbol: string): Observable<CompanyMeta> {
     return this.http.get<CompanyMeta>(`/api/companydescription/${symbol}`);
+  }
+
+  /** GET daily chart data */
+  getDailyChartData(symbol: string): Observable<DailyChartData[]> {
+    return this.http.get<DailyChartData[]>(`/api/dailychartdata/${symbol}`);
   }
 
   /** GET company news from the server */

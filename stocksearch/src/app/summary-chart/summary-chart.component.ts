@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { StockChart } from 'angular-highcharts';
+import { numberFormat } from 'highcharts';
 
-import * as HighCharts from 'highcharts';
 import { CompanyMeta } from '../company-meta';
+import { DailyChartData } from '../daily-chart-data';
+import { StockService } from '../stock.service';
 
 @Component({
   selector: 'app-summary-chart',
@@ -9,82 +12,55 @@ import { CompanyMeta } from '../company-meta';
   styleUrls: ['./summary-chart.component.css']
 })
 export class SummaryChartComponent implements OnInit {
-  @Input() companyMeta: CompanyMeta;
+  companyMeta: CompanyMeta;
+  dailyChartData: number[][];
+  dailyStockChart: StockChart;
 
-  constructor() { }
+  constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.barChartPopulation();
-    this.dailyChartPopulation();
+    this.stockService.getDailyChartData('AMZN')
+      .subscribe(data => {
+        this.dailyChartData = this.formatDailyChartData(data);
+        this.dailyChartPopulation();
+      });
+    this.stockService.getCompanyMeta('AMZN')
+      .subscribe(meta => this.companyMeta = meta);
   }
 
   dailyChartPopulation() {
-    // HighCharts.stockChart('dailychart', {
+    this.dailyStockChart = new StockChart({
 
+      rangeSelector: {
+        enabled: false,
+      },
+  
+      title: {
+        text: `${this.companyMeta.ticker}`,
+      },
 
-    //   rangeSelector: {
-    //     selected: 1
-    //   },
-  
-    //   title: {
-    //     text: `${companyMeta.symbol}`,
-    //   },
-  
-    //   series: [{
-    //     name: 'AAPL',
-    //     data: data,
-    //     tooltip: {
-    //       valueDecimals: 2
-    //     }
-    //   }]
-    // });
+      series: [{
+        tooltip: {
+          valueDecimals: 2
+        },
+        name: 'AAPL',
+        type: 'line',
+        data: this.dailyChartData,
+      }],
+
+      xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: {
+          hour: '%H:%M',
+        }
+      }
+    });
   }
 
-  barChartPopulation() {
-    HighCharts.chart('dailychart2', {
-      chart: {
-        type: 'bar'
-      },
-      title: {
-        text: 'Historic World Population by Region'
-      },
-      xAxis: {
-        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Population (millions)',
-          align: 'high'
-        },
-      },
-      tooltip: {
-        valueSuffix: ' millions'
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
-          }
-        }
-      },
-      series: [{
-        type: undefined,
-        name: 'Year 1800',
-        data: [107, 31, 635, 203, 2]
-      }, {
-        type: undefined,
-        name: 'Year 1900',
-        data: [133, 156, 947, 408, 6]
-      }, {
-        type: undefined,
-        name: 'Year 2000',
-        data: [814, 841, 3714, 727, 31]
-      }, {
-        type: undefined,
-        name: 'Year 2016',
-        data: [1216, 1001, 4436, 738, 40]
-      }]
+  formatDailyChartData(data: DailyChartData[]): number[][] {
+    return data.map(x => {
+      let date = new Date(x.date);
+      return [date.valueOf(), x.close];
     });
   }
 
