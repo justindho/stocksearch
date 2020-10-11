@@ -18,9 +18,8 @@ export class SummaryStatisticsComponent implements OnInit {
   }
 
   getSummaryStatistics(): void {
-    this.stockService.getStockStatistics('AAPL')
-      .subscribe(statistics => this.stockStatistics = statistics);
-      // .subscribe(statistics => console.log(statistics));
+    this.stockService.getStockStatistics('AMZN')
+      .subscribe(statistics => this.stockStatistics = statistics[0]);
   }
 
 }

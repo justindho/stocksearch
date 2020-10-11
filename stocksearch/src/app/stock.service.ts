@@ -126,8 +126,8 @@ export class StockService {
 
   /** GET stock statistics from the server */
   getStockStatistics(symbol: string): Observable<StockStatistics> {
-    return of(MOCK_STOCK_STATISTICS);
-    // return this.http.get<StockStatistics>(`/api/latestprice/${symbol}`);
+    // return of(MOCK_STOCK_STATISTICS);
+    return this.http.get<StockStatistics>(`/api/latestprice/${symbol}`);
   }
 
 }

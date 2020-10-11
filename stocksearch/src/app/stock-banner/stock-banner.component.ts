@@ -27,12 +27,13 @@ export class StockBannerComponent implements OnInit {
   }
 
   getStockStatistics(): void {
-    this.stockService.getStockStatistics('AAPL')
+    this.stockService.getStockStatistics('AMZN')
       .subscribe(statistics => {
-        this.stockStatistics = statistics;
-        this.stockStatistics['change'] = parseFloat((statistics.last - statistics.prevClose).toFixed(2));
+        this.stockStatistics = statistics[0];
+        console.log(this.stockStatistics);
+        this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
         this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
-        this.stockStatistics['timestamp'] = this.formatTimestamp(statistics.timestamp);
+        this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
 
         // Styling for when stock price goes up/down
         let arrowContainer = document.getElementById('arrow-container');
