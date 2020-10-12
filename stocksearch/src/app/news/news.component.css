@@ -1,3 +1,9 @@
+button {
+    border: none;
+    outline: none;
+    text-align: left;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
