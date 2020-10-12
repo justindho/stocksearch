@@ -1,0 +1,42 @@
+button {
+    border: none;
+    outline: none;
+    text-align: left;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    padding: 10px;
+}
+
+.grid-container div {
+    background-color: #F4F2F4;
+    border: 1px;
+    border-radius: 5px;
+}
+
+.grid-container div img {
+    width: 8em;
+}
+
+.modal-footer {
+    /* justify-content: left; */
+    justify-content: flex-start;
+}
+
+/* #newsModal {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+} */
+
+td {
+    padding: 10px;
+}
+
+td img {
+    border-radius: 10px;
+    vertical-align: middle;
+}

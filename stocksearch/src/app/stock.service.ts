@@ -1,9 +1,46 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { CompanyMeta } from './company-meta';
+import { DailyChartData } from './daily-chart-data';
+import { HistoricalData } from './historical-data';
+import { News } from './news';
+import { StockStatistics } from './stock-statistics';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
+
+  /** GET company meta data from the server */
+  getCompanyMeta(ticker: string): Observable<CompanyMeta> {
+    return this.http.get<CompanyMeta>(`/api/companydescription/${ticker}`);
+  }
+
+  /** GET daily chart data */
+  getDailyChartData(ticker: string): Observable<DailyChartData[]> {
+    return this.http.get<DailyChartData[]>(`/api/dailychartdata/${ticker}`);
+  }
+
+  /** GET historical chart data */
+  getHistoricalData(ticker: string): Observable<HistoricalData[]> {
+    return this.http.get<HistoricalData[]>(`/api/historicaldata/${ticker}`);
+  }
+
+  /** GET company news from the server */
+  getNews(ticker: string): Observable<News[]> {
+    return this.http.get<News[]>(`/api/news/${ticker}`);
+  }
+
+  /** GET stock statistics from the server */
+  getStockStatistics(ticker: string): Observable<StockStatistics> {
+    return this.http.get<StockStatistics>(`/api/latestprice/${ticker}`);
+  }
+
 }

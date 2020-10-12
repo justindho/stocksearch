@@ -1,0 +1,35 @@
+#companyName {
+    color: #7D6F71;
+    font-size: 1.5em;
+    font-style: bold;
+}
+
+#exchange, #timestamp {
+    color: #7D6F71;
+    font-size: 0.8em;
+}
+
+#lastPrice-cell, #ticker-cell {
+    font-size: 2em;
+    font-style: bold;
+}
+
+.left-cell {
+    margin-left: 1em;
+    text-align: left;
+}
+
+#market-status-container {
+    text-align: center;
+}
+
+.right-cell {
+    margin-right: 1em;
+    text-align: right;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}

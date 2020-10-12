@@ -1,1 +1,6 @@
-<p>stock-detail works!</p>
+<app-stock-banner [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-stock-banner>
+<mat-tab-group dynamicHeight mat-stretch-tabs>
+    <mat-tab label="Summary"><app-summary [stockStatistics]="stockStatistics"></app-summary></mat-tab>
+    <mat-tab label="Top News"><app-news></app-news></mat-tab>
+    <mat-tab label="Charts"><app-charts></app-charts></mat-tab>
+</mat-tab-group>
