@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CompanyMeta } from '../company-meta';
+import { StockStatistics } from '../stock-statistics';
 import { StockService } from '../stock.service';
 
 @Component({
@@ -11,16 +12,24 @@ import { StockService } from '../stock.service';
 export class StockDetailComponent implements OnInit {
 
   companyMeta: CompanyMeta;
+  stockStatistics: StockStatistics;
 
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.getCompanyMeta('AMZN');
+    let ticker = 'AMZN';
+    this.getCompanyMeta(ticker);
+    this.getSummaryStatistics(ticker);
   }
 
-  getCompanyMeta(symbol: string): void {
-    this.stockService.getCompanyMeta(symbol)
+  getCompanyMeta(ticker: string): void {
+    this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => this.companyMeta = meta);
+  }
+
+  getSummaryStatistics(ticker: string): void {
+    this.stockService.getStockStatistics(ticker)
+      .subscribe(stats => this.stockStatistics = stats[0]);
   }
 
 }

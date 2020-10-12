@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+
+import { StockStatistics } from '../stock-statistics';
 import { CompanyMeta } from '../company-meta';
 
 
@@ -9,6 +11,7 @@ import { CompanyMeta } from '../company-meta';
 })
 export class SummaryComponent implements OnInit {
   companyMeta: CompanyMeta;
+  @Input() stockStatistics: StockStatistics;
 
   constructor() { }
 
