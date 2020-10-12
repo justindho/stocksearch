@@ -61,7 +61,7 @@ export class StockBannerComponent implements OnInit {
     let marketStatus = document.getElementById('market-status');
     let now = new Date();
     let lastTimestamp = new Date(this.stockStatistics.timestamp);
-    if ((now.getTime() - lastTimestamp.getTime()) / 1000 < 60*1000) { // convert seconds to milliseconds
+    if ((now.getTime() - lastTimestamp.getTime()) < 60*1000) { // convert seconds to milliseconds
       marketStatus.innerHTML = `Market is Open`;
       marketStatus.setAttribute('style', 'background-color:#DAF0E0; color:#78A48B');
     } else {
