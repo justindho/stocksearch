@@ -5,6 +5,7 @@ import { numberFormat } from 'highcharts';
 import { CompanyMeta } from '../company-meta';
 import { DailyChartData } from '../daily-chart-data';
 import { StockService } from '../stock.service';
+import { StockStatistics } from '../stock-statistics';
 
 @Component({
   selector: 'app-summary-chart',
@@ -15,38 +16,60 @@ export class SummaryChartComponent implements OnInit {
   companyMeta: CompanyMeta;
   dailyChartData: number[][];
   dailyStockChart: StockChart;
+  stockStatistics: StockStatistics;
 
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.stockService.getDailyChartData('AMZN')
+    let ticker = 'AMZN';
+    this.stockService.getDailyChartData(ticker)
       .subscribe(data => {
         this.dailyChartData = this.formatDailyChartData(data);
-        this.dailyChartPopulation();
+        this.stockService.getStockStatistics(ticker)
+          .subscribe(stats => {
+            this.stockStatistics = stats;
+            console.log(this.stockStatistics);
+            this.dailyChartPopulation();
+          });
       });
-    this.stockService.getCompanyMeta('AMZN')
+    this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => this.companyMeta = meta);
   }
 
   dailyChartPopulation() {
+    let change = this.stockStatistics[0].last - this.stockStatistics[0].prevClose;
+    console.log(`change = ${change}`);
+    let lineColor = change > 0 ? 'green' :
+      change != 0 ? 'red' :
+      'black';
     this.dailyStockChart = new StockChart({
+
+      plotOptions: {
+        series: {
+          color: lineColor
+        }
+      },
 
       rangeSelector: {
         enabled: false,
-      },
-  
-      title: {
-        text: `${this.companyMeta.ticker}`,
       },
 
       series: [{
         tooltip: {
           valueDecimals: 2
         },
-        name: 'AAPL',
+        name: `${this.companyMeta.ticker}`,
         type: 'line',
         data: this.dailyChartData,
       }],
+
+      title: {
+        text: `${this.companyMeta.ticker}`,
+      },
+
+      tooltip: {
+        xDateFormat: ', %m %d, %H:%M',
+      },
 
       xAxis: {
         type: 'datetime',
@@ -58,9 +81,11 @@ export class SummaryChartComponent implements OnInit {
   }
 
   formatDailyChartData(data: DailyChartData[]): number[][] {
+    let timeOffsetMinutes = new Date().getTimezoneOffset();
+    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
     return data.map(x => {
       let date = new Date(x.date);
-      return [date.valueOf(), x.close];
+      return [date.valueOf() - timeOffsetMilliseconds, x.close];
     });
   }
 
