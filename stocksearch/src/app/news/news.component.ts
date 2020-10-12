@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
 import { News } from '../news';
@@ -12,10 +13,14 @@ import { StockService } from '../stock.service';
 export class NewsComponent implements OnInit {
   newslist: News[];
 
-  constructor(private stockService: StockService) { }
+  constructor(
+    private stockService: StockService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.getNews('AMZN');
+    let ticker = this.activatedRoute.snapshot.params.ticker;
+    this.getNews(ticker);
   }
 
   getNews(symbol: string): void {

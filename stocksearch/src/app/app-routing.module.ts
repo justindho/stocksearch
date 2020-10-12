@@ -8,7 +8,7 @@ import { StockDetailComponent } from './stock-detail/stock-detail.component';
 const routes = [
   { path: '', component: StockSearchComponent },
   { path: 'search', redirectTo: '', pathMatch: 'full' },
-  { path: 'details/:symbol', component: StockDetailComponent },
+  { path: 'details/:ticker', component: StockDetailComponent },
 ];
 
 
