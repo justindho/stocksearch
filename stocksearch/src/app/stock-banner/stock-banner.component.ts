@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { CompanyMeta } from '../company-meta';
 import { StockStatistics } from '../stock-statistics';
@@ -10,78 +10,64 @@ import { StockService } from '../stock.service';
   styleUrls: ['./stock-banner.component.css']
 })
 export class StockBannerComponent implements OnInit {
-  // @Input() companyMeta: CompanyMeta;
-  companyMeta: CompanyMeta;
-  stockStatistics: StockStatistics;
+  @Input() companyMeta: CompanyMeta;
+  @Input() stockStatistics: StockStatistics;
 
-  constructor(private stockService: StockService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getCompanyMeta();
-    this.getStockStatistics();
+    console.log(`Inside stock-banner component!`);
+    console.log(this.companyMeta);
+    console.log(this.stockStatistics);
+    this.displayStockStatistics();
   }
 
-  getCompanyMeta(): void {
-    this.stockService.getCompanyMeta('AMZN')
-      .subscribe(meta => this.companyMeta = meta);
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(`Changes detected inside stock-banner-component!`);
+    console.log(`change: ${this.stockStatistics.change}`);
+    console.log(this.stockStatistics.change);
   }
 
-  getStockStatistics(): void {
-    this.stockService.getStockStatistics('AMZN')
-      .subscribe(statistics => {
-        this.stockStatistics = statistics[0];
-        this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
-        this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
-        this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
+  displayStockStatistics(): void {
+    this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
+    this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
+    this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
 
-        // Styling for when stock price goes up/down
-        let arrowContainer = document.getElementById('arrow-container');
-        let downArrow = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                          </svg>`;
-        let upArrow = `<svg" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                        </svg>`;
-        if (this.stockStatistics['change'] > 0) {
-          let green = "#319008";
-          arrowContainer.innerHTML = downArrow;
-          document.getElementById('lastPrice-cell').setAttribute('style', `color:${green}`);
-          document.getElementById('changeStats').setAttribute('style', `color:${green}`);
-        } else if (this.stockStatistics['change'] < 0) {
-          let red = "red";
-          arrowContainer.innerHTML = upArrow;
-          document.getElementById('lastPrice-cell').setAttribute('style', `color:${red}`);
-          document.getElementById('changeStats').setAttribute('style', `color:${red}`);
-        }
+    // Styling for when stock price goes up/down
+    let arrowContainer = document.getElementById('arrow-container');
+    let downArrow = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                      </svg>`;
+    let upArrow = `<svg" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                    </svg>`;
+    if (this.stockStatistics['change'] > 0) {
+      let green = "#319008";
+      arrowContainer.innerHTML = downArrow;
+      document.getElementById('lastPrice-cell').setAttribute('style', `color:${green}`);
+      document.getElementById('changeStats').setAttribute('style', `color:${green}`);
+    } else if (this.stockStatistics['change'] < 0) {
+      let red = "red";
+      arrowContainer.innerHTML = upArrow;
+      document.getElementById('lastPrice-cell').setAttribute('style', `color:${red}`);
+      document.getElementById('changeStats').setAttribute('style', `color:${red}`);
+    }
 
-        // Styling for when market is open/closed
-        let marketStatus = document.getElementById('market-status');
-        let now = new Date();
-        let lastTimestamp = new Date(this.stockStatistics.timestamp);
-        if ((now.getTime() - lastTimestamp.getTime()) / 1000 < 60*1000) { // convert seconds to milliseconds
-          marketStatus.innerHTML = `Market is Open`;
-          marketStatus.setAttribute('style', 'background-color:#DAF0E0; color:#78A48B');
-        } else {
-          marketStatus.innerHTML = `Market Closed on ${this.stockStatistics['timestamp']}`;
-          marketStatus.setAttribute('style', 'background-color:#F4D4DB; color:#85634E');
-        }
+    this.setMarketBannerStatus();
+  }
 
-        // Style decimals
-        this.stockStatistics.high.toFixed(2);
-        this.stockStatistics.low.toFixed(2);
-        this.stockStatistics.open.toFixed(2);
-        this.stockStatistics.prevClose.toFixed(2);
-        if (this.stockStatistics.mid === null) parseFloat(this.stockStatistics.mid).toFixed(2);
-        if (this.stockStatistics.bidPrice === null) parseFloat(this.stockStatistics.bidPrice).toFixed(2);
-        if (this.stockStatistics.askPrice === null) parseFloat(this.stockStatistics.askPrice).toFixed(2);
-
-        // Check for null values
-        if (this.stockStatistics.mid === null) this.stockStatistics.mid = '-';
-        if (this.stockStatistics.bidPrice === null) this.stockStatistics.bidPrice = '-';
-        if (this.stockStatistics.bidSize === null) this.stockStatistics.bidSize = '-';
-        if (this.stockStatistics.askPrice === null) this.stockStatistics.askPrice = '-';
-        if (this.stockStatistics.askSize === null) this.stockStatistics.askSize = '-';
-      });
+  setMarketBannerStatus(): void {
+    // Styling for when market is open/closed
+    let marketStatus = document.getElementById('market-status');
+    let now = new Date();
+    let lastTimestamp = new Date(this.stockStatistics.timestamp);
+    if ((now.getTime() - lastTimestamp.getTime()) / 1000 < 60*1000) { // convert seconds to milliseconds
+      marketStatus.innerHTML = `Market is Open`;
+      marketStatus.setAttribute('style', 'background-color:#DAF0E0; color:#78A48B');
+    } else {
+      marketStatus.innerHTML = `Market Closed on ${this.stockStatistics['timestamp']}`;
+      marketStatus.setAttribute('style', 'background-color:#F4D4DB; color:#85634E');
+    }
   }
 
   formatTimestamp(timestamp: string): string {
