@@ -28,14 +28,14 @@ export class SummaryChartComponent implements OnInit {
         this.stockService.getStockStatistics(ticker)
           .subscribe(stats => {
             this.stockStatistics = stats;
-            this.dailyChartPopulation();
+            this.createChart();
           });
       });
     this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => this.companyMeta = meta);
   }
 
-  dailyChartPopulation() {
+  createChart(): void {
     let change = this.stockStatistics[0].last - this.stockStatistics[0].prevClose;
     let lineColor = change > 0 ? 'green' :
       change != 0 ? 'red' :
