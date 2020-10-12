@@ -28,7 +28,6 @@ export class SummaryChartComponent implements OnInit {
         this.stockService.getStockStatistics(ticker)
           .subscribe(stats => {
             this.stockStatistics = stats;
-            console.log(this.stockStatistics);
             this.dailyChartPopulation();
           });
       });
@@ -38,7 +37,6 @@ export class SummaryChartComponent implements OnInit {
 
   dailyChartPopulation() {
     let change = this.stockStatistics[0].last - this.stockStatistics[0].prevClose;
-    console.log(`change = ${change}`);
     let lineColor = change > 0 ? 'green' :
       change != 0 ? 'red' :
       'black';
