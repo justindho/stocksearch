@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StockChart } from 'angular-highcharts';
+import { ActivatedRoute } from '@angular/router';
 import { numberFormat } from 'highcharts';
 
 import { CompanyMeta } from '../company-meta';
@@ -18,10 +19,13 @@ export class SummaryChartComponent implements OnInit {
   dailyStockChart: StockChart;
   stockStatistics: StockStatistics;
 
-  constructor(private stockService: StockService) { }
+  constructor(
+    private stockService: StockService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    let ticker = 'AMZN';
+    let ticker = this.activatedRoute.snapshot.params.ticker;
     this.stockService.getDailyChartData(ticker)
       .subscribe(data => {
         this.dailyChartData = this.formatDailyChartData(data);

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { CompanyMeta } from '../company-meta';
 import { StockService } from '../stock.service';
@@ -11,10 +12,14 @@ import { StockService } from '../stock.service';
 export class SummaryDescriptionComponent implements OnInit {
   companyMeta: CompanyMeta;
 
-  constructor(private stockService: StockService) { }
+  constructor(
+    private stockService: StockService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.getCompanyMeta('AMZN');
+    let ticker = this.activatedRoute.snapshot.params.ticker;
+    this.getCompanyMeta(ticker);
   }
 
   getCompanyMeta(symbol: string): void {

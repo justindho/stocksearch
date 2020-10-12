@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { CompanyMeta } from '../company-meta';
 import { StockStatistics } from '../stock-statistics';
@@ -14,10 +15,13 @@ export class StockDetailComponent implements OnInit {
   companyMeta: CompanyMeta;
   stockStatistics: StockStatistics;
 
-  constructor(private stockService: StockService) { }
+  constructor(
+    private stockService: StockService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    let ticker = 'AMZN';
+    let ticker = this.activatedRoute.snapshot.params.ticker;
     this.getCompanyMeta(ticker);
     this.getSummaryStatistics(ticker);
   }
