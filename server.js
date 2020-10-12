@@ -112,7 +112,12 @@ app.get('/api/dailychartdata/:ticker', (req, res) => {
 app.get('/api/autocomplete/:query', (req, res) => {
   const query = req.params.query.toUpperCase();
   requestOptions['url'] = `https://api.tiingo.com/tiingo/utilities/search?query=${query}&limit=100&columns=ticker,name&token=${TIINGO_API_KEY}`;
-  returnResponse(res, requestOptions);
+  request(requestOptions, (error, response, body) => {
+    let json = JSON.parse(body);
+    let data = json.filter(x => x.name !== null);
+    if (data.length > 10) data = data.slice(0, 10);
+    res.json(data);
+  })
 })
 
 

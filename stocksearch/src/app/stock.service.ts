@@ -7,6 +7,7 @@ import { DailyChartData } from './daily-chart-data';
 import { HistoricalData } from './historical-data';
 import { News } from './news';
 import { StockStatistics } from './stock-statistics';
+import { Autocompletion } from './autocompletion';
 
 
 @Injectable({
@@ -41,6 +42,15 @@ export class StockService {
   /** GET stock statistics from the server */
   getStockStatistics(ticker: string): Observable<StockStatistics> {
     return this.http.get<StockStatistics>(`/api/latestprice/${ticker}`);
+  }
+
+
+  /** GET ticker autocompletions */
+  searchTickerNameAutocompletions(str: string): Observable<Autocompletion[]> {
+    if (!str.trim()) {
+      return of([]);
+    }
+    return this.http.get<Autocompletion[]>(`/api/autocomplete/${str}`);
   }
 
 }

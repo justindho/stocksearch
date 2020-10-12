@@ -1,15 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+import { Autocompletion } from '../autocompletion';
+import { StockService } from '../stock.service';
+import { Observable, Subject } from 'rxjs';
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-stock-search',
   templateUrl: './stock-search.component.html',
   styleUrls: ['./stock-search.component.css']
 })
-export class StockSearchComponent {
+export class StockSearchComponent implements OnInit {
+  ticker = new FormControl('');
+  autocompletions$: Observable<Autocompletion[]>;
+  private searchTerms = new Subject<string>();
 
-  constructor() { }
+  constructor(private stockService: StockService) {}
 
-  // ngOnInit(): void {
-  // }
+  search(str: string): void {
+    this.searchTerms.next(str);
+  }
+
+  ngOnInit(): void {
+    this.autocompletions$ = this.searchTerms.pipe(
+      // wait 100ms after each keystroke before considering the next str
+      debounceTime(100),
+      // ignore new str if same as previous term
+      distinctUntilChanged(),
+      // switch to new search observable each time the str changes
+      switchMap((str: string) => this.stockService.searchTickerNameAutocompletions(str)),
+    );
+  }
 
 }
