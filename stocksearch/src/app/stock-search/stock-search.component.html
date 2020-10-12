@@ -11,17 +11,52 @@
         #searchBox id="search-box" type="text" placeholder="Enter stock name" required
         (input)="search(searchBox.value)"/>
     <button mat-flat-button color="primary" id="searchbutton" routerLink="/details/{{ searchBox.value }}" aria-label="searchbutton">
-        <i class="fa fa-search"></i>
+        <i class="fa fa-search" style="color:#6D40F4;"></i>
         
     </button>
 </form>
 
-
 <mat-autocomplete #auto="matAutocomplete">
+    <mat-option disabled class="loading">
+        <mat-spinner diameter="35"></mat-spinner>
+    </mat-option>
     <mat-option *ngFor="let autocompletion of autocompletions$ | async; let i=index" [value]="autocompletion.ticker">
         <span><b>{{ autocompletion.ticker }}</b> | {{ autocompletion.name }}</span>
     </mat-option>
 </mat-autocomplete>
+
+<!-- <form [formGroup]="searchForm"
+    *ngIf="{results: searchResults$ | async, loading: loading$ | async} as obs" id="searchfield" class="form-control">
+    <input
+        matInput
+        [formControl]="ticker"
+        [matAutocomplete]="auto"
+        formControlName="query"
+        #searchBox id="search-box" type="text" placeholder="Enter stock name" required
+        (input)="search(searchBox.value)"/>
+    <button mat-flat-button color="primary" id="searchbutton" routerLink="/details/{{ searchBox.value }}" aria-label="searchbutton">
+        <i class="fa fa-search" style="color:#6D40F4;"></i>
+        
+    </button>
+
+    <mat-autocomplete #auto="matAutocomplete">
+        
+        <mat-option disabled class="loading" *ngIf="obs.loading">
+            <mat-spinner diameter="35"></mat-spinner>
+        </mat-option>
+        
+        <ng-container *ngIf="!obs.loading">
+            <mat-option *ngFor="let autocompletion of autocompletions$ | async; let i=index" [value]="autocompletion.ticker">
+                <span><b>{{ autocompletion.ticker }}</b> | {{ autocompletion.name }}</span>
+            </mat-option>
+        </ng-container>
+    </mat-autocomplete>
+</form> -->
+
+
+
+
+
 
 
 
