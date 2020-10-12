@@ -1,9 +1,14 @@
+body {
+    padding-top: 70px;
+}
+
 .navbar {
     background-color: #6E40F4;
 }
 
 #navbarSupportedContent {
-    background-color: yellow;
+    background-color: red;
+    color: white;
 }
 
 #searchbutton {
