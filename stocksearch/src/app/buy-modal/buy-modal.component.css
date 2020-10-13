@@ -1,0 +1,23 @@
+/* .flex-container {
+    display: flex;
+    background-color: dodgerblue;
+    justify-content:flex-start;
+}
+
+.flex-container > div {
+
+}
+
+.input-group {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#modal-buy-button {
+    margin-left: auto;
+} */
+
+#numShares {
+    vertical-align: middle;
+}
