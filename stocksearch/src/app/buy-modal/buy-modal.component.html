@@ -14,7 +14,7 @@
                 </div>
                 <div id="numShares" class="form-group input-group">
                     <label for="quantity">Quantity  </label> 
-                    <input #quantity type="number" id="quantity" class="form-control" placeholder="0" min="0"
+                    <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0"
                         (input)="updateTotal(quantity.value)">
                 </div>
             </div>
@@ -25,7 +25,7 @@
         <div class="flex-container">
             <div id="total">Total: {{ total }}</div>
             <div id="modal-buy-button">
-                <button [disabled]="total == 0" type="button" class="btn btn-success" (click)="modal.close('Buy click')">Buy</button>
+                <button [disabled]="total == 0" type="button" class="btn btn-success" (click)="buy();modal.close('Buy click')">Buy</button>
             </div>
         </div>
     </div>
