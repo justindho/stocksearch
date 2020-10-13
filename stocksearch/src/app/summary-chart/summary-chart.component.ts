@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StockChart } from 'angular-highcharts';
 import { ActivatedRoute } from '@angular/router';
-import { numberFormat } from 'highcharts';
 
 import { CompanyMeta } from '../company-meta';
 import { DailyChartData } from '../daily-chart-data';

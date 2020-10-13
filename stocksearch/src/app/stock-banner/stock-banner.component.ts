@@ -15,18 +15,17 @@ export class StockBannerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(`Inside stock-banner component!`);
-    console.log(this.companyMeta);
-    console.log(this.stockStatistics);
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
     this.displayStockStatistics();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(`Changes detected inside stock-banner-component!`);
-    console.log(`change: ${this.stockStatistics.change}`);
-    console.log(this.stockStatistics.change);
-  }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log(`Changes detected inside stock-banner-component!`);
+  //   console.log(`change: ${this.stockStatistics.change}`);
+  //   console.log(this.stockStatistics.change);
+  // }
 
   displayStockStatistics(): void {
     this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
