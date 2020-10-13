@@ -12,7 +12,7 @@
         <td id="timestamp" class="right-cell">{{ stockStatistics.timestamp }}</td>
     </tr>
     <tr>
-        <td class="left-cell"><button class="btn btn-success">Buy</button></td>
+        <app-buy-modal [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-buy-modal>
     </tr>
 </table>
 <p id="market-status-container"><span id="market-status"></span></p>

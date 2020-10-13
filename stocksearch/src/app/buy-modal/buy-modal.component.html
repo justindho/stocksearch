@@ -1,0 +1,34 @@
+<ng-template #content let-modal>
+    <div class="modal-header" *ngIf="companyMeta">
+        <p class="modal-title" id="buy-modal-title">{{ companyMeta.ticker }}</p>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" *ngIf="stockStatistics">
+        <form>
+        <div class="form-group">
+            <div id="price-quantity">
+                <div>
+                    <p id="currentPrice">Current Price: {{ stockStatistics.last }}</p>
+                </div>
+                <div id="numShares" class="form-group input-group">
+                    <label for="quantity">Quantity  </label> 
+                    <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0"
+                        (input)="updateTotal(quantity.value)">
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="flex-container">
+            <div id="total">Total: {{ total }}</div>
+            <div id="modal-buy-button">
+                <button [disabled]="total == 0" type="button" class="btn btn-success" (click)="buy();modal.close('Buy click')">Buy</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<button class="btn btn-success" (click)="open(content)">Buy</button>
