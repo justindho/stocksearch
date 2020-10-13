@@ -2,7 +2,6 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { CompanyMeta } from '../company-meta';
 import { StockStatistics } from '../stock-statistics';
-import { StockService } from '../stock.service';
 
 @Component({
   selector: 'app-stock-banner',
@@ -15,17 +14,10 @@ export class StockBannerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(`Inside stock-banner component!`);
-    console.log(this.companyMeta);
-    console.log(this.stockStatistics);
-    this.displayStockStatistics();
-  }
+  ngOnInit(): void { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(`Changes detected inside stock-banner-component!`);
-    console.log(`change: ${this.stockStatistics.change}`);
-    console.log(this.stockStatistics.change);
+  ngAfterViewInit(): void {
+    this.displayStockStatistics();
   }
 
   displayStockStatistics(): void {

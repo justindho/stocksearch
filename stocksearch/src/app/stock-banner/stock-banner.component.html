@@ -1,18 +1,18 @@
 <table>
     <tr>
-        <td id="ticker-cell" class="left-cell">{{ companyMeta.ticker }}</td>
-        <td id="lastPrice-cell" class="right-cell">{{ stockStatistics.last }}</td>
+        <td *ngIf="companyMeta" id="ticker-cell" class="left-cell">{{ companyMeta.ticker }}</td>
+        <td *ngIf="stockStatistics" id="lastPrice-cell" class="right-cell">{{ stockStatistics.last }}</td>
     </tr>
     <tr>
         <td id="companyName" class="left-cell">{{ companyMeta.name }}</td>
-        <td id="changeStats" class="right-cell"><span id="arrow-container"></span>{{ stockStatistics.change }} ({{ stockStatistics.changePercent }}%)</td>
+        <td *ngIf="stockStatistics" id="changeStats" class="right-cell"><span id="arrow-container"></span>{{ stockStatistics.change }} ({{ stockStatistics.changePercent }}%)</td>
     </tr>
     <tr>
-        <td id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
-        <td id="timestamp" class="right-cell">{{ stockStatistics.timestamp }}</td>
+        <td *ngIf="companyMeta" id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
+        <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.timestamp }}</td>
     </tr>
     <tr>
-        <app-buy-modal [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-buy-modal>
+        <app-buy-modal *ngIf="companyMeta && stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-buy-modal>
     </tr>
 </table>
 <p id="market-status-container"><span id="market-status"></span></p>
