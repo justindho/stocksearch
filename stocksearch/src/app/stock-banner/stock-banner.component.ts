@@ -20,6 +20,13 @@ export class StockBannerComponent implements OnInit {
     this.displayStockStatistics();
   }
 
+  displayBuyBanner(value: string): void {
+    let buyBanner = document.getElementById('buy-banner');
+    let ticker = document.getElementById('ticker');
+    ticker.innerHTML = `${this.companyMeta.ticker}`;
+    buyBanner.style.display = 'block';
+  }
+
   displayStockStatistics(): void {
     this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
     this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
@@ -46,6 +53,13 @@ export class StockBannerComponent implements OnInit {
     }
 
     this.setMarketBannerStatus();
+  }
+
+  hideBuyBanner(): void {
+    let buyBanner = document.getElementById('buy-banner');
+    let ticker = document.getElementById('ticker');
+    ticker.innerHTML = '';
+    buyBanner.style.display = 'none';
   }
 
   setMarketBannerStatus(): void {

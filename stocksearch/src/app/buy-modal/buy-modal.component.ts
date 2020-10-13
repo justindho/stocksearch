@@ -1,5 +1,5 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CompanyMeta } from '../company-meta';
 import { StockStatistics } from '../stock-statistics';
 
@@ -11,13 +11,13 @@ import { StockStatistics } from '../stock-statistics';
 export class BuyModalComponent {
   @Input() companyMeta: CompanyMeta;
   @Input() stockStatistics: StockStatistics;
+  @Output() newBuyEvent = new EventEmitter<string>();
   total: string = "0.00";
 
   constructor(private modalService: NgbModal) { }
 
   buy(): void {
     let numShares = parseInt((<HTMLInputElement>document.getElementById('quantity')).value);
-    console.log(`numShares = ${numShares}`);
     this.createPortfolio();
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
 
@@ -57,6 +57,10 @@ export class BuyModalComponent {
     if (localStorage.getItem('portfolio') === null) {
       localStorage.setItem('portfolio', JSON.stringify({}));
     }
+  }
+
+  displayBuyBanner(value: string): void {
+    this.newBuyEvent.emit(value);
   }
 
   open(content) {
