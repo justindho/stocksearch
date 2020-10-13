@@ -4,11 +4,11 @@
         <td *ngIf="stockStatistics" id="lastPrice-cell" class="right-cell">{{ stockStatistics.last }}</td>
     </tr>
     <tr>
-        <td id="companyName" class="left-cell">{{ companyMeta.name }}</td>
+        <td *ngIf="companyMeta" id="companyName" class="left-cell">{{ companyMeta.name }}</td>
         <td *ngIf="stockStatistics" id="changeStats" class="right-cell"><span id="arrow-container"></span>{{ stockStatistics.change }} ({{ stockStatistics.changePercent }}%)</td>
     </tr>
     <tr>
-        <td *ngIf="companyMeta" id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
+        <td  *ngIf="companyMeta" id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
         <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.timestamp }}</td>
     </tr>
     <tr>
