@@ -1,0 +1,22 @@
+<div class="title">
+    <h2>My Watchlist</h2>
+</div>
+
+<div id="watchlist" *ngFor="let stock of stocks">
+    <div class="card">
+        <div class="card-body">
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h2 class="card-title">{{ stock.ticker }}</h2>
+            <h5 class="name">{{ stock.name }}</h5>
+            <h5 class="lastPrice">{{ stock.lastPrice }}</h5>
+            <h5 class="changeStats">
+                <span class="arrow-container"></span>
+                <span class="change">{{ stock.change }} </span>
+                <span class="changePercent">({{ stock.changePercent }}%)</span>
+            </h5>
+        </div>
+    </div>
+    <br>
+</div>
