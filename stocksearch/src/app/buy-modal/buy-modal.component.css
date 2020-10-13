@@ -1,11 +1,11 @@
-/* .flex-container {
-    display: flex;
-    background-color: dodgerblue;
-    justify-content:flex-start;
+#currentPrice {
+    margin-left: 20px;
 }
 
-.flex-container > div {
-
+.flex-container {
+    display: flex;
+    justify-content:flex-start;
+    width: 100%;
 }
 
 .input-group {
@@ -15,9 +15,34 @@
 }
 
 #modal-buy-button {
+    margin-bottom: auto;
     margin-left: auto;
-} */
+    margin-top: auto;
+}
 
 #numShares {
-    vertical-align: middle;
+    width: 50%;
+}
+
+#numShares input {
+    margin-left: 20px;
+}
+
+#numShares label {
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+#price-quantity {
+    margin-left: 0;
+}
+
+#quantity {
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+#total {
+    margin-bottom: auto;
+    margin-top: auto;
 }

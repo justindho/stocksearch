@@ -8,11 +8,13 @@
     <div class="modal-body" *ngIf="stockStatistics">
         <form>
         <div class="form-group">
-            <div>
-                <p>Current Price: {{ stockStatistics.last }}</p>
+            <div id="price-quantity">
+                <div>
+                    <p id="currentPrice">Current Price: {{ stockStatistics.last }}</p>
+                </div>
                 <div id="numShares" class="form-group input-group">
-                    <label for="quantity">Quantity</label> 
-                    <input #quantity type="number" id="quantity" name="quantity" class="form-control" placeholder="0" min="0"
+                    <label for="quantity">Quantity  </label> 
+                    <input #quantity type="number" id="quantity" class="form-control" placeholder="0" min="0"
                         (input)="updateTotal(quantity.value)">
                 </div>
             </div>
@@ -21,7 +23,7 @@
     </div>
     <div class="modal-footer">
         <div class="flex-container">
-            <div>Total: {{ total }}</div>
+            <div id="total">Total: {{ total }}</div>
             <div id="modal-buy-button">
                 <button [disabled]="total == 0" type="button" class="btn btn-success" (click)="modal.close('Buy click')">Buy</button>
             </div>
