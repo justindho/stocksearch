@@ -1,3 +1,9 @@
+<div id="buy-banner" class="alert alert-success" role="alert">
+    <span id="ticker"></span> successfully bought!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 <table>
     <tr>
         <td *ngIf="companyMeta" id="ticker-cell" class="left-cell">{{ companyMeta.ticker }}</td>
@@ -12,7 +18,11 @@
         <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.timestamp }}</td>
     </tr>
     <tr>
-        <app-buy-modal *ngIf="companyMeta && stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-buy-modal>
+        <app-buy-modal *ngIf="companyMeta && stockStatistics"
+            [companyMeta]="companyMeta"
+            [stockStatistics]="stockStatistics"
+            (newBuyEvent)="displayBuyBanner($event)">
+        </app-buy-modal>
     </tr>
 </table>
 <p id="market-status-container"><span id="market-status"></span></p>

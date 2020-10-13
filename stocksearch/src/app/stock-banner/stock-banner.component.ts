@@ -2,7 +2,6 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { CompanyMeta } from '../company-meta';
 import { StockStatistics } from '../stock-statistics';
-import { StockService } from '../stock.service';
 
 @Component({
   selector: 'app-stock-banner',
@@ -21,11 +20,12 @@ export class StockBannerComponent implements OnInit {
     this.displayStockStatistics();
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log(`Changes detected inside stock-banner-component!`);
-  //   console.log(`change: ${this.stockStatistics.change}`);
-  //   console.log(this.stockStatistics.change);
-  // }
+  displayBuyBanner(value: string): void {
+    let buyBanner = document.getElementById('buy-banner');
+    let ticker = document.getElementById('ticker');
+    ticker.innerHTML = `${this.companyMeta.ticker}`;
+    buyBanner.style.display = 'block';
+  }
 
   displayStockStatistics(): void {
     this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
@@ -53,6 +53,13 @@ export class StockBannerComponent implements OnInit {
     }
 
     this.setMarketBannerStatus();
+  }
+
+  hideBuyBanner(): void {
+    let buyBanner = document.getElementById('buy-banner');
+    let ticker = document.getElementById('ticker');
+    ticker.innerHTML = '';
+    buyBanner.style.display = 'none';
   }
 
   setMarketBannerStatus(): void {
