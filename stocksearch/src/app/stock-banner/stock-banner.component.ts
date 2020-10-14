@@ -11,6 +11,12 @@ import { StockStatistics } from '../stock-statistics';
 export class StockBannerComponent implements OnInit {
   @Input() companyMeta: CompanyMeta;
   @Input() stockStatistics: StockStatistics;
+  emptyStar: string = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+  </svg>`;
+  filledStar: string = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+  </svg>`;
 
   constructor() { }
 
@@ -18,13 +24,92 @@ export class StockBannerComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.displayStockStatistics();
+    this.displayStar();
+  }
+
+  onStarClick(ticker: string): void {
+    this.createWatchlist();
+    let watchlist = JSON.parse(localStorage.getItem('watchlist'));
+    let updatedWatchlist = this.updateWatchlist(ticker, watchlist);
+    this.displayWatchlistBanner(ticker, updatedWatchlist);
+  }
+
+  updateWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
+    let starContainer = document.getElementById('starContainer');
+    let updatedWatchlist;
+    if (watchlist.includes(ticker)) {
+      updatedWatchlist = this.removeFromWatchlist(ticker, watchlist);
+      starContainer.innerHTML = this.emptyStar;
+      starContainer.style.removeProperty('color'); 
+    } else {
+      updatedWatchlist = this.addToWatchlist(ticker, watchlist);
+      starContainer.innerHTML = this.filledStar;
+      starContainer.style.color = '#F4E00F'; // gold
+    }
+    return updatedWatchlist;
+  }
+
+  addToWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
+    watchlist.push(ticker);
+    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    return watchlist;
+  }
+
+  removeFromWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
+    watchlist = watchlist.filter(x => x !== ticker);
+    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    console.log(`Removing ${ticker} from watchlist`);
+    console.log(JSON.parse(localStorage.getItem('watchlist')));
+    return watchlist;
+  }
+
+  createWatchlist(): void {
+    if (localStorage.getItem('watchlist') === null) {
+      localStorage.setItem('watchlist', JSON.stringify([]));
+    }
+  }
+
+  displayWatchlistBanner(ticker: string, updatedWatchlist: Array<string>): void {
+    let bannerAdd = document.getElementById('watchlist-add-banner');
+    let bannerRemove = document.getElementById('watchlist-remove-banner');
+    let addMessageContainer = document.getElementById('watchlist-add-banner-message');
+    let removeMessageContainer = document.getElementById('watchlist-remove-banner-message');
+    if (updatedWatchlist.includes(ticker)) {
+      console.log(`Adding ${ticker} to watchlist`);
+      addMessageContainer.innerHTML = `${ticker} added to Watchlist.`;
+      bannerAdd.style.display = 'block';
+      bannerRemove.style.display = 'none';
+    } else {
+      console.log(`Removing ${ticker} from watchlist`);
+      removeMessageContainer.innerHTML = `${ticker} removed from Watchlist.`;
+      bannerRemove.style.display = 'block';
+      bannerAdd.style.display = 'none';
+    }
   }
 
   displayBuyBanner(): void {
-    let buyBanner = document.getElementById('buy-banner');
+    let alertsBanner = document.getElementById('buy-banner');
     let ticker = document.getElementById('ticker');
     ticker.innerHTML = `${this.companyMeta.ticker}`;
-    buyBanner.style.display = 'block';
+    alertsBanner.style.display = 'block';
+  }
+
+  displayStar(): void {
+    let starContainer = document.getElementById('starContainer');
+    let emptyStar = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                      </svg>`;
+    let filledStar = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg>`;
+    
+    let watchlist = JSON.parse(localStorage.getItem('watchlist'));
+    let ticker = this.companyMeta.ticker;
+    if (watchlist === null || !(ticker in watchlist)) {
+      starContainer.innerHTML = emptyStar;
+    } else {
+      starContainer.innerHTML = filledStar;
+    }
   }
 
   displayStockStatistics(): void {

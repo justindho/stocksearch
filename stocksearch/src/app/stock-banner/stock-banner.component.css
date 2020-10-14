@@ -3,7 +3,7 @@
     margin-top: 30%;
 }
 
-#buy-banner {
+#buy-banner, #watchlist-add-banner, #watchlist-remove-banner {
     display: none;
     margin-bottom: 20px;
     margin-left: auto;
@@ -41,6 +41,15 @@
 .right-cell {
     margin-right: 1em;
     text-align: right;
+}
+
+#starContainer {
+    background-color: transparent;
+    border: none;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 10px;
+    outline: none;
 }
 
 table {
