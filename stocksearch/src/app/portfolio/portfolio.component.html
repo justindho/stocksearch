@@ -27,9 +27,11 @@
             </div>
         </div>
         <div class="card-footer">
-            <!-- <button class="btn btn-primary buy-button" (click)="buy({{ stock.ticker }})">Buy</button>
-            <button class="btn btn-danger sell-button" (click)="sell({{ stock.ticker }})">Sell</button> -->
-            <button class="btn btn-primary buy-button">Buy</button>
+            <!-- <button class="btn btn-primary buy-button" (click)="buy({{ stock.ticker }})">Buy</button> -->
+            <app-buy-modal *ngIf="stockStatistics"
+                [stockStatistics]="stockStatistics"
+                (newBuyEvent)="displayBuyBanner($event)">
+            </app-buy-modal>
             &nbsp;&nbsp;
             <button class="btn btn-danger sell-button">Sell</button>
         </div>

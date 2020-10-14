@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PortfolioItem } from '../portfolio-item';
+import { StockStatistics } from '../stock-statistics';
 
 @Component({
   selector: 'app-portfolio',
@@ -10,6 +11,7 @@ import { PortfolioItem } from '../portfolio-item';
 export class PortfolioComponent implements OnInit {
   portfolio: PortfolioItem[];
   sortedPortfolio: PortfolioItem[] = [];
+  stockStatistics: StockStatistics;
 
   constructor() { }
 

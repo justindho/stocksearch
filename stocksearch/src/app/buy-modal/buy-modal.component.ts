@@ -12,35 +12,38 @@ export class BuyModalComponent {
   @Input() companyMeta: CompanyMeta;
   @Input() stockStatistics: StockStatistics;
   @Output() newBuyEvent = new EventEmitter<string>();
+  quantity: number;
   total: string = "0.00";
 
   constructor(private modalService: NgbModal) { }
 
-  buy(): void {
-    let numShares = parseInt((<HTMLInputElement>document.getElementById('quantity')).value);
+  buy(ticker: string, numShares: string): void {
+    let quantity = parseInt(numShares);
+    console.log(`typeof(numShares): ${typeof(quantity)}`);
     this.createPortfolio();
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
 
-    if (this.companyMeta.ticker in portfolio) {
-      this.addSharesToPortfolio(numShares, portfolio);
+    if (ticker in portfolio) {
+      this.addSharesToPortfolio(ticker, quantity, portfolio);
     } else {
-      this.addStockToPortfolio(numShares, portfolio);
+      this.addStockToPortfolio(ticker, quantity, portfolio);
     }
   }
 
-  addSharesToPortfolio(numShares: number, portfolio): void {
-    portfolio[this.companyMeta.ticker].quantity += numShares;
-    portfolio[this.companyMeta.ticker].totalCost = (parseFloat(portfolio[this.companyMeta.ticker].totalCost) + numShares * this.stockStatistics.last).toFixed(2);
-    portfolio[this.companyMeta.ticker].avgCost = (portfolio[this.companyMeta.ticker].totalCost / portfolio[this.companyMeta.ticker].quantity).toFixed(2);
-    portfolio[this.companyMeta.ticker].change = (portfolio[this.companyMeta.ticker].avgCost - this.stockStatistics.last).toFixed(2);
-    portfolio[this.companyMeta.ticker].marketValue = (this.stockStatistics.last * portfolio[this.companyMeta.ticker].quantity).toFixed(2);
+  addSharesToPortfolio(ticker: string, numShares: number, portfolio): void {
+    portfolio[ticker].quantity += numShares;
+    portfolio[ticker].totalCost = (parseFloat(portfolio[ticker].totalCost) + numShares * this.stockStatistics.last).toFixed(2);
+    portfolio[ticker].avgCost = (portfolio[ticker].totalCost / portfolio[ticker].quantity).toFixed(2);
+    portfolio[ticker].change = (portfolio[ticker].avgCost - this.stockStatistics.last).toFixed(2);
+    portfolio[ticker].marketValue = (this.stockStatistics.last * portfolio[ticker].quantity).toFixed(2);
+    console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));
   }
 
-  addStockToPortfolio(numShares: number, portfolio): void {
+  addStockToPortfolio(ticker: string, numShares: number, portfolio): void {
     // The stock is not already in our portfolio
-    portfolio[this.companyMeta.ticker] = {
-      'ticker': this.companyMeta.ticker,
+    portfolio[ticker] = {
+      'ticker': ticker,
       'name': this.companyMeta.name,
       'quantity': numShares,
       'avgCost': (this.stockStatistics.last).toFixed(2),
