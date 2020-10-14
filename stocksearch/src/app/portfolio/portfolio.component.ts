@@ -19,6 +19,7 @@ export class PortfolioComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
+    this.updatePortfolioLatestPrices();
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
     for (let stock in this.portfolio) {
       this.sortedPortfolio.push(this.portfolio[stock]);
@@ -46,6 +47,22 @@ export class PortfolioComponent implements OnInit {
   getStockStatistics(ticker: string): void {
     this.stockService.getStockStatistics(ticker)
       .subscribe(stats => this.stockStatistics = stats[0]);
+  }
+
+  updateStockStatistics(ticker: string): void {
+    this.stockService.getStockStatistics(ticker)
+      .subscribe(stats => {
+        this.stockStatistics = stats[0];
+        this.portfolio[ticker]['currentPrice'] = this.stockStatistics.last;
+      });
+  }
+
+  updatePortfolioLatestPrices(): void {
+    this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    for (let ticker in this.portfolio) {
+      this.updateStockStatistics(ticker);
+    }
+    localStorage.setItem('portfolio', JSON.stringify(this.portfolio));
   }
 
 }

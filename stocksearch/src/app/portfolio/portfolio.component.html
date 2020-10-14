@@ -1,39 +1,38 @@
 <div id="title">
     <h2>My Portfolio</h2>
 </div>
-<div *ngIf="sortedPortfolio.length == 0" id="status-banner" class="alert alert-warning" role="alert">
-    Currently you don't have any stock.
-</div>
-<div class="card" *ngFor="let stock of sortedPortfolio">
-    <div class="card-header">
-        <button class="button-header" routerLink="/details/{{ stock.ticker }}">
-            <div class="header-contents">
-                <span class="ticker">{{ stock.ticker }}&nbsp;</span>
-                <span class="name">{{ stock.name }}</span>
+<div id="portfolio">
+    <div *ngIf="sortedPortfolio.length == 0" id="status-banner" class="alert alert-warning" role="alert">
+        Currently you don't have any stock.
+    </div>
+    <div class="card" *ngFor="let stock of sortedPortfolio">
+        <div class="card-header">
+            <button class="button-header" routerLink="/details/{{ stock.ticker }}">
+                <div class="header-contents">
+                    <span class="ticker">{{ stock.ticker }}&nbsp;</span>
+                    <span class="name">{{ stock.name }}</span>
+                </div>
+            </button>
+        </div>
+        <div class="card-body flex-container">
+            <div class="flex-child">
+                <div>Quantity: <span class="right-align">{{ stock.quantity }}</span></div>
+                <div>Avg. Cost / Share: <span class="right-align">{{ stock.avgCost }}</span></div>
+                <div>Total Cost: <span class="right-align">{{ stock.totalCost }}</span></div>
             </div>
-        </button>
-    </div>
-    <div class="card-body flex-container">
-        <div class="flex-child">
-            <div>Quantity: <span class="right-align">{{ stock.quantity }}</span></div>
-            <div>Avg. Cost / Share: <span class="right-align">{{ stock.avgCost }}</span></div>
-            <div>Total Cost: <span class="right-align">{{ stock.totalCost }}</span></div>
+            <div class="flex-child">
+                <div>Change: <span class="right-align change-color"><span class="arrow"></span>{{ stock.change }}</span></div>
+                <div>Current Price: <span class="right-align change-color">{{ stock.currentPrice }}</span></div>
+                <div>Market Value: <span class="right-align change-color">{{ stock.marketValue }}</span></div>
+            </div>
         </div>
-        <div class="flex-child">
-            <div>Change: <span class="right-align change-color"><span class="arrow"></span>{{ stock.change }}</span></div>
-            <div>Current Price: <span class="right-align change-color">{{ stock.currentPrice }}</span></div>
-            <div>Market Value: <span class="right-align change-color">{{ stock.marketValue }}</span></div>
+        <div class="card-footer">
+            <!-- <button class="btn btn-primary buy-button" (click)="buy(stock.ticker)">Buy</button> -->
+            <app-portfolio-buy-modal [ticker]="stock.ticker">
+                <!-- (newBuyEvent)="displayBuyBanner($event)"> -->
+            </app-portfolio-buy-modal>
+            &nbsp;&nbsp;
+            <button class="btn btn-danger sell-button">Sell</button>
         </div>
-    </div>
-    <div class="card-footer">
-        <!-- <button class="btn btn-primary buy-button" (click)="buy({{ stock.ticker }})">Buy</button> -->
-        <app-buy-modal *ngIf="companyMeta && stockStatistics"
-            [companyMeta]="companyMeta"
-            [stockStatistics]="stockStatistics"
-            >
-            <!-- (newBuyEvent)="displayBuyBanner($event)"> -->
-        </app-buy-modal>
-        &nbsp;&nbsp;
-        <button class="btn btn-danger sell-button">Sell</button>
     </div>
 </div>
