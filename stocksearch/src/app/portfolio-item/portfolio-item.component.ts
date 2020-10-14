@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PortfolioItem } from '../portfolio-item';
 
 @Component({
@@ -6,38 +6,13 @@ import { PortfolioItem } from '../portfolio-item';
   templateUrl: './portfolio-item.component.html',
   styleUrls: ['./portfolio-item.component.css']
 })
-export class PortfolioItemComponent implements OnInit {
+export class PortfolioItemComponent {
   @Input() portfolioItem: PortfolioItem;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
-  updatePortfolioItemStatsOnBuy(params: object): void {
+  updatePortfolioItemStats(ticker: string): void {
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
-    let ticker = params['ticker'];
-    let price = parseFloat(params['price']);
-    let additionalShares = parseInt(params['additionalShares']);
-    this.portfolioItem = portfolio[ticker];
-    this.portfolioItem.quantity += additionalShares;
-    this.portfolioItem.totalCost = parseFloat(portfolio[ticker]['totalCost']) + additionalShares * price;
-    this.portfolioItem.avgCost = this.portfolioItem.totalCost / this.portfolioItem.quantity;
-    this.portfolioItem.change = this.portfolioItem.avgCost - this.portfolioItem.currentPrice;
-    this.portfolioItem.marketValue = this.portfolioItem.currentPrice * this.portfolioItem.quantity;
-  }
-
-  updatePortfolioItemStatsOnSell(params: object): void {
-    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
-    let ticker = params['ticker'];
-    // let price = parseFloat(params['price']);
-    // let additionalShares = parseInt(params['additionalShares']);
-    // this.portfolioItem = portfolio[ticker];
-    // this.portfolioItem.quantity -= additionalShares;
-    // this.portfolioItem.totalCost = parseFloat(portfolio[ticker]['totalCost']) - additionalShares * price;
-    // this.portfolioItem.avgCost = this.portfolioItem.totalCost / this.portfolioItem.quantity;
-    // this.portfolioItem.change = this.portfolioItem.avgCost - this.portfolioItem.currentPrice;
-    // this.portfolioItem.marketValue = this.portfolioItem.currentPrice * this.portfolioItem.quantity;
     this.portfolioItem = portfolio[ticker];
     this.portfolioItem.quantity = portfolio[ticker]['quantity'];
     this.portfolioItem.totalCost = portfolio[ticker]['totalCost']

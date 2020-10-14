@@ -30,15 +30,6 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  buy(ticker:string): void {
-    let portfolio = localStorage.getItem('portfolio');
-    
-  }
-
-  sell(ticker: string): void {
-
-  }
-
   getCompanyMeta(ticker: string): void {
     this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => this.companyMeta = meta);

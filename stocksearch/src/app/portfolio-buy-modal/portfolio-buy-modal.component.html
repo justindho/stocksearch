@@ -27,7 +27,7 @@
                 <div id="total">Total: {{ total }}</div>
                 <div id="modal-buy-button">
                     <button [disabled]="total == 0" type="button" class="btn btn-success"
-                        (click)="buy(companyMeta.ticker, quantity.value);updatePortfolioItemStats({ticker: companyMeta.ticker, price: stockStatistics.last, additionalShares: quantity.value});modal.close('Buy click')">
+                        (click)="buy(companyMeta.ticker, quantity.value);updatePortfolioItemStats(companyMeta.ticker);modal.close()">
                         Buy
                     </button>
                 </div>

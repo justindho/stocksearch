@@ -15,7 +15,7 @@
                         </div>
                         <div id="numShares" class="form-group input-group">
                             <label for="quantity">Quantity  </label> 
-                            <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0" max="numSharesOwned"
+                            <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0" max="{{ numSharesOwned }}"
                                 autofocus (input)="updateTotal(quantity.value)">
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                 <div id="total">Total: {{ total }}</div>
                 <div id="modal-sell-button">
                     <button [disabled]="total == 0" type="button" class="btn btn-success"
-                        (click)="sell(companyMeta.ticker, quantity.value);updatePortfolioItemStats({ticker: companyMeta.ticker, price: stockStatistics.last, additionalShares: quantity.value});modal.close('Sell click')">
+                        (click)="sell(companyMeta.ticker, quantity.value);updatePortfolioItemStats(companyMeta.ticker);modal.close()">
                         Sell
                     </button>
                 </div>

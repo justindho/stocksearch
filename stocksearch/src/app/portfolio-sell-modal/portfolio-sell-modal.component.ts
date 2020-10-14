@@ -12,7 +12,7 @@ import { StockStatistics } from '../stock-statistics';
 })
 export class PortfolioSellModalComponent implements OnInit {
   @Input() ticker: string;
-  @Output() newSellEvent = new EventEmitter<object>();
+  @Output() newSellEvent = new EventEmitter<string>();
   companyMeta: CompanyMeta;
   numSharesOwned: number;
   stockStatistics: StockStatistics;
@@ -33,6 +33,7 @@ export class PortfolioSellModalComponent implements OnInit {
     let quantity = parseInt(numShares);
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     this.subtractSharesFromPortfolio(ticker, quantity, portfolio);
+    this.numSharesOwned = portfolio[this.ticker]['quantity'];
   }
 
   subtractSharesFromPortfolio(ticker: string, numShares: number, portfolio): void {
@@ -65,13 +66,15 @@ export class PortfolioSellModalComponent implements OnInit {
   }
 
   open(content) {
+    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    this.numSharesOwned = portfolio[this.ticker]['quantity'];
     this.getCompanyMeta(this.ticker);
     this.getStockStatistics(this.ticker);
     this.modalService.open(content, {ariaLabelledBy:'buy-modal-title'});
   }
 
-  updatePortfolioItemStats(params: object): void {
-    this.newSellEvent.emit(params);
+  updatePortfolioItemStats(ticker: string): void {
+    this.newSellEvent.emit(ticker);
   }
 
   updateTotal(quantity: number): void {

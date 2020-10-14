@@ -13,7 +13,7 @@ import { StockService } from '../stock.service';
 export class PortfolioBuyModalComponent {
   companyMeta: CompanyMeta;
   stockStatistics: StockStatistics;
-  @Output() newBuyEvent = new EventEmitter<object>();
+  @Output() newBuyEvent = new EventEmitter<string>();
   quantity: number;
   @Input() ticker: string;
   total: string = "0.00";
@@ -31,10 +31,15 @@ export class PortfolioBuyModalComponent {
 
   addSharesToPortfolio(ticker: string, numShares: number, portfolio): void {
     portfolio[ticker].quantity += numShares;
-    portfolio[ticker].totalCost = (parseFloat(portfolio[ticker].totalCost) + numShares * this.stockStatistics.last).toFixed(2);
-    portfolio[ticker].avgCost = (portfolio[ticker].totalCost / portfolio[ticker].quantity).toFixed(2);
+    portfolio[ticker].totalCost = parseFloat(portfolio[ticker].totalCost) + numShares * this.stockStatistics.last;
+    portfolio[ticker].avgCost = portfolio[ticker].totalCost / portfolio[ticker].quantity;
     portfolio[ticker].change = (portfolio[ticker].avgCost - this.stockStatistics.last).toFixed(2);
     portfolio[ticker].marketValue = (this.stockStatistics.last * portfolio[ticker].quantity).toFixed(2);
+
+    // convert values back to strings for formatting purposes
+    portfolio[ticker].totalCost = (portfolio[ticker].totalCost).toFixed(2);
+    portfolio[ticker].avgCost = (portfolio[ticker].avgCost).toFixed(2);
+
     console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));
   }
@@ -61,8 +66,8 @@ export class PortfolioBuyModalComponent {
     this.modalService.open(content, {ariaLabelledBy:'buy-modal-title'});
   }
 
-  updatePortfolioItemStats(params: object): void {
-    this.newBuyEvent.emit(params);
+  updatePortfolioItemStats(ticker: string): void {
+    this.newBuyEvent.emit(ticker);
   }
 
   updateTotal(quantity: number): void {
