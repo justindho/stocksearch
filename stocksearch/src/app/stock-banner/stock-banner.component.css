@@ -3,7 +3,7 @@
     margin-top: 30%;
 }
 
-#buy-banner {
+#buy-banner, #watchlist-add-banner, #watchlist-remove-banner {
     display: none;
     margin-bottom: 20px;
     margin-left: auto;

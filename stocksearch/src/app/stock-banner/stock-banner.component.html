@@ -1,9 +1,28 @@
+<!-- Banner for adding ticker to watchlist -->
+<div id="watchlist-add-banner" class="alert alert-success" role="alert">
+    <span id="watchlist-add-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Banner for removing ticker from watchlist -->
+<div id="watchlist-remove-banner" class="alert alert-danger" role="alert">
+    <span id="watchlist-remove-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Banner for buying ticker -->
 <div id="buy-banner" class="alert alert-success" role="alert">
     <span id="ticker"></span> successfully bought!
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
+<!-- Contains all stock stats and metadata -->
 <table>
     <tr>
         <td *ngIf="companyMeta" id="ticker-cell" class="left-cell">
@@ -28,4 +47,6 @@
         </app-buy-modal>
     </tr>
 </table>
+
+<!-- Container for market open/close status -->
 <p id="market-status-container"><span id="market-status"></span></p>

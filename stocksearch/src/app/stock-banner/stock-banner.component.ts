@@ -30,26 +30,37 @@ export class StockBannerComponent implements OnInit {
   onStarClick(ticker: string): void {
     this.createWatchlist();
     let watchlist = JSON.parse(localStorage.getItem('watchlist'));
+    let updatedWatchlist = this.updateWatchlist(ticker, watchlist);
+    this.displayWatchlistBanner(ticker, updatedWatchlist);
+  }
+
+  updateWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
     let starContainer = document.getElementById('starContainer');
+    let updatedWatchlist;
     if (watchlist.includes(ticker)) {
-      this.removeFromWatchlist(ticker, watchlist);
+      updatedWatchlist = this.removeFromWatchlist(ticker, watchlist);
       starContainer.innerHTML = this.emptyStar;
       starContainer.style.removeProperty('color'); 
     } else {
-      this.addToWatchlist(ticker, watchlist);
+      updatedWatchlist = this.addToWatchlist(ticker, watchlist);
       starContainer.innerHTML = this.filledStar;
       starContainer.style.color = '#F4E00F'; // gold
     }
+    return updatedWatchlist;
   }
 
-  addToWatchlist(ticker: string, watchlist: Array<string>): void {
+  addToWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
     watchlist.push(ticker);
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    return watchlist;
   }
 
-  removeFromWatchlist(ticker: string, watchlist: Array<string>): void {
+  removeFromWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
     watchlist = watchlist.filter(x => x !== ticker);
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    console.log(`Removing ${ticker} from watchlist`);
+    console.log(JSON.parse(localStorage.getItem('watchlist')));
+    return watchlist;
   }
 
   createWatchlist(): void {
@@ -58,11 +69,29 @@ export class StockBannerComponent implements OnInit {
     }
   }
 
+  displayWatchlistBanner(ticker: string, updatedWatchlist: Array<string>): void {
+    let bannerAdd = document.getElementById('watchlist-add-banner');
+    let bannerRemove = document.getElementById('watchlist-remove-banner');
+    let addMessageContainer = document.getElementById('watchlist-add-banner-message');
+    let removeMessageContainer = document.getElementById('watchlist-remove-banner-message');
+    if (updatedWatchlist.includes(ticker)) {
+      console.log(`Adding ${ticker} to watchlist`);
+      addMessageContainer.innerHTML = `${ticker} added to Watchlist.`;
+      bannerAdd.style.display = 'block';
+      bannerRemove.style.display = 'none';
+    } else {
+      console.log(`Removing ${ticker} from watchlist`);
+      removeMessageContainer.innerHTML = `${ticker} removed from Watchlist.`;
+      bannerRemove.style.display = 'block';
+      bannerAdd.style.display = 'none';
+    }
+  }
+
   displayBuyBanner(): void {
-    let buyBanner = document.getElementById('buy-banner');
+    let alertsBanner = document.getElementById('buy-banner');
     let ticker = document.getElementById('ticker');
     ticker.innerHTML = `${this.companyMeta.ticker}`;
-    buyBanner.style.display = 'block';
+    alertsBanner.style.display = 'block';
   }
 
   displayStar(): void {
@@ -75,7 +104,6 @@ export class StockBannerComponent implements OnInit {
                       </svg>`;
     
     let watchlist = JSON.parse(localStorage.getItem('watchlist'));
-    console.log()
     let ticker = this.companyMeta.ticker;
     if (watchlist === null || !(ticker in watchlist)) {
       starContainer.innerHTML = emptyStar;
