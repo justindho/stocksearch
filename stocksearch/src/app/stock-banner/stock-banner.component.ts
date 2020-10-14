@@ -20,7 +20,7 @@ export class StockBannerComponent implements OnInit {
     this.displayStockStatistics();
   }
 
-  displayBuyBanner(value: string): void {
+  displayBuyBanner(): void {
     let buyBanner = document.getElementById('buy-banner');
     let ticker = document.getElementById('ticker');
     ticker.innerHTML = `${this.companyMeta.ticker}`;

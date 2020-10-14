@@ -1,0 +1,54 @@
+.button-header {
+    background-color: Transparent;
+    border: none;
+    display: flex;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.card {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-child {
+    flex: 1;
+}
+
+.flex-child div {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.header-contents {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 98%;
+}
+
+.name {
+    font-size: 1em;
+    font-weight: bolder;
+    color: #939EA7;
+}
+
+.ticker {
+    font-size: 1.5em;
+    font-weight: bolder;
+}

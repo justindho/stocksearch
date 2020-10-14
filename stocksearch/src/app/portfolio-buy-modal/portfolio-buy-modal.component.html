@@ -16,7 +16,7 @@
                         <div id="numShares" class="form-group input-group">
                             <label for="quantity">Quantity  </label> 
                             <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0"
-                                (input)="updateTotal(quantity.value)">
+                                autofocus (input)="updateTotal(quantity.value)">
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,10 @@
             <div class="flex-container">
                 <div id="total">Total: {{ total }}</div>
                 <div id="modal-buy-button">
-                    <button [disabled]="total == 0" type="button" class="btn btn-success" (click)="buy(companyMeta.ticker, quantity.value);displayBuyBanner();modal.close('Buy click')">Buy</button>
+                    <button [disabled]="total == 0" type="button" class="btn btn-success"
+                        (click)="buy(companyMeta.ticker, quantity.value);updatePortfolioItemStats({ticker: companyMeta.ticker, price: stockStatistics.last, additionalShares: quantity.value});modal.close('Buy click')">
+                        Buy
+                    </button>
                 </div>
             </div>
         </div>

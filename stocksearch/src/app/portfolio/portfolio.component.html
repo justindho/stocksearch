@@ -1,0 +1,11 @@
+<div id="title">
+    <h2>My Portfolio</h2>
+</div>
+<div id="portfolio">
+    <div *ngIf="sortedPortfolio.length == 0" id="status-banner" class="alert alert-warning" role="alert">
+        Currently you don't have any stock.
+    </div>
+    <div *ngFor="let portfolioItem of sortedPortfolio">
+        <app-portfolio-item [portfolioItem]="portfolioItem"></app-portfolio-item>
+    </div>
+</div>
