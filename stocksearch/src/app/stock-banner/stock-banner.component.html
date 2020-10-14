@@ -15,7 +15,7 @@
     </tr>
     <tr>
         <td  *ngIf="companyMeta" id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
-        <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.timestamp }}</td>
+        <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.lastFetchTimestamp }}</td>
     </tr>
     <tr>
         <app-buy-modal *ngIf="companyMeta && stockStatistics"

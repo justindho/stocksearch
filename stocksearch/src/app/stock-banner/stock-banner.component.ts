@@ -30,6 +30,8 @@ export class StockBannerComponent implements OnInit {
   displayStockStatistics(): void {
     this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
     this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
+    let now = new Date();
+    this.stockStatistics['lastFetchTimestamp'] = this.formatTimestamp(now.toDateString());
     this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
 
     // Styling for when stock price goes up/down
@@ -65,9 +67,10 @@ export class StockBannerComponent implements OnInit {
   setMarketBannerStatus(): void {
     // Styling for when market is open/closed
     let marketStatus = document.getElementById('market-status');
-    let now = new Date();
     let lastTimestamp = new Date(this.stockStatistics.timestamp);
-    if ((now.getTime() - lastTimestamp.getTime()) < 60*1000) { // convert seconds to milliseconds
+    console.log(`lastTimestamp: ${lastTimestamp}`);
+    console.log(Date.now()-+(lastTimestamp));
+    if ((Date.now() - +(lastTimestamp))/1000 < 60) { // convert milliseconds to seconds
       marketStatus.innerHTML = `Market is Open`;
       marketStatus.setAttribute('style', 'background-color:#DAF0E0; color:#78A48B');
     } else {
