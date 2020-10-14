@@ -1,11 +1,11 @@
 <ng-template #content let-modal let-quantity>
     <div class="modal-header" *ngIf="companyMeta">
-        <p class="modal-title" id="buy-modal-title">{{ companyMeta.ticker }}</p>
+        <p class="modal-title" id="sell-modal-title">{{ companyMeta.ticker }}</p>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <ng-container *ngIf="stockStatistics">
+    <ng-container *ngIf="stockStatistics && numSharesOwned">
         <div class="modal-body">
             <form>
                 <div class="form-group">
@@ -15,7 +15,7 @@
                         </div>
                         <div id="numShares" class="form-group input-group">
                             <label for="quantity">Quantity  </label> 
-                            <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0"
+                            <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0" max="{{ numSharesOwned }}"
                                 autofocus (input)="updateTotal(quantity.value)">
                         </div>
                     </div>
@@ -25,10 +25,11 @@
         <div class="modal-footer">
             <div class="flex-container">
                 <div id="total">Total: {{ total }}</div>
-                <div id="modal-buy-button">
+                <div id="modal-sell-button">
                     <button [disabled]="total == 0" type="button" class="btn btn-success"
-                        (click)="buy(companyMeta.ticker, quantity.value);updatePortfolioItemStats(companyMeta.ticker);modal.close()">
-                        Buy
+                        routerLink="/portfolio"
+                        (click)="sell(companyMeta.ticker, quantity.value);updatePortfolioItemStats(companyMeta.ticker);modal.close()">
+                        Sell
                     </button>
                 </div>
             </div>
@@ -36,4 +37,4 @@
     </ng-container>
 </ng-template>
 
-<button class="btn btn-success" (click)="open(content)">Buy</button>
+<button class="btn btn-danger" (click)="open(content)">Sell</button>
