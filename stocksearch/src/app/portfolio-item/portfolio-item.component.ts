@@ -14,7 +14,7 @@ export class PortfolioItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updatePortfolioItemStats(params: object): void {
+  updatePortfolioItemStatsOnBuy(params: object): void {
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     let ticker = params['ticker'];
     let price = parseFloat(params['price']);
@@ -25,6 +25,25 @@ export class PortfolioItemComponent implements OnInit {
     this.portfolioItem.avgCost = this.portfolioItem.totalCost / this.portfolioItem.quantity;
     this.portfolioItem.change = this.portfolioItem.avgCost - this.portfolioItem.currentPrice;
     this.portfolioItem.marketValue = this.portfolioItem.currentPrice * this.portfolioItem.quantity;
+  }
+
+  updatePortfolioItemStatsOnSell(params: object): void {
+    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    let ticker = params['ticker'];
+    // let price = parseFloat(params['price']);
+    // let additionalShares = parseInt(params['additionalShares']);
+    // this.portfolioItem = portfolio[ticker];
+    // this.portfolioItem.quantity -= additionalShares;
+    // this.portfolioItem.totalCost = parseFloat(portfolio[ticker]['totalCost']) - additionalShares * price;
+    // this.portfolioItem.avgCost = this.portfolioItem.totalCost / this.portfolioItem.quantity;
+    // this.portfolioItem.change = this.portfolioItem.avgCost - this.portfolioItem.currentPrice;
+    // this.portfolioItem.marketValue = this.portfolioItem.currentPrice * this.portfolioItem.quantity;
+    this.portfolioItem = portfolio[ticker];
+    this.portfolioItem.quantity = portfolio[ticker]['quantity'];
+    this.portfolioItem.totalCost = portfolio[ticker]['totalCost']
+    this.portfolioItem.avgCost = portfolio[ticker]['avgCost'];
+    this.portfolioItem.change = portfolio[ticker]['change'];
+    this.portfolioItem.marketValue = portfolio[ticker]['marketValue'];
   }
 
 }

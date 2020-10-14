@@ -25,7 +25,6 @@ export class PortfolioBuyModalComponent {
 
   buy(ticker: string, numShares: string): void {
     let quantity = parseInt(numShares);
-    console.log(`typeof(numShares): ${typeof(quantity)}`);
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     this.addSharesToPortfolio(ticker, quantity, portfolio);
   }

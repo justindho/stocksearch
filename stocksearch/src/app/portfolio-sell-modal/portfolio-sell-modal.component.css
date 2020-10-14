@@ -1,0 +1,43 @@
+#currentPrice {
+    margin-left: 20px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content:flex-start;
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#modal-sell-button {
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-top: auto;
+}
+
+#numShares {
+    width: 50%;
+}
+
+#numShares input {
+    margin-left: 20px;
+}
+
+#numShares label {
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+#price-quantity {
+    margin-left: 0;
+}
+
+#total {
+    margin-bottom: auto;
+    margin-top: auto;
+}
