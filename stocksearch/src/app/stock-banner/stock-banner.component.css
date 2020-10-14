@@ -44,9 +44,12 @@
 }
 
 #starContainer {
+    background-color: transparent;
+    border: none;
     margin-bottom: auto;
     margin-top: auto;
     margin-left: 10px;
+    outline: none;
 }
 
 table {
