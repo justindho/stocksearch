@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StockChart } from 'angular-highcharts';
 import { ActivatedRoute } from '@angular/router';
-import { numberFormat } from 'highcharts';
 
-import { CompanyMeta } from '../company-meta';
 import { DailyChartData } from '../daily-chart-data';
 import { StockService } from '../stock.service';
 import { StockStatistics } from '../stock-statistics';
@@ -14,10 +12,10 @@ import { StockStatistics } from '../stock-statistics';
   styleUrls: ['./summary-chart.component.css']
 })
 export class SummaryChartComponent implements OnInit {
-  companyMeta: CompanyMeta;
   dailyChartData: number[][];
   dailyStockChart: StockChart;
   stockStatistics: StockStatistics;
+  ticker: string;
 
   constructor(
     private stockService: StockService,
@@ -25,18 +23,16 @@ export class SummaryChartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let ticker = this.activatedRoute.snapshot.params.ticker;
-    this.stockService.getDailyChartData(ticker)
+    this.ticker = this.activatedRoute.snapshot.params.ticker.toUpperCase();
+    this.stockService.getDailyChartData(this.ticker)
       .subscribe(data => {
         this.dailyChartData = this.formatDailyChartData(data);
-        this.stockService.getStockStatistics(ticker)
+        this.stockService.getStockStatistics(this.ticker)
           .subscribe(stats => {
             this.stockStatistics = stats;
             this.createChart();
           });
       });
-    this.stockService.getCompanyMeta(ticker)
-      .subscribe(meta => this.companyMeta = meta);
   }
 
   createChart(): void {
@@ -60,17 +56,17 @@ export class SummaryChartComponent implements OnInit {
         tooltip: {
           valueDecimals: 2
         },
-        name: `${this.companyMeta.ticker}`,
+        name: this.ticker,
         type: 'line',
         data: this.dailyChartData,
       }],
 
       title: {
-        text: `${this.companyMeta.ticker}`,
+        text: this.ticker,
       },
 
       tooltip: {
-        xDateFormat: ', %m %d, %H:%M',
+        xDateFormat: '%A, %b %d, %H:%M',
       },
 
       xAxis: {

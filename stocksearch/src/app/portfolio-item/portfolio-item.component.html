@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-header">
+        <button class="button-header" routerLink="/details/{{ portfolioItem.ticker }}">
+            <div class="header-contents">
+                <span class="ticker">{{ portfolioItem.ticker }}&nbsp;</span>
+                <span class="name">{{ portfolioItem.name }}</span>
+            </div>
+        </button>
+    </div>
+    <div class="card-body flex-container">
+        <div class="flex-child">
+            <div>Quantity: <span class="right-align">{{ portfolioItem.quantity }}</span></div>
+            <div>Avg. Cost / Share: <span class="right-align">{{ portfolioItem.avgCost }}</span></div>
+            <div>Total Cost: <span class="right-align">{{ portfolioItem.totalCost }}</span></div>
+        </div>
+        <div class="flex-child">
+            <div>Change: <span class="right-align change-color"><span id="arrowContainer"></span>{{ portfolioItem.change }}</span></div>
+            <div>Current Price: <span class="right-align change-color">{{ portfolioItem.currentPrice }}</span></div>
+            <div>Market Value: <span class="right-align change-color">{{ portfolioItem.marketValue }}</span></div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <app-portfolio-buy-modal [ticker]="portfolioItem.ticker"
+            (newBuyEvent)="updatePortfolioItemStats($event)">
+        </app-portfolio-buy-modal>
+        &nbsp;&nbsp;
+        <app-portfolio-sell-modal [ticker]="portfolioItem.ticker"
+            (newSellEvent)="updatePortfolioItemStats($event)">
+        </app-portfolio-sell-modal>
+    </div>
+</div>

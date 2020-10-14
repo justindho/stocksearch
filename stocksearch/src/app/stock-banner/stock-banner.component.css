@@ -1,3 +1,18 @@
+#arrowContainer {
+    margin-right: 5px;
+    margin-top: 30%;
+}
+
+#buy-banner, #watchlist-add-banner, #watchlist-remove-banner {
+    display: none;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: center;
+    width: 80%;
+}
+
 #companyName {
     color: #7D6F71;
     font-size: 1.5em;
@@ -26,6 +41,15 @@
 .right-cell {
     margin-right: 1em;
     text-align: right;
+}
+
+#starContainer {
+    background-color: transparent;
+    border: none;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 10px;
+    outline: none;
 }
 
 table {

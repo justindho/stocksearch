@@ -11,6 +11,7 @@ import { StockService } from '../stock.service';
 })
 export class SummaryDescriptionComponent implements OnInit {
   companyMeta: CompanyMeta;
+  ticker: string;
 
   constructor(
     private stockService: StockService,
@@ -18,8 +19,11 @@ export class SummaryDescriptionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let ticker = this.activatedRoute.snapshot.params.ticker;
-    this.getCompanyMeta(ticker);
+    this.ticker = this.activatedRoute.snapshot.params.ticker;
+  }
+
+  ngAfterViewInit(): void {
+    this.getCompanyMeta(this.ticker);
   }
 
   getCompanyMeta(symbol: string): void {

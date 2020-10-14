@@ -10,58 +10,151 @@ import { StockStatistics } from '../stock-statistics';
 })
 export class StockBannerComponent implements OnInit {
   @Input() companyMeta: CompanyMeta;
-  @Input() stockStatistics: StockStatistics;
+  @Input() stockStatistics;
+  emptyStar: string = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+  </svg>`;
+  filledStar: string = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+  </svg>`;
+  downArrow: string = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+  </svg>`;
+  upArrow: string = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+  </svg>`;
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.setFavoritesStar();
-    console.log(`Inside stock-banner component!`);
-    console.log(this.companyMeta);
-    console.log(this.stockStatistics);
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
     this.displayStockStatistics();
+    this.displayStar();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(`Changes detected inside stock-banner-component!`);
-    console.log(`change: ${this.stockStatistics.change}`);
-    console.log(this.stockStatistics.change);
+  onStarClick(ticker: string): void {
+    this.createWatchlist();
+    let watchlist = JSON.parse(localStorage.getItem('watchlist'));
+    let updatedWatchlist = this.updateWatchlist(ticker, watchlist);
+    this.displayWatchlistBanner(ticker, updatedWatchlist);
+  }
+
+  updateWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
+    let starContainer = document.getElementById('starContainer');
+    let updatedWatchlist;
+    if (watchlist.includes(ticker)) {
+      updatedWatchlist = this.removeFromWatchlist(ticker, watchlist);
+      starContainer.innerHTML = this.emptyStar;
+      starContainer.style.removeProperty('color'); 
+    } else {
+      updatedWatchlist = this.addToWatchlist(ticker, watchlist);
+      starContainer.innerHTML = this.filledStar;
+      starContainer.style.color = '#F4E00F'; // gold
+    }
+    return updatedWatchlist;
+  }
+
+  addToWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
+    watchlist.push(ticker);
+    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    return watchlist;
+  }
+
+  removeFromWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
+    watchlist = watchlist.filter(x => x !== ticker);
+    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    console.log(`Removing ${ticker} from watchlist`);
+    console.log(JSON.parse(localStorage.getItem('watchlist')));
+    return watchlist;
+  }
+
+  createWatchlist(): void {
+    if (localStorage.getItem('watchlist') === null) {
+      localStorage.setItem('watchlist', JSON.stringify([]));
+    }
+  }
+
+  displayWatchlistBanner(ticker: string, updatedWatchlist: Array<string>): void {
+    let bannerAdd = document.getElementById('watchlist-add-banner');
+    let bannerRemove = document.getElementById('watchlist-remove-banner');
+    let addMessageContainer = document.getElementById('watchlist-add-banner-message');
+    let removeMessageContainer = document.getElementById('watchlist-remove-banner-message');
+    if (updatedWatchlist.includes(ticker)) {
+      console.log(`Adding ${ticker} to watchlist`);
+      addMessageContainer.innerHTML = `${ticker} added to Watchlist.`;
+      bannerAdd.style.display = 'block';
+      bannerRemove.style.display = 'none';
+    } else {
+      console.log(`Removing ${ticker} from watchlist`);
+      removeMessageContainer.innerHTML = `${ticker} removed from Watchlist.`;
+      bannerRemove.style.display = 'block';
+      bannerAdd.style.display = 'none';
+    }
+  }
+
+  displayBuyBanner(): void {
+    let alertsBanner = document.getElementById('buy-banner');
+    let ticker = document.getElementById('ticker');
+    ticker.innerHTML = `${this.companyMeta.ticker}`;
+    alertsBanner.style.display = 'block';
+  }
+
+  displayStar(): void {
+    let starContainer = document.getElementById('starContainer');
+    let watchlist = JSON.parse(localStorage.getItem('watchlist'));
+    let ticker = this.companyMeta.ticker;
+    if (watchlist === null || !(ticker in watchlist)) {
+      starContainer.innerHTML = this.emptyStar;
+    } else {
+      starContainer.innerHTML = this.filledStar;
+    }
   }
 
   displayStockStatistics(): void {
     this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
     this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
+    let now = new Date();
+    this.stockStatistics['lastFetchTimestamp'] = this.formatTimestamp(String(now));
+    console.log(`timestamp before formatting: ${this.stockStatistics.lastFetchTimestamp}`);
     this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
+    console.log(`timestamp after formatting: ${this.stockStatistics['lastFetchTimestamp']}`);
 
     // Styling for when stock price goes up/down
-    let arrowContainer = document.getElementById('arrow-container');
-    let downArrow = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                      </svg>`;
-    let upArrow = `<svg" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>`;
-    if (this.stockStatistics['change'] > 0) {
-      let green = "#319008";
-      arrowContainer.innerHTML = downArrow;
+    let arrowContainer = document.getElementById('arrowContainer');
+    if (parseFloat(this.stockStatistics['change']) > 0) {
+      let green = '#319008';
+      arrowContainer.innerHTML = this.upArrow;
       document.getElementById('lastPrice-cell').setAttribute('style', `color:${green}`);
       document.getElementById('changeStats').setAttribute('style', `color:${green}`);
-    } else if (this.stockStatistics['change'] < 0) {
-      let red = "red";
-      arrowContainer.innerHTML = upArrow;
+    } else if (parseFloat(this.stockStatistics['change']) < 0) {
+      let red = 'red';
+      arrowContainer.innerHTML = this.downArrow;
       document.getElementById('lastPrice-cell').setAttribute('style', `color:${red}`);
       document.getElementById('changeStats').setAttribute('style', `color:${red}`);
+    } else {
+      let black = 'black'
+      document.getElementById('lastPrice-cell').setAttribute('style', `color:${black}`);
+      document.getElementById('changeStats').setAttribute('style', `color:${black}`);
     }
 
     this.setMarketBannerStatus();
   }
 
+  hideBuyBanner(): void {
+    let buyBanner = document.getElementById('buy-banner');
+    let ticker = document.getElementById('ticker');
+    ticker.innerHTML = '';
+    buyBanner.style.display = 'none';
+  }
+
   setMarketBannerStatus(): void {
     // Styling for when market is open/closed
     let marketStatus = document.getElementById('market-status');
-    let now = new Date();
     let lastTimestamp = new Date(this.stockStatistics.timestamp);
-    if ((now.getTime() - lastTimestamp.getTime()) < 60*1000) { // convert seconds to milliseconds
+    console.log(`lastTimestamp: ${lastTimestamp}`);
+    console.log(Date.now()-+(lastTimestamp));
+    if ((Date.now() - +(lastTimestamp))/1000 < 60) { // convert milliseconds to seconds
       marketStatus.innerHTML = `Market is Open`;
       marketStatus.setAttribute('style', 'background-color:#DAF0E0; color:#78A48B');
     } else {
@@ -78,30 +171,7 @@ export class StockBannerComponent implements OnInit {
     let hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
     let minute = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
     let second = (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
-
     return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-  }
-
-  setFavoritesStar(): void {
-    let starContainer = document.getElementById('star-container');
-    let hollowStar = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>`;
-    let filledStar = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>`;
-    
-    hollowStar = 'hollowStar';
-    filledStar = 'filledStar';
-
-    this.createFavorites();
-    let localStorage = window.localStorage;
-    let ticker = this.companyMeta.ticker.toUpperCase();
-    if (JSON.parse(localStorage.getItem('favorites')).includes(ticker)) {
-      console.log(`Setting filled star`);
-      starContainer.innerHTML = filledStar;
-    } else {
-      console.log(`Setting hollow star`);
-      starContainer.innerHTML = hollowStar;
-    }
   }
 
   createFavorites(): void {

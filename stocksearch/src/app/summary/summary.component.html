@@ -1,6 +1,6 @@
 <table>
     <tr>
-        <td width="50%"><app-summary-statistics [stockStatistics]="stockStatistics"></app-summary-statistics></td>
+        <td width="50%"><app-summary-statistics *ngIf="stockStatistics" [stockStatistics]="stockStatistics"></app-summary-statistics></td>
         <td rowspan=2><app-summary-chart></app-summary-chart></td>
     </tr>
     <tr>
