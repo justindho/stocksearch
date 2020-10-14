@@ -33,12 +33,12 @@ export class PortfolioSellModalComponent implements OnInit {
     let quantity = parseInt(numShares);
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     this.subtractSharesFromPortfolio(ticker, quantity, portfolio);
-    this.numSharesOwned = portfolio[this.ticker]['quantity'];
   }
 
   subtractSharesFromPortfolio(ticker: string, numShares: number, portfolio): void {
     if (numShares == portfolio[ticker].quantity) {
       delete portfolio[ticker];
+      
     } else {
       portfolio[ticker].quantity -= numShares;
       portfolio[ticker].totalCost = parseFloat(portfolio[ticker].totalCost) - numShares * this.stockStatistics.last;
@@ -50,6 +50,7 @@ export class PortfolioSellModalComponent implements OnInit {
       portfolio[ticker].totalCost = (portfolio[ticker].totalCost).toFixed(2);
       portfolio[ticker].avgCost = (portfolio[ticker].avgCost).toFixed(2);
 
+      this.numSharesOwned = portfolio[this.ticker]['quantity'];
     }
     console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));

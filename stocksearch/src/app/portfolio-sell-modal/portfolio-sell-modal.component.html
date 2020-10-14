@@ -27,6 +27,7 @@
                 <div id="total">Total: {{ total }}</div>
                 <div id="modal-sell-button">
                     <button [disabled]="total == 0" type="button" class="btn btn-success"
+                        routerLink="/portfolio"
                         (click)="sell(companyMeta.ticker, quantity.value);updatePortfolioItemStats(companyMeta.ticker);modal.close()">
                         Sell
                     </button>
