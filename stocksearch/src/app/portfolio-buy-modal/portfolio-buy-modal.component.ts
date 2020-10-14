@@ -13,7 +13,7 @@ import { StockService } from '../stock.service';
 export class PortfolioBuyModalComponent {
   companyMeta: CompanyMeta;
   stockStatistics: StockStatistics;
-  @Output() newBuyEvent = new EventEmitter<string>();
+  @Output() newBuyEvent = new EventEmitter<object>();
   quantity: number;
   @Input() ticker: string;
   total: string = "0.00";
@@ -46,10 +46,6 @@ export class PortfolioBuyModalComponent {
     }
   }
 
-  displayBuyBanner(value: string): void {
-    this.newBuyEvent.emit(value);
-  }
-
   getCompanyMeta(ticker: string): void {
     this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => this.companyMeta = meta);
@@ -64,6 +60,10 @@ export class PortfolioBuyModalComponent {
     this.getCompanyMeta(this.ticker);
     this.getStockStatistics(this.ticker);
     this.modalService.open(content, {ariaLabelledBy:'buy-modal-title'});
+  }
+
+  updatePortfolioItemStats(params: object): void {
+    this.newBuyEvent.emit(params);
   }
 
   updateTotal(quantity: number): void {

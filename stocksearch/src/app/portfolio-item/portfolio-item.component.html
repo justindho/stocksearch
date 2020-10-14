@@ -21,8 +21,8 @@
     </div>
     <div class="card-footer">
         <!-- <button class="btn btn-primary buy-button" (click)="buy(portfolioItem.ticker)">Buy</button> -->
-        <app-portfolio-buy-modal [ticker]="portfolioItem.ticker">
-            <!-- (newBuyEvent)="displayBuyBanner($event)"> -->
+        <app-portfolio-buy-modal [ticker]="portfolioItem.ticker"
+            (newBuyEvent)="updatePortfolioItemStats($event)">
         </app-portfolio-buy-modal>
         &nbsp;&nbsp;
         <button class="btn btn-danger sell-button">Sell</button>
