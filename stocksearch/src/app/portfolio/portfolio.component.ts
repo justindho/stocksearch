@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CompanyMeta } from '../company-meta';
 import { PortfolioItem } from '../portfolio-item';
+import { StockService } from '../stock.service';
 import { StockStatistics } from '../stock-statistics';
 
 @Component({
@@ -9,11 +11,12 @@ import { StockStatistics } from '../stock-statistics';
   styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit {
+  companyMeta: CompanyMeta;
   portfolio: PortfolioItem[];
   sortedPortfolio: PortfolioItem[] = [];
   stockStatistics: StockStatistics;
 
-  constructor() { }
+  constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
@@ -27,11 +30,22 @@ export class PortfolioComponent implements OnInit {
   }
 
   buy(ticker:string): void {
-
+    let portfolio = localStorage.getItem('portfolio');
+    
   }
 
   sell(ticker: string): void {
 
+  }
+
+  getCompanyMeta(ticker: string): void {
+    this.stockService.getCompanyMeta(ticker)
+      .subscribe(meta => this.companyMeta = meta);
+  }
+
+  getStockStatistics(ticker: string): void {
+    this.stockService.getStockStatistics(ticker)
+      .subscribe(stats => this.stockStatistics = stats[0]);
   }
 
 }
