@@ -34,7 +34,7 @@ export class BuyModalComponent {
     portfolio[ticker].quantity += numShares;
     portfolio[ticker].totalCost = (parseFloat(portfolio[ticker].totalCost) + numShares * this.stockStatistics.last).toFixed(2);
     portfolio[ticker].avgCost = (portfolio[ticker].totalCost / portfolio[ticker].quantity).toFixed(2);
-    portfolio[ticker].change = (portfolio[ticker].avgCost - this.stockStatistics.last).toFixed(2);
+    portfolio[ticker].change = (this.stockStatistics.last - portfolio[ticker].avgCost).toFixed(2);
     portfolio[ticker].marketValue = (this.stockStatistics.last * portfolio[ticker].quantity).toFixed(2);
     console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));

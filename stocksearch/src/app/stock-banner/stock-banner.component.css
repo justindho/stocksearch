@@ -43,6 +43,12 @@
     text-align: right;
 }
 
+#starContainer {
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 10px;
+}
+
 table {
     margin-left: auto;
     margin-right: auto;

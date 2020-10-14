@@ -8,7 +8,7 @@ import { PortfolioItem } from '../portfolio-item';
   styleUrls: ['./portfolio-item.component.css']
 })
 export class PortfolioItemComponent {
-  @Input() portfolioItem: PortfolioItem;
+  @Input() portfolioItem;
 
   constructor() { }
 
@@ -18,6 +18,7 @@ export class PortfolioItemComponent {
 
   updatePortfolioItemStats(ticker: string): void {
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    console.log(portfolio);
     if (ticker in portfolio) {
       this.portfolioItem = portfolio[ticker];
       this.portfolioItem.quantity = portfolio[ticker]['quantity'];
@@ -43,13 +44,23 @@ export class PortfolioItemComponent {
                     </svg>`;
 
     // Set arrow container and set color
-    if (this.portfolioItem.change > 0) {
+    console.log(`this.portfolioItem.change: ${this.portfolioItem.change}`);
+    console.log(`typeof(this.portfolioItem.change): ${typeof(this.portfolioItem.change)}`);
+    console.log(`Info for ticker: ${this.portfolioItem.ticker}`);
+    console.log(`typeof(Change): ${typeof(this.portfolioItem.change)}`);
+    console.log(`Change: ${this.portfolioItem.change}`);
+    if (parseFloat(this.portfolioItem.change) > 0) {
+      console.log(`Setting upArrow`);
       arrowContainer.innerHTML = upArrow;
+      arrowContainer.innerHTML = 'upArrow';
       this.setColor(green);
-    } else if (this.portfolioItem.change < 0) {
+    } else if (parseFloat(this.portfolioItem.change) < 0) {
+      console.log(`Setting downArrow`);
       arrowContainer.innerHTML = downArrow;
+      arrowContainer.innerHTML = 'downArrow';
       this.setColor(red);
     } else {
+      console.log(`Setting no arrow`);
       arrowContainer.innerHTML = '';
       this.setColor(black);
     }

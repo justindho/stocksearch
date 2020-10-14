@@ -33,7 +33,7 @@ export class PortfolioBuyModalComponent {
     portfolio[ticker].quantity += numShares;
     portfolio[ticker].totalCost = parseFloat(portfolio[ticker].totalCost) + numShares * this.stockStatistics.last;
     portfolio[ticker].avgCost = portfolio[ticker].totalCost / portfolio[ticker].quantity;
-    portfolio[ticker].change = (portfolio[ticker].avgCost - this.stockStatistics.last).toFixed(2);
+    portfolio[ticker].change = (this.stockStatistics.last - portfolio[ticker].avgCost).toFixed(2);
     portfolio[ticker].marketValue = (this.stockStatistics.last * portfolio[ticker].quantity).toFixed(2);
 
     // convert values back to strings for formatting purposes

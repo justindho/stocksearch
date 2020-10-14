@@ -6,7 +6,7 @@
 </div>
 <table>
     <tr>
-        <td *ngIf="companyMeta" id="ticker-cell" class="left-cell">{{ companyMeta.ticker }}</td>
+        <td *ngIf="companyMeta" id="ticker-cell" class="left-cell">{{ companyMeta.ticker }}<span id="starContainer"></span></td>
         <td *ngIf="stockStatistics" id="lastPrice-cell" class="right-cell">{{ stockStatistics.last }}</td>
     </tr>
     <tr>
