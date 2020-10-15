@@ -1,13 +1,31 @@
-<p>news-modal works!</p>
-<!-- <div class="modal-header">
-    <h4 class="modal-title">Hi there!</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+<ng-template #content let-modal>
+    <div class="modal-header" *ngIf="newsItem">
+        <p class="modal-title" id="news-item-modal-title">{{ newsItem.source.name }}</p>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<div class="modal-body">
-    <p>Hello!</p>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-</div> -->
+        </button>
+        <p>{{ newsItem.publishedAt }}</p>
+    </div>
+    <ng-container *ngIf="newsItem">
+        <div class="modal-body">
+            <p><b>{{ newsItem.title }}</b></p>
+            <p>{{ newsItem.description }}</p>
+            <p><span style="color:gray;">For more details click </span><a href="{{ newsItem.url }}" target="_blank">here</a></p>
+        </div>
+        <div class="modal-footer">
+            <div class="">
+                <p>Share</p>
+                <p>
+                    <a class="twitter-share-button"
+                        ng-href="constructTwitterUrl(newsItem.title)"
+                        target="_blank">Tweet</a>
+                </p>
+                <div data-href="https://usc.edu" data-layout="button_count" data-size="small">
+                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fusc.edu%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<button (click)="open(content)">{{ newsItem.title }}</button>

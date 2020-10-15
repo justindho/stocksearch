@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
-import { News } from '../news';
+import { NewsItem } from '../news-item';
 import { StockService } from '../stock.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { StockService } from '../stock.service';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  newslist: News[];
+  newslist: NewsItem[];
 
   constructor(
     private stockService: StockService,

@@ -1,4 +1,4 @@
-export interface News {
+export interface NewsItem {
     url: string;
     title: string;
     description: string;
