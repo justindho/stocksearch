@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { CompanyMeta } from '../company-meta';
 import { StockStatistics } from '../stock-statistics';
+import { WatchlistItem } from '../watchlist-item';
 
 @Component({
   selector: 'app-stock-banner',
@@ -40,13 +41,13 @@ export class StockBannerComponent implements OnInit {
     this.displayWatchlistBanner(ticker, updatedWatchlist);
   }
 
-  updateWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
+  updateWatchlist(ticker: string, watchlist: Array<WatchlistItem>): Array<WatchlistItem> {
     let starContainer = document.getElementById('starContainer');
     let updatedWatchlist;
-    if (watchlist.includes(ticker)) {
+    if (ticker in watchlist) {
       updatedWatchlist = this.removeFromWatchlist(ticker, watchlist);
       starContainer.innerHTML = this.emptyStar;
-      starContainer.style.removeProperty('color'); 
+      starContainer.style.removeProperty('color');
     } else {
       updatedWatchlist = this.addToWatchlist(ticker, watchlist);
       starContainer.innerHTML = this.filledStar;
@@ -55,38 +56,42 @@ export class StockBannerComponent implements OnInit {
     return updatedWatchlist;
   }
 
-  addToWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
-    watchlist.push(ticker);
+  addToWatchlist(ticker: string, watchlist: Array<WatchlistItem>): Array<WatchlistItem> {
+    let watchlistItem = {
+      'ticker': ticker,
+      'name': this.companyMeta.name,
+      'last': this.stockStatistics.last,
+      'prevClose': this.stockStatistics.prevClose,
+      'change': this.stockStatistics.change,
+      'changePercent': this.stockStatistics.changePercent,
+    }
+    watchlist[ticker] = watchlistItem;
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
     return watchlist;
   }
 
-  removeFromWatchlist(ticker: string, watchlist: Array<string>): Array<string> {
-    watchlist = watchlist.filter(x => x !== ticker);
+  removeFromWatchlist(ticker: string, watchlist: Array<WatchlistItem>): Array<WatchlistItem> {
+    watchlist = watchlist.filter(watchlistItem => watchlistItem['ticker'] !== ticker);
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
-    console.log(`Removing ${ticker} from watchlist`);
-    console.log(JSON.parse(localStorage.getItem('watchlist')));
     return watchlist;
   }
 
   createWatchlist(): void {
     if (localStorage.getItem('watchlist') === null) {
-      localStorage.setItem('watchlist', JSON.stringify([]));
+      localStorage.setItem('watchlist', JSON.stringify({}));
     }
   }
 
-  displayWatchlistBanner(ticker: string, updatedWatchlist: Array<string>): void {
+  displayWatchlistBanner(ticker: string, updatedWatchlist: Array<WatchlistItem>): void {
     let bannerAdd = document.getElementById('watchlist-add-banner');
     let bannerRemove = document.getElementById('watchlist-remove-banner');
     let addMessageContainer = document.getElementById('watchlist-add-banner-message');
     let removeMessageContainer = document.getElementById('watchlist-remove-banner-message');
-    if (updatedWatchlist.includes(ticker)) {
-      console.log(`Adding ${ticker} to watchlist`);
+    if (ticker in updatedWatchlist) {
       addMessageContainer.innerHTML = `${ticker} added to Watchlist.`;
       bannerAdd.style.display = 'block';
       bannerRemove.style.display = 'none';
     } else {
-      console.log(`Removing ${ticker} from watchlist`);
       removeMessageContainer.innerHTML = `${ticker} removed from Watchlist.`;
       bannerRemove.style.display = 'block';
       bannerAdd.style.display = 'none';
@@ -116,9 +121,7 @@ export class StockBannerComponent implements OnInit {
     this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
     let now = new Date();
     this.stockStatistics['lastFetchTimestamp'] = this.formatTimestamp(String(now));
-    console.log(`timestamp before formatting: ${this.stockStatistics.lastFetchTimestamp}`);
     this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
-    console.log(`timestamp after formatting: ${this.stockStatistics['lastFetchTimestamp']}`);
 
     // Styling for when stock price goes up/down
     let arrowContainer = document.getElementById('arrowContainer');

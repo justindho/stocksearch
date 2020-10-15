@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-body">
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 class="card-title">{{ watchlistItem.ticker }}</h2>
+        <h5 class="name">{{ watchlistItem.name }}</h5>
+        <h5 class="lastPrice">{{ watchlistItem.last }}</h5>
+        <h5 class="changeStats">
+            <span class="arrowContainer"></span>
+            <span class="change">{{ watchlistItem.change }} </span>
+            <span class="changePercent">({{ watchlistItem.changePercent }}%)</span>
+        </h5>
+    </div>
+</div>
