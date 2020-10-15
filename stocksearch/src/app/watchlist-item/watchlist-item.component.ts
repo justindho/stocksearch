@@ -16,8 +16,8 @@ export class WatchlistItemComponent {
   }
 
   updateWatchlistItemColor(): void {
-    let green = "#319008";
-    let red = "red";
+    let green = '#319008';
+    let red = 'red';
     let black = 'black';
     let arrowContainer = document.getElementById('arrowContainer');
     let downArrow = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

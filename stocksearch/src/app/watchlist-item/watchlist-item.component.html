@@ -1,16 +1,26 @@
 <div id="card" class="card">
-    <div class="card-body flex-container">
+    <p id="close-icon">
         <button type="button" class="close" aria-label="Close"
             (click)="removeFromWatchlist(watchlistItem.ticker)">
             <span aria-hidden="true">&times;</span>
         </button>
-        <div class="flex-child">
-            <div>{{ watchlistItem.ticker }}</div>
-            <div>{{ watchlistItem.name }}</div>
+    </p>
+    <div class="card-body">
+        <div class="flex-container larger">
+            <div class="flex-child">
+                <div>{{ watchlistItem.ticker }}</div>
+            </div>
+            <div class="flex-child">
+                <div class="change-color"><span id="arrowContainer"></span>{{ watchlistItem.last }}</div>
+            </div>
         </div>
-        <div class="flex-child change-color">
-            <div><span id="arrowContainer"></span>{{ watchlistItem.last }}</div>
-            <div>{{ watchlistItem.change }} ({{ watchlistItem.changePercent }}%)</div>
+        <div class="flex-container large">
+            <div class="flex-child">
+                <div>{{ watchlistItem.name }}</div>
+            </div>
+            <div class="flex-child">
+                <div class="change-color">{{ watchlistItem.change }} ({{ watchlistItem.changePercent }}%)</div>
+            </div>
         </div>
     </div>
 </div>
