@@ -1,0 +1,28 @@
+.card {
+    margin-bottom: 15px;
+}
+
+.card-body {
+    padding-top: 0;
+}
+
+#close-icon {
+    margin-right: 5px;
+    margin-top: 5px;
+
+    margin-bottom: 0;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.large {
+    font-weight: bold;
+}
+
+.larger {
+    font-size: 1.5em;
+    font-weight: bolder;
+}

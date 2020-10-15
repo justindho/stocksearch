@@ -1,0 +1,16 @@
+<div class="title">
+    <h2>My Watchlist</h2>
+</div>
+
+<div id="watchlistDiv">
+    <!-- Display this banner if watchlist is empty -->
+    <div id="banner" *ngIf="sortedWatchlist.length == 0" class="alert alert-warning" role="alert">
+        Currently you don't have any stock in your watchlist.
+    </div>
+
+    <!-- Display watchlist items-->
+    <div *ngFor="let watchlistItem of sortedWatchlist">
+        <app-watchlist-item [watchlistItem]="watchlistItem"></app-watchlist-item>
+    </div>
+
+</div>
