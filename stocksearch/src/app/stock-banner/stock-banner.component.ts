@@ -113,6 +113,7 @@ export class StockBannerComponent implements OnInit {
       starContainer.innerHTML = this.emptyStar;
     } else {
       starContainer.innerHTML = this.filledStar;
+      starContainer.style.color = '#F4E00F'
     }
   }
 
