@@ -10,7 +10,7 @@ import { CompanyMeta } from '../company-meta';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
-  companyMeta: CompanyMeta;
+  @Input() companyMeta: CompanyMeta;
   @Input() stockStatistics: StockStatistics;
 
   constructor() { }

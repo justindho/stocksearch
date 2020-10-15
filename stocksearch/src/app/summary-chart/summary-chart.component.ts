@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StockChart } from 'angular-highcharts';
 import { ActivatedRoute } from '@angular/router';
+import * as Highcharts from 'highcharts/highstock';
 
 import { DailyChartData } from '../daily-chart-data';
 import { StockService } from '../stock.service';
@@ -13,9 +13,11 @@ import { StockStatistics } from '../stock-statistics';
 })
 export class SummaryChartComponent implements OnInit {
   dailyChartData: number[][];
-  dailyStockChart: StockChart;
-  stockStatistics: StockStatistics;
-  ticker: string;
+  @Input() stockStatistics: StockStatistics;
+  @Input() ticker: string;
+
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options;
 
   constructor(
     private stockService: StockService,
@@ -27,31 +29,31 @@ export class SummaryChartComponent implements OnInit {
     this.stockService.getDailyChartData(this.ticker)
       .subscribe(data => {
         this.dailyChartData = this.formatDailyChartData(data);
-        this.stockService.getStockStatistics(this.ticker)
-          .subscribe(stats => {
-            this.stockStatistics = stats;
-            this.createChart();
-          });
+        this.createChart();
       });
   }
 
+  ngAfterViewInit(): void {
+    
+  }
+
   createChart(): void {
-    let change = this.stockStatistics[0].last - this.stockStatistics[0].prevClose;
+    let change = this.stockStatistics.last - this.stockStatistics.prevClose;
     let lineColor = change > 0 ? 'green' :
       change != 0 ? 'red' :
       'black';
-    this.dailyStockChart = new StockChart({
-
+    this.chartOptions = {
+      navigator: {
+        enabled: true,
+      },
       plotOptions: {
         series: {
           color: lineColor
         }
       },
-
       rangeSelector: {
         enabled: false,
       },
-
       series: [{
         tooltip: {
           valueDecimals: 2
@@ -60,22 +62,20 @@ export class SummaryChartComponent implements OnInit {
         type: 'line',
         data: this.dailyChartData,
       }],
-
       title: {
         text: this.ticker,
       },
-
       tooltip: {
+        split: true, 
         xDateFormat: '%A, %b %d, %H:%M',
       },
-
       xAxis: {
         type: 'datetime',
         dateTimeLabelFormats: {
           hour: '%H:%M',
         }
       }
-    });
+    };
   }
 
   formatDailyChartData(data: DailyChartData[]): number[][] {
