@@ -86,7 +86,6 @@ app.get('/api/historicaldata/:ticker', (req, res) => {
 app.get('/api/dailychartdata/:ticker', (req, res) => {
   const ticker = req.params.ticker.toUpperCase();
   const resampleFreq = '1min';
-  let day = new Date();
 
   // Get last day with trading data
   let getLastTradingDayOptions = {
@@ -99,7 +98,7 @@ app.get('/api/dailychartdata/:ticker', (req, res) => {
   request(getLastTradingDayOptions, (error, response, body) => {
     if (response.statusCode == 200) {
       let json = JSON.parse(body);
-      let startDate = json[0]['timestamp'];
+      let startDate = json[0]['timestamp'].substring(0, 10);
       requestOptions['url'] = `https://api.tiingo.com/iex/${ticker}/prices?startDate=${startDate}&forceFill=true&resampleFreq=${resampleFreq}&token=${TIINGO_API_KEY}`;
       returnResponse(res, requestOptions);
     } else {
