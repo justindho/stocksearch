@@ -26,9 +26,11 @@ export class PortfolioItemComponent {
       this.portfolioItem.avgCost = portfolio[ticker]['avgCost'];
       this.portfolioItem.change = portfolio[ticker]['change'];
       this.portfolioItem.marketValue = portfolio[ticker]['marketValue'];
+      this.updatePortfolioItemColor();
+    } else {
+      // Remove ticker from view
+      document.getElementById('card').style.display = 'none';
     }
-
-    this.updatePortfolioItemColor();
   }
 
   updatePortfolioItemColor(): void {
@@ -44,20 +46,13 @@ export class PortfolioItemComponent {
                     </svg>`;
 
     // Set arrow container and set color
-    console.log(`this.portfolioItem.change: ${this.portfolioItem.change}`);
-    console.log(`typeof(this.portfolioItem.change): ${typeof(this.portfolioItem.change)}`);
-    console.log(`Info for ticker: ${this.portfolioItem.ticker}`);
-    console.log(`typeof(Change): ${typeof(this.portfolioItem.change)}`);
-    console.log(`Change: ${this.portfolioItem.change}`);
     if (parseFloat(this.portfolioItem.change) > 0) {
       console.log(`Setting upArrow`);
       arrowContainer.innerHTML = upArrow;
-      arrowContainer.innerHTML = 'upArrow';
       this.setColor(green);
     } else if (parseFloat(this.portfolioItem.change) < 0) {
       console.log(`Setting downArrow`);
       arrowContainer.innerHTML = downArrow;
-      arrowContainer.innerHTML = 'downArrow';
       this.setColor(red);
     } else {
       console.log(`Setting no arrow`);
