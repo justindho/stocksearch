@@ -71,7 +71,7 @@ export class StockBannerComponent implements OnInit {
   }
 
   removeFromWatchlist(ticker: string, watchlist: Array<WatchlistItem>): Array<WatchlistItem> {
-    watchlist = watchlist.filter(watchlistItem => watchlistItem['ticker'] !== ticker);
+    delete watchlist[ticker];
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
     return watchlist;
   }
