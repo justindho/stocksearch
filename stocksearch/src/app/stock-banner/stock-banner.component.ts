@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { CompanyMeta } from '../company-meta';
-import { StockStatistics } from '../stock-statistics';
 import { WatchlistItem } from '../watchlist-item';
 
 @Component({
@@ -9,7 +8,7 @@ import { WatchlistItem } from '../watchlist-item';
   templateUrl: './stock-banner.component.html',
   styleUrls: ['./stock-banner.component.css']
 })
-export class StockBannerComponent implements OnInit {
+export class StockBannerComponent {
   @Input() companyMeta: CompanyMeta;
   @Input() stockStatistics;
   emptyStar: string = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -27,11 +26,23 @@ export class StockBannerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
-
   ngAfterViewInit(): void {
     this.displayStockStatistics();
     this.displayStar();
+  }
+
+  displayChange(): string {
+    return (this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2);
+  }
+
+  displayChangePercent(): string {
+    return ((this.stockStatistics.last - this.stockStatistics.prevClose) / this.stockStatistics.prevClose).toFixed(2);
+  }
+
+  displayFetchTimestamp(): string {
+    let now = new Date();
+    this.stockStatistics['lastFetchTimestamp'] = this.formatTimestamp(String(now));
+    return this.stockStatistics['lastFetchTimestamp'];
   }
 
   onStarClick(ticker: string): void {
