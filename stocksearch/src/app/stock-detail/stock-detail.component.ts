@@ -11,8 +11,10 @@ import { StockService } from '../stock.service';
   styleUrls: ['./stock-detail.component.css']
 })
 export class StockDetailComponent implements OnInit {
+  interval: any;
 
   companyMeta: CompanyMeta;
+  dailyChartData: number[][];
   stockStatistics: StockStatistics;
 
   constructor(
@@ -24,6 +26,12 @@ export class StockDetailComponent implements OnInit {
     let ticker = this.activatedRoute.snapshot.params.ticker;
     this.getCompanyMeta(ticker);
     this.getSummaryStatistics(ticker);
+
+    // Refresh stock stats and daily chart data every 15 seconds
+    this.interval = setInterval(() => {
+      this.getSummaryStatistics(ticker);
+      // this.getDailyChartData(ticker);
+    }, 15000);
   }
 
   getCompanyMeta(ticker: string): void {
