@@ -6,6 +6,7 @@ import { DailyChartData } from '../daily-chart-data';
 import { StockService } from '../stock.service';
 import { StockStatistics } from '../stock-statistics';
 
+
 @Component({
   selector: 'app-summary-chart',
   templateUrl: './summary-chart.component.html',
@@ -33,10 +34,6 @@ export class SummaryChartComponent implements OnInit {
       });
   }
 
-  ngAfterViewInit(): void {
-    
-  }
-
   createChart(): void {
     let change = this.stockStatistics.last - this.stockStatistics.prevClose;
     let lineColor = change > 0 ? 'green' :
@@ -61,6 +58,7 @@ export class SummaryChartComponent implements OnInit {
         name: this.ticker,
         type: 'line',
         data: this.dailyChartData,
+        showInLegend: false,
       }],
       title: {
         text: this.ticker,
