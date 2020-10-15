@@ -1,15 +1,16 @@
-<div class="card">
-    <div class="card-body">
-        <button type="button" class="close" aria-label="Close">
+<div id="card" class="card">
+    <div class="card-body flex-container">
+        <button type="button" class="close" aria-label="Close"
+            (click)="removeFromWatchlist(watchlistItem.ticker)">
             <span aria-hidden="true">&times;</span>
         </button>
-        <h2 class="card-title">{{ watchlistItem.ticker }}</h2>
-        <h5 class="name">{{ watchlistItem.name }}</h5>
-        <h5 class="lastPrice">{{ watchlistItem.last }}</h5>
-        <h5 class="changeStats">
-            <span class="arrowContainer"></span>
-            <span class="change">{{ watchlistItem.change }} </span>
-            <span class="changePercent">({{ watchlistItem.changePercent }}%)</span>
-        </h5>
+        <div class="flex-child">
+            <div>{{ watchlistItem.ticker }}</div>
+            <div>{{ watchlistItem.name }}</div>
+        </div>
+        <div class="flex-child change-color">
+            <div><span id="arrowContainer"></span>{{ watchlistItem.last }}</div>
+            <div>{{ watchlistItem.change }} ({{ watchlistItem.changePercent }}%)</div>
+        </div>
     </div>
 </div>

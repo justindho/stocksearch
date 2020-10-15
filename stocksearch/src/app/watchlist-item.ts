@@ -3,6 +3,6 @@ export interface WatchlistItem {
     name: string;
     last: number;
     prevClose: number;
-    change: number;
-    changePercent: number;
+    change: string;
+    changePercent: string;
 }

@@ -15,9 +15,7 @@ export class WatchlistComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    console.log(`Inside watchlist ngOnInit`);
     this.watchlist = JSON.parse(localStorage.getItem('watchlist'));
-    console.log(this.watchlist);
     this.updateWatchlistLatestPrices();
     for (let ticker in this.watchlist) {
       this.sortedWatchlist.push(this.watchlist[ticker]);
@@ -36,8 +34,6 @@ export class WatchlistComponent implements OnInit {
     this.stockService.getStockStatistics(ticker)
       .subscribe(stats => {
         let statistics = stats[0];
-        console.log(`statistics inside watchlist.component`);
-        console.log(stats);
         this.watchlist[ticker]['last'] = statistics.last.toFixed(2);
         this.watchlist[ticker]['change'] = (statistics.last - statistics.prevClose).toFixed(2);
         this.watchlist[ticker]['changePercent'] = ((statistics.last - statistics.prevClose) / statistics.prevClose * 100).toFixed(2);
@@ -45,10 +41,7 @@ export class WatchlistComponent implements OnInit {
   }
 
   updateWatchlistLatestPrices(): void {
-    // console.log(this.watchlist);
-    // this.watchlist.forEach(watchlistItem => this.updateStockStatistics(watchlistItem['ticker']));
     for (let ticker in this.watchlist) {
-      console.log(`ticker: ${ticker}`);
       this.updateStockStatistics(ticker);
     }
     localStorage.setItem('watchlist', JSON.stringify(this.watchlist));
