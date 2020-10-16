@@ -1,0 +1,11 @@
+<div id="container" class="flex-container">
+    <div id="img-container" class="flex-child">
+        <img src="{{ newsItem.urlToImage }}" />
+    </div>
+    <div class="flex-child">
+        <app-news-modal
+            [newsItem]="newsItem">
+            {{ newsItem.title }}
+        </app-news-modal>
+    </div>
+</div>

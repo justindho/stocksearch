@@ -136,6 +136,7 @@ app.get('/api/news/:ticker', (req, res) => {
           'publishedAt': x['publishedAt'],
         }
       });
+      data = data.filter(x => x['url'] !== null && x['title'] !== null && x['description'] !== null && x['source'] !== null && x['urlToImage'] !== null && x['publishedAt'] !== null);
       res.json(data);
     } else {
       res.json({'error': true, 'errormsg': error, 'statusCode': response.statusCode});

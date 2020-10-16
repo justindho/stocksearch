@@ -1,49 +1,6 @@
 <div class="grid-container">
-    <div *ngFor="let news of newslist"
-        >
-        <table>
-            <tr>
-                <td><img src="{{ news.urlToImage }}" /></td>
-
-                <!-- Button trigger modal -->
-                <td>
-                    <!-- <app-news-modal></app-news-modal> -->
-                    <button type="button" data-toggle="modal" data-target="#newsModal">
-                        {{ news.title }}
-                    </button>
-                </td>
-                <!-- Modal -->
-                <div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="newsModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="newsModalLabel">{{ news.source.name }}</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <p>{{ news.publishedAt }}</p>
-                            <div class="modal-body">
-                                <p><b>{{ news.title }}</b></p>
-                                <p>{{ news.description }}</p>
-                                <p><span style="color:gray;">For more details click </span><a href="{{ news.url }}" target="_blank">here</a></p>
-                            </div>
-                            <div class="modal-footer">
-                                <p>Share</p>
-                                <p>
-                                    <a class="twitter-share-button"
-                                        ng-href="constructTwitterUrl({{ news.title }})"
-                                        target="_blank">Tweet</a>
-                                </p>
-                                <div data-href="https://usc.edu" data-layout="button_count" data-size="small">
-                                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fusc.edu%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </tr>
-        </table>
+    <div *ngFor="let newsItem of newslist">
+        <app-news-item [newsItem]="newsItem"></app-news-item>
     </div>
 </div>
 

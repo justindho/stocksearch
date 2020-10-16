@@ -1,0 +1,65 @@
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    word-wrap: break-word;
+}
+
+#close-button {
+    margin: 0;
+    padding: 0;
+}
+
+.fa-facebook-square {
+    color: #0510F8;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.full-width {
+    display: block;
+    width: 100%;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.modal-header {
+    flex-direction: column;
+}
+
+.modal-title {
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+#news-title, #news-description {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#publishedAt {
+    font-size: 1em;
+    font-weight: bold;
+    color: gray;
+    display: block;
+}
+
+#share-div {
+    border: 2px;
+    border-color: #EFEEF0;
+    border-radius: 5px;
+    border-style: solid;
+    margin-top: 40px;
+    padding: 20px;
+    width: 100%;
+}

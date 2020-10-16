@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CompanyMeta } from './company-meta';
 import { DailyChartData } from './daily-chart-data';
 import { HistoricalData } from './historical-data';
-import { News } from './news';
+import { NewsItem } from './news-item';
 import { StockStatistics } from './stock-statistics';
 import { Autocompletion } from './autocompletion';
 
@@ -35,8 +35,8 @@ export class StockService {
   }
 
   /** GET company news from the server */
-  getNews(ticker: string): Observable<News[]> {
-    return this.http.get<News[]>(`/api/news/${ticker}`);
+  getNews(ticker: string): Observable<NewsItem[]> {
+    return this.http.get<NewsItem[]>(`/api/news/${ticker}`);
   }
 
   /** GET stock statistics from the server */
