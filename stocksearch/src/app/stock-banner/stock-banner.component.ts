@@ -34,18 +34,16 @@ export class StockBannerComponent {
     this.displayStar();
   }
 
-  displayChange(): string {
-    return (this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2);
-  }
-
-  displayChangePercent(): string {
-    return ((this.stockStatistics.last - this.stockStatistics.prevClose) / this.stockStatistics.prevClose).toFixed(2);
-  }
-
-  displayFetchTimestamp(): string {
+  ngOnChanges(): void {
     let now = new Date();
     this.stockStatistics['lastFetchTimestamp'] = this.formatTimestamp(String(now));
-    return this.stockStatistics['lastFetchTimestamp'];
+    this.stockStatistics['change'] = (this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2);
+    this.stockStatistics['changePercent'] = ((this.stockStatistics.last - this.stockStatistics.prevClose) / this.stockStatistics.prevClose).toFixed(2);
+    this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
+
+    if (this.marketIsOpen()) {
+      this.setMarketBannerStatus();
+    }
   }
 
   onStarClick(ticker: string): void {
@@ -149,12 +147,6 @@ export class StockBannerComponent {
   }
 
   displayStockStatistics(): void {
-    this.stockStatistics['change'] = parseFloat((this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2));
-    this.stockStatistics['changePercent'] = parseFloat((this.stockStatistics['change'] / this.stockStatistics['prevClose'] * 100).toFixed(2));
-    let now = new Date();
-    this.stockStatistics['lastFetchTimestamp'] = this.formatTimestamp(String(now));
-    this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
-
     // Styling for when stock price goes up/down
     let arrowContainer = document.getElementById('arrowContainer');
     if (parseFloat(this.stockStatistics['change']) > 0) {
@@ -183,13 +175,15 @@ export class StockBannerComponent {
     buyBanner.style.display = 'none';
   }
 
+  marketIsOpen(): boolean {
+    let lastTimestamp = new Date(this.stockStatistics.timestamp);
+    return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
+  }
+
   setMarketBannerStatus(): void {
     // Styling for when market is open/closed
     let marketStatus = document.getElementById('market-status');
-    let lastTimestamp = new Date(this.stockStatistics.timestamp);
-    console.log(`lastTimestamp: ${lastTimestamp}`);
-    console.log(Date.now()-+(lastTimestamp));
-    if ((Date.now() - +(lastTimestamp))/1000 < 60) { // convert milliseconds to seconds
+    if (this.marketIsOpen()) { // convert milliseconds to seconds
       marketStatus.innerHTML = `Market is Open`;
       marketStatus.setAttribute('style', 'background-color:#DAF0E0; color:#78A48B');
     } else {
