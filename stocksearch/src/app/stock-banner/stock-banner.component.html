@@ -33,11 +33,11 @@
     </tr>
     <tr>
         <td *ngIf="companyMeta" id="companyName" class="left-cell">{{ companyMeta.name }}</td>
-        <td *ngIf="stockStatistics" id="changeStats" class="right-cell"><span id="arrowContainer"></span>{{ displayChange() }} ({{ displayChangePercent() }}%)</td>
+        <td *ngIf="stockStatistics" id="changeStats" class="right-cell"><span id="arrowContainer"></span>{{ stockStatistics.change }} ({{ stockStatistics.changePercent }}%)</td>
     </tr>
     <tr>
         <td  *ngIf="companyMeta" id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
-        <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ displayFetchTimestamp() }}</td>
+        <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.lastFetchTimestamp }}</td>
     </tr>
     <tr>
         <app-buy-modal *ngIf="companyMeta && stockStatistics"
