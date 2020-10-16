@@ -22,15 +22,8 @@ button {
 }
 
 .modal-footer {
-    /* justify-content: left; */
     justify-content: flex-start;
 }
-
-/* #newsModal {
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-} */
 
 td {
     padding: 10px;
