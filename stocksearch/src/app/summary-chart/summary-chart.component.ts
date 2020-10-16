@@ -27,7 +27,6 @@ export class SummaryChartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.ticker = this.activatedRoute.snapshot.params.ticker.toUpperCase();
     this.stockService.getDailyChartData(this.ticker)
       .subscribe(data => {
         this.dailyChartData = this.formatDailyChartData(data);
@@ -59,7 +58,10 @@ export class SummaryChartComponent implements OnInit {
       },
       plotOptions: {
         series: {
-          color: lineColor
+          color: lineColor,
+          marker: {
+              enabled: false
+          }
         }
       },
       rangeSelector: {
