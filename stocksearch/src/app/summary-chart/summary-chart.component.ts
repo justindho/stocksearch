@@ -14,6 +14,7 @@ import { StockStatistics } from '../stock-statistics';
 })
 export class SummaryChartComponent implements OnInit {
   dailyChartData: number[][];
+  interval: any;
   @Input() stockStatistics: StockStatistics;
   @Input() ticker: string;
 
@@ -26,12 +27,25 @@ export class SummaryChartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ticker = this.activatedRoute.snapshot.params.ticker.toUpperCase();
+    // this.ticker = this.activatedRoute.snapshot.params.ticker.toUpperCase();
     this.stockService.getDailyChartData(this.ticker)
       .subscribe(data => {
         this.dailyChartData = this.formatDailyChartData(data);
         this.createChart();
       });
+    
+    // Refresh stock stats and daily chart data every 15 seconds
+    this.interval = setInterval(() => {
+      this.getDailyChartData(this.ticker);
+    }, 15000);
+  }
+
+  getDailyChartData(ticker: string): void {
+    this.stockService.getDailyChartData(ticker)
+    .subscribe(data => {
+      this.dailyChartData = this.formatDailyChartData(data);
+      this.createChart();
+    });
   }
 
   createChart(): void {

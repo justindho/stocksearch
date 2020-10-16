@@ -66,6 +66,11 @@ export class BuyModalComponent {
     this.newBuyEvent.emit(value);
   }
 
+
+  displayTotal(price: number, quantity: number): number {
+    return price * quantity;
+  }
+
   open(content) {
     this.modalService.open(content, {ariaLabelledBy:'buy-modal-title'});
   }
