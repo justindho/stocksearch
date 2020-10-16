@@ -51,14 +51,14 @@ export class WatchlistItemComponent {
   }
 
   removeFromWatchlist(ticker: string): void {
+    this.hideWatchlistItem(ticker);
     let watchlist = JSON.parse(localStorage.getItem('watchlist'));
     delete watchlist[ticker];
-    this.hideWatchlistItem();
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
   }
 
-  hideWatchlistItem(): void {
-    let element = document.getElementById('card');
+  hideWatchlistItem(ticker: string): void {
+    let element = document.getElementById('watchlistItem-' + ticker);
     element.style.display = 'none';
   }
 

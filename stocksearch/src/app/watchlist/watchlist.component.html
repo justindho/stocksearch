@@ -10,7 +10,7 @@
 
     <!-- Display watchlist items-->
     <div *ngFor="let watchlistItem of sortedWatchlist">
-        <app-watchlist-item [watchlistItem]="watchlistItem"></app-watchlist-item>
+        <app-watchlist-item [watchlistItem]="watchlistItem" [attr.id]="'watchlistItem-' + watchlistItem.ticker"></app-watchlist-item>
     </div>
 
 </div>
