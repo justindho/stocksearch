@@ -8,23 +8,25 @@
 
   <body>
     <!-- Navbar -->
-    <nav id="mainNavBar" class="navbar navbar-expand-lg navbar-light fixed-top">
-      <a class="navbar-brand" href="" style="color:white;">Stock Search</a>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <a class="navbar-brand mr-auto" href="" style="color:white;">Stock Search</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse pull-right" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto nav-pills" role="tablist" style="color:white;">
+          <li class="nav-item active" data-toggle="pill">
             <a routerLink="/" class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item active">
-              <a routerLink="/watchlist" class="nav-link" href="#">Watchlist <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-              <a routerLink="/portfolio" class="nav-link" href="#">Portfolio <span class="sr-only">(current)</span></a>
-            </li>
+
+          <li class="nav-item " data-toggle="pill">
+            <a routerLink="/watchlist" class="nav-link" href="#">Watchlist <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item " data-toggle="pill">
+            <a routerLink="/portfolio" class="nav-link" href="#">Portfolio <span class="sr-only">(current)</span></a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -34,6 +36,5 @@
     <footer class="footer">
       <span>Powered by Tiingo. Developed by Justin Ho.</span>
     </footer>
-    <!-- <app-footer></app-footer> -->
   </body>
 </html>
