@@ -35,7 +35,9 @@ export class SummaryChartComponent implements OnInit {
     
     // Refresh stock stats and daily chart data every 15 seconds
     this.interval = setInterval(() => {
-      this.getDailyChartData(this.ticker);
+      if (this.marketIsOpen()) {
+        this.getDailyChartData(this.ticker);
+      }
     }, 15000);
   }
 
@@ -99,6 +101,11 @@ export class SummaryChartComponent implements OnInit {
       let date = new Date(x.date);
       return [date.valueOf() - timeOffsetMilliseconds, x.close];
     });
+  }
+
+  marketIsOpen(): boolean {
+    let lastTimestamp = new Date(this.stockStatistics.timestamp);
+    return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
   }
 
 }
