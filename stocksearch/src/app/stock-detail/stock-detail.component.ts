@@ -16,6 +16,7 @@ export class StockDetailComponent implements OnInit {
   companyMeta: CompanyMeta;
   dailyChartData: number[][];
   stockStatistics: StockStatistics;
+  tickerIsValid: boolean;
 
   constructor(
     private stockService: StockService,
@@ -25,18 +26,30 @@ export class StockDetailComponent implements OnInit {
   ngOnInit(): void {
     let ticker = this.activatedRoute.snapshot.params.ticker;
     this.getCompanyMeta(ticker);
-    this.getSummaryStatistics(ticker);
-
-    // Refresh stock stats and daily chart data every 15 seconds
-    this.interval = setInterval(() => {
-      this.getSummaryStatistics(ticker);
-      // this.getDailyChartData(ticker);
-    }, 15000);
   }
 
-  getCompanyMeta(ticker: string): void {
+  async checkIfTickerIsValid(ticker: string): Promise<void> {
+    await this.getCompanyMeta(ticker);
+    this.tickerIsValid = 'error' in this.getCompanyMeta(ticker);
+  }
+
+  getCompanyMeta(ticker: string): any {
     this.stockService.getCompanyMeta(ticker)
-      .subscribe(meta => this.companyMeta = meta);
+      .subscribe(meta => {
+        this.companyMeta = meta;
+        if ('error' in this.companyMeta) {
+          let errorBanner = document.getElementById('error-banner');
+          errorBanner.innerHTML = 'No results found. Please enter valid Ticker';
+          errorBanner.style.display = 'block';
+        } else {
+          this.getSummaryStatistics(ticker);
+
+          // Refresh stock stats and daily chart data every 15 seconds
+          this.interval = setInterval(() => {
+            this.getSummaryStatistics(ticker);
+          }, 15000);
+        }
+      });
   }
 
   getSummaryStatistics(ticker: string): void {
