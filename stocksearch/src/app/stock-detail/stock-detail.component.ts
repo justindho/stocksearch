@@ -11,10 +11,10 @@ import { StockService } from '../stock.service';
   styleUrls: ['./stock-detail.component.css']
 })
 export class StockDetailComponent implements OnInit {
+  doneLoading: boolean = false;
   interval: any;
 
   companyMeta: CompanyMeta;
-  dailyChartData: number[][];
   stockStatistics: StockStatistics;
   tickerIsValid: boolean;
 
@@ -28,11 +28,6 @@ export class StockDetailComponent implements OnInit {
     this.getCompanyMeta(ticker);
   }
 
-  // async checkIfTickerIsValid(ticker: string): Promise<void> {
-  //   await this.getCompanyMeta(ticker);
-  //   this.tickerIsValid = 'error' in this.getCompanyMeta(ticker);
-  // }
-
   getCompanyMeta(ticker: string): any {
     this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => {
@@ -41,10 +36,13 @@ export class StockDetailComponent implements OnInit {
           this.tickerIsValid = false;
           let errorBanner = document.getElementById('error-banner');
           errorBanner.innerHTML = 'No results found. Please enter valid Ticker';
+          this.doneLoading = true;
           errorBanner.style.display = 'block';
         } else {
           this.tickerIsValid = true;
           this.getSummaryStatistics(ticker);
+
+          this.doneLoading = true;
 
           // Refresh stock stats and daily chart data every 15 seconds
           this.interval = setInterval(() => {
@@ -57,6 +55,10 @@ export class StockDetailComponent implements OnInit {
   getSummaryStatistics(ticker: string): void {
     this.stockService.getStockStatistics(ticker)
       .subscribe(stats => this.stockStatistics = stats[0]);
+  }
+
+  sleep(ms): Promise<any> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 }

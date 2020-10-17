@@ -4,6 +4,17 @@
     width: 70%;
 }
 
+#spinner {
+    margin-top: 150px;
+    width: 100%;
+}
+
+#spinner mat-spinner {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 #status-banner {
     text-align: center;
 }

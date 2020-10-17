@@ -9,18 +9,23 @@ import { WatchlistItem } from '../watchlist-item';
   styleUrls: ['./watchlist.component.css']
 })
 export class WatchlistComponent implements OnInit {
+  doneLoading: boolean = false;
   sortedWatchlist: WatchlistItem[] = [];
   watchlist: WatchlistItem[];
 
   constructor(private stockService: StockService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.watchlist = JSON.parse(localStorage.getItem('watchlist'));
     this.updateWatchlistLatestPrices();
     for (let ticker in this.watchlist) {
       this.sortedWatchlist.push(this.watchlist[ticker]);
     }
     this.sortWatchlist();
+
+    // Sleep for 200ms to prove that loading screen actually shows
+    await this.sleep(200);
+    this.doneLoading = true;
   }
 
   sortWatchlist(): void {
@@ -45,6 +50,10 @@ export class WatchlistComponent implements OnInit {
       this.updateStockStatistics(ticker);
     }
     localStorage.setItem('watchlist', JSON.stringify(this.watchlist));
+  }
+
+  sleep(ms): Promise<any> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 }

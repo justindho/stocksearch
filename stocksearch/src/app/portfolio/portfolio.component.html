@@ -1,7 +1,12 @@
 <div id="title">
     <h2>My Portfolio</h2>
 </div>
-<div id="portfolio">
+
+<div id="spinner" *ngIf="!doneLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div id="portfolio" *ngIf="doneLoading">
     <div *ngIf="sortedPortfolio.length == 0" id="status-banner" class="alert alert-warning" role="alert">
         Currently you don't have any stock.
     </div>
