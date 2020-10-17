@@ -28,20 +28,22 @@ export class StockDetailComponent implements OnInit {
     this.getCompanyMeta(ticker);
   }
 
-  async checkIfTickerIsValid(ticker: string): Promise<void> {
-    await this.getCompanyMeta(ticker);
-    this.tickerIsValid = 'error' in this.getCompanyMeta(ticker);
-  }
+  // async checkIfTickerIsValid(ticker: string): Promise<void> {
+  //   await this.getCompanyMeta(ticker);
+  //   this.tickerIsValid = 'error' in this.getCompanyMeta(ticker);
+  // }
 
   getCompanyMeta(ticker: string): any {
     this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => {
         this.companyMeta = meta;
         if ('error' in this.companyMeta) {
+          this.tickerIsValid = false;
           let errorBanner = document.getElementById('error-banner');
           errorBanner.innerHTML = 'No results found. Please enter valid Ticker';
           errorBanner.style.display = 'block';
         } else {
+          this.tickerIsValid = true;
           this.getSummaryStatistics(ticker);
 
           // Refresh stock stats and daily chart data every 15 seconds
