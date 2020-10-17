@@ -3,12 +3,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { Autocompletion } from '../autocompletion';
 import { StockService } from '../stock.service';
-import { of, iif, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 
-import { AutocompletionLoadingService } from '../autocompletion-loading.service';
 
 @Component({
   selector: 'app-stock-search',
