@@ -26,7 +26,6 @@ export class PortfolioSellModalComponent implements OnInit {
   ngOnInit(): void {
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     this.numSharesOwned = portfolio[this.ticker]['quantity'];
-    console.log(`numSharesOwned: ${this.numSharesOwned}`);
   }
 
   sell(ticker: string, numShares: string): void {
@@ -52,7 +51,6 @@ export class PortfolioSellModalComponent implements OnInit {
 
       this.numSharesOwned = portfolio[this.ticker]['quantity'];
     }
-    console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));
   }
 

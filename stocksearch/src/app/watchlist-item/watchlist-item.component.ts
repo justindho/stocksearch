@@ -29,15 +29,12 @@ export class WatchlistItemComponent {
 
     // Set arrow container and set color
     if (parseFloat(this.watchlistItem.change) > 0) {
-      console.log(`Setting upArrow for ${this.watchlistItem.ticker}`);
       arrowContainer.innerHTML = upArrow;
       this.setColor(green);
     } else if (parseFloat(this.watchlistItem.change) < 0) {
-      console.log(`Setting downArrow for ${this.watchlistItem.ticker}`);
       arrowContainer.innerHTML = downArrow;
       this.setColor(red);
     } else {
-      console.log(`Setting no arrow for ${this.watchlistItem.ticker}`);
       arrowContainer.innerHTML = '';
       this.setColor(black);
     }
