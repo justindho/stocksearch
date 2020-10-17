@@ -11,6 +11,17 @@
     width: 100%;
 }
 
+#spinner {
+    margin-top: 50px;
+    width: 100%;
+}
+
+#spinner mat-spinner {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .title {
     margin-bottom: 30px;
     margin-left: auto;

@@ -26,6 +26,17 @@ mat-tab-group {
     width: 80%;
 }
 
+#spinner {
+    margin-top: 50px;
+    width: 100%;
+}
+
+#spinner mat-spinner {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 #stock-info {
     margin-left: auto;
     margin-right: auto;

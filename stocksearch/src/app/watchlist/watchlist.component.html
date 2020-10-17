@@ -1,4 +1,8 @@
-<div class="title">
+<div id="spinner" *ngIf="!doneLoading || sortedWatchlist === undefined">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div class="title" *ngIf="doneLoading || sortedWatchlist">
     <h2>My Watchlist</h2>
 </div>
 
