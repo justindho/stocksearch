@@ -38,7 +38,7 @@ export class StockBannerComponent {
     let now = new Date();
     this.stockStatistics['lastFetchTimestamp'] = this.formatTimestamp(String(now));
     this.stockStatistics['change'] = (this.stockStatistics.last - this.stockStatistics.prevClose).toFixed(2);
-    this.stockStatistics['changePercent'] = ((this.stockStatistics.last - this.stockStatistics.prevClose) / this.stockStatistics.prevClose).toFixed(2);
+    this.stockStatistics['changePercent'] = ((this.stockStatistics.last - this.stockStatistics.prevClose) / this.stockStatistics.prevClose * 100).toFixed(2);
     this.stockStatistics['timestamp'] = this.formatTimestamp(this.stockStatistics.timestamp);
 
     if (this.marketIsOpen()) {
