@@ -14,9 +14,9 @@
             <div>Total Cost: <span class="right-align">{{ portfolioItem.totalCost }}</span></div>
         </div>
         <div class="flex-child">
-            <div>Change: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker"><span [attr.id]="'arrowContainer-' + portfolioItem.ticker"></span>{{ portfolioItem.change }}</span></div>
-            <div>Current Price: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker">{{ portfolioItem.currentPrice }}</span></div>
-            <div>Market Value: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker">{{ portfolioItem.marketValue }}</span></div>
+            <div>Change: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker"><span [attr.id]="'arrowContainer-' + portfolioItem.ticker" style="margin-right:10px;"></span><b>{{ portfolioItem.change }}</b></span></div>
+            <div>Current Price: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker"><b>{{ portfolioItem.currentPrice }}</b></span></div>
+            <div>Market Value: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker"><b>{{ portfolioItem.marketValue }}</b></span></div>
         </div>
     </div>
     <div class="card-footer">
