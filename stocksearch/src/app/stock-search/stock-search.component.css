@@ -1,6 +1,6 @@
 #searchbutton {
-    /* color: #5E42C1; */
-    background-color: white;
+    color: #6D40F4;
+    background-color: transparent;
     border: none;
 }
 
@@ -18,7 +18,7 @@
     border-color: #5E42C1;
     border-width: 2px;
     border-radius: 25px;
-    display: block;
+    display: inline-block;
     margin: 0 auto;
     width: 20%;
 }
@@ -27,6 +27,7 @@
     border: none;
     margin-top: auto;
     margin-bottom: auto;
+    width: 85%;
     outline: none;
 }
 

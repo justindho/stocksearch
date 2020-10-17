@@ -3,7 +3,7 @@
 <br>
 <br>
 
-<form id="searchfield" class="form-control">
+<form id="searchfield" class="form-control d-flex align-items-center flex-nowrap">
     <input
         matInput
         [formControl]="ticker"
@@ -11,8 +11,7 @@
         #searchBox id="search-box" type="text" placeholder="Enter stock name" required
         (input)="search(searchBox.value)"/>
     <button mat-flat-button color="primary" id="searchbutton" routerLink="/details/{{ searchBox.value }}" aria-label="searchbutton">
-        <i class="fa fa-search" style="color:#6D40F4;"></i>
-        
+        <i class="fa fa-search"></i> 
     </button>
 </form>
 
