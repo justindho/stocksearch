@@ -1,3 +1,10 @@
+.nav-pills > li > a.active {
+    background-color: transparent!important;
+    border: solid white;
+    border-radius: 15px;
+    color: white;
+}
+
 body {
     display: flex;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -22,15 +29,17 @@ footer {
     background-color: #6E40F4;
 }
 
-#navbarSupportedContent {
-    background-color: red;
+.nav-item li a {
+    color: red;
+}
+
+ul li a {
+    color: #A682FF;
+}
+
+ul li a:hover {
     color: white;
 }
-
-#searchbutton {
-    /* color: #5E42C1; */
-}
-
 #searchdiv {
     padding-top: 5%;
     text-align: center;
@@ -51,7 +60,6 @@ footer {
 }
 
 #searchfield > input {
-    /* border: none; */
     margin-top: auto;
     margin-bottom: auto;
 }
