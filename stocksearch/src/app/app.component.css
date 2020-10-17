@@ -1,5 +1,6 @@
 body {
     display: flex;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     flex-direction: column;
     padding-top: 70px;
 }
