@@ -74,8 +74,8 @@ export class StockBannerComponent {
       'name': this.companyMeta.name,
       'last': this.stockStatistics.last,
       'prevClose': this.stockStatistics.prevClose,
-      'change': (this.stockStatistics.change).toFixed(2),
-      'changePercent': (this.stockStatistics.changePercent).toFixed(2),
+      'change': this.stockStatistics.change,
+      'changePercent': this.stockStatistics.changePercent,
     }
     watchlist[ticker] = watchlistItem;
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
