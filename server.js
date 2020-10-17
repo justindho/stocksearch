@@ -85,7 +85,7 @@ app.get('/api/historicaldata/:ticker', (req, res) => {
 
 app.get('/api/dailychartdata/:ticker', (req, res) => {
   const ticker = req.params.ticker.toUpperCase();
-  const resampleFreq = '1min';
+  const resampleFreq = '4min';
 
   // Get last day with trading data
   let getLastTradingDayOptions = {

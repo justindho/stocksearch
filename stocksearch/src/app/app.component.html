@@ -15,22 +15,23 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto nav-pills" role="tablist" style="color:white;">
-          <li class="nav-item active" data-toggle="pill">
-            <a routerLink="/" class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
+        <ul class="nav nav-pills ml-auto">
+          <li class="nav-item active-pill">
+              <a routerLink="/" class="nav-link active" data-toggle="pill">Search </a>
           </li>
-
-          <li class="nav-item " data-toggle="pill">
-            <a routerLink="/watchlist" class="nav-link" href="#">Watchlist <span class="sr-only">(current)</span></a>
+          <li class="nav-item active-pill">
+              <a routerLink="/watchlist" class="nav-link" data-toggle="pill">Watchlist </a>
           </li>
-
-          <li class="nav-item " data-toggle="pill">
-            <a routerLink="/portfolio" class="nav-link" href="#">Portfolio <span class="sr-only">(current)</span></a>
+          <li class="nav-item active-pill">
+              <a routerLink="/portfolio" class="nav-link" data-toggle="pill">Portfolio </a>
           </li>
         </ul>
       </div>
     </nav>
-    <router-outlet></router-outlet>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

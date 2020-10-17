@@ -10,60 +10,40 @@ import {
 
 import { AutocompletionLoadingService } from '../autocompletion-loading.service';
 
-/** ATTEMPT TO GET SPINNING LOADER TO WORK AND DISAPPEAR WHEN LOADING IS DONE */
-// @Component({
-//   selector: 'app-stock-search',
-//   templateUrl: './stock-search.component.html',
-//   styleUrls: ['./stock-search.component.css']
-// })
-// export class StockSearchComponent implements OnInit {
-//   searchForm = new FormGroup({
-//     query: new FormControl('')
-//   })
-
-//   constructor(
-//     private autocompletionLoadingService: AutocompletionLoadingService,
-//     // private stockService: StockService
-//   ) {}
-
-//   ngOnInit(): void {}
-
-//   // Get loading stream from service
-//   loading$: Observable<boolean> = this.autocompletionLoadingService.loading$;
-
-//   // Deconstruct form to just take the query
-//   // Search on changes
-//   searchResults$ = this.searchForm.valueChanges.pipe(
-//     switchMap(({query}) => this.autocompletionLoadingService.get(query))
-//   );
-// }
-/** ATTEMPT TO GET SPINNING LOADER TO WORK AND DISAPPEAR WHEN LOADING IS DONE */
-
 @Component({
   selector: 'app-stock-search',
   templateUrl: './stock-search.component.html',
   styleUrls: ['./stock-search.component.css']
 })
 export class StockSearchComponent implements OnInit {
+  loading: boolean = false;
   ticker = new FormControl('');
   autocompletions$: Observable<Autocompletion[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private stockService: StockService) {}
 
-  search(str: string): void {
+  async search(str: string): Promise<void> {
+    this.loading = true;
+    // Sleep for 200ms to prove that loading screen actually shows
+    await this.sleep(200);
     this.searchTerms.next(str);
+    this.loading = false;
   }
 
   ngOnInit(): void {
     this.autocompletions$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the next str
-      debounceTime(300),
+      // wait 100ms after each keystroke before considering the next str
+      // debounceTime(100),
       // ignore new str if same as previous term
       distinctUntilChanged(),
       // switch to new search observable each time the str changes
       switchMap((str: string) => this.stockService.searchTickerNameAutocompletions(str)),
     );
+  }
+
+  sleep(ms): Promise<any> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 }

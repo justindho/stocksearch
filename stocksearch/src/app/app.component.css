@@ -1,15 +1,26 @@
+.nav-pills > li > a.active {
+    background-color: transparent!important;
+    border: solid white;
+    border-radius: 15px;
+    color: white;
+}
+
 body {
-    /* display: flex;
-    flex-direction: column; */
+    display: flex;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    flex-direction: column;
     padding-top: 70px;
+}
+
+.content {
+    flex: 1 0 auto;
 }
 
 footer {
     background-color: #F8F6F8;
-    height: 50px;
-    margin-top: auto;
-    /* padding-bottom: 1em;
-    padding-top: 1em; */
+    flex-shrink: 0;
+    height: 3em;
+    line-height: 3em;
     text-align: center;
     width: 100%;
 }
@@ -18,14 +29,17 @@ footer {
     background-color: #6E40F4;
 }
 
-#navbarSupportedContent {
+.nav-item li a {
+    color: red;
+}
+
+ul li a {
+    color: #A682FF;
+}
+
+ul li a:hover {
     color: white;
 }
-
-#searchbutton {
-    /* color: #5E42C1; */
-}
-
 #searchdiv {
     padding-top: 5%;
     text-align: center;
@@ -46,7 +60,6 @@ footer {
 }
 
 #searchfield > input {
-    /* border: none; */
     margin-top: auto;
     margin-bottom: auto;
 }

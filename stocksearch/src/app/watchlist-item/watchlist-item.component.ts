@@ -19,7 +19,7 @@ export class WatchlistItemComponent {
     let green = '#319008';
     let red = 'red';
     let black = 'black';
-    let arrowContainer = document.getElementById('arrowContainer');
+    let arrowContainer = document.getElementById('arrowContainer-' + this.watchlistItem.ticker);
     let downArrow = `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>`;
@@ -29,36 +29,36 @@ export class WatchlistItemComponent {
 
     // Set arrow container and set color
     if (parseFloat(this.watchlistItem.change) > 0) {
-      console.log(`Setting upArrow`);
+      console.log(`Setting upArrow for ${this.watchlistItem.ticker}`);
       arrowContainer.innerHTML = upArrow;
       this.setColor(green);
     } else if (parseFloat(this.watchlistItem.change) < 0) {
-      console.log(`Setting downArrow`);
+      console.log(`Setting downArrow for ${this.watchlistItem.ticker}`);
       arrowContainer.innerHTML = downArrow;
       this.setColor(red);
     } else {
-      console.log(`Setting no arrow`);
+      console.log(`Setting no arrow for ${this.watchlistItem.ticker}`);
       arrowContainer.innerHTML = '';
       this.setColor(black);
     }
   }
 
   setColor(color: string): void {
-    let items = Array.from(document.getElementsByClassName('change-color') as HTMLCollectionOf<HTMLElement>);
+    let items = Array.from(document.getElementsByClassName('change-color-' + this.watchlistItem.ticker) as HTMLCollectionOf<HTMLElement>);
     for (let item in items) {
       items[item].style.color = color;
     }
   }
 
   removeFromWatchlist(ticker: string): void {
+    this.hideWatchlistItem(ticker);
     let watchlist = JSON.parse(localStorage.getItem('watchlist'));
     delete watchlist[ticker];
-    this.hideWatchlistItem();
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
   }
 
-  hideWatchlistItem(): void {
-    let element = document.getElementById('card');
+  hideWatchlistItem(ticker: string): void {
+    let element = document.getElementById('watchlistItem-' + ticker);
     element.style.display = 'none';
   }
 

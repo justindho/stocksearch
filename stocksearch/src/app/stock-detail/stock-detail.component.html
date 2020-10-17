@@ -1,5 +1,10 @@
-<app-stock-banner *ngIf="companyMeta && stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-stock-banner>
-<mat-tab-group dynamicHeight mat-stretch-tabs>
+<div id="spinner" *ngIf="!doneLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div id="error-banner" class="alert alert-danger" role="alert"></div>
+
+<app-stock-banner *ngIf="doneLoading && tickerIsValid && companyMeta && stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-stock-banner>
+<mat-tab-group dynamicHeight mat-stretch-tabs *ngIf="doneLoading && tickerIsValid">
     <mat-tab label="Summary">
         <app-summary *ngIf="stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics">
         </app-summary>

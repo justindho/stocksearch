@@ -10,10 +10,31 @@ button {
     width: 100%;
 }
 
+#error-banner {
+    display: none;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    text-align: center;
+    width: 80%;
+}
+
 mat-tab-group {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+}
+
+#spinner {
+    margin-top: 50px;
+    width: 100%;
+}
+
+#spinner mat-spinner {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 #stock-info {
