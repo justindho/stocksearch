@@ -3,7 +3,7 @@
         <td width="50%">
             <app-summary-statistics *ngIf="stockStatistics" [stockStatistics]="stockStatistics"></app-summary-statistics>
         </td>
-        <td rowspan=2>
+        <td rowspan=2 style="vertical-align: top;">
             <app-summary-chart [ticker]="companyMeta.ticker" [stockStatistics]="stockStatistics"></app-summary-chart>
         </td>
     </tr>

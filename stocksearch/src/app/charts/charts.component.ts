@@ -30,7 +30,7 @@ export class ChartsComponent implements OnInit {
         this.historicalData = data;
         this.ohlc = this.formatOHLCData(data);
         this.volume = this.formatVolumeData(data);
-          this.createChart();
+        this.createChart();
       });
   }
 
