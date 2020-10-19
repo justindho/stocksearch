@@ -1,4 +1,4 @@
-<div id="card" class="card">
+<div id="card" class="card" routerLink="/details/{{ watchlistItem.ticker }}">
     <p id="close-icon">
         <button type="button" class="close" aria-label="Close"
             (click)="removeFromWatchlist(watchlistItem.ticker)">
