@@ -48,13 +48,13 @@
         font-weight: bold;
     }
 
-    .row {
+    .inline-row {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
     }
 
-    .row .flex-child {
+    .inline-row .flex-child {
         width: 50%;
     }
 }
