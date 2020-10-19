@@ -2,7 +2,6 @@ body {
     display: flex;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     flex-direction: column;
-    padding-top: 70px;
 }
 
 .content {
@@ -20,7 +19,7 @@ footer {
 
 li .active {
     background-color: transparent!important;
-    border: solid white;
+    border: solid 2px white;
     border-radius: 15px;
     color: white;
 }
