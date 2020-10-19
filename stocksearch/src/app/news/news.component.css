@@ -1,9 +1,3 @@
-button {
-    border: none;
-    outline: none;
-    text-align: left;
-}
-
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
@@ -14,23 +8,16 @@ button {
 
 .grid-container div {
     background-color: #F4F2F4;
-    border: 1px;
+    border: 1px gray;
     border-radius: 5px;
 }
 
-.grid-container div img {
-    width: 8em;
-}
-
-.modal-footer {
-    justify-content: flex-start;
-}
-
-td {
-    padding: 10px;
-}
-
-td img {
-    border-radius: 10px;
-    vertical-align: middle;
+@media screen and (max-width: 600px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto;
+        grid-gap: 20px;
+        margin-top: 20px;
+        padding: 10px;
+    }
 }
