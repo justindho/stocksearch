@@ -14,15 +14,15 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="navbar-collapse collapse show" id="navbarSupportedContent">
+      <div class="navbar-collapse collapse" id="navbarSupportedContent">
         <ul class="nav nav-pills navbar-nav ml-auto">
-          <li class="nav-item" id="search-route">
+          <li class="nav-item" id="search-route" data-toggle="collapse" data-target=".navbar-collapse">
               <a routerLink="/" id="search-link" href="/" class="nav-link" data-toggle="pill">&nbsp;&nbsp;Search&nbsp;&nbsp;</a>
           </li>
-          <li class="nav-item" id="watchlist-route">
+          <li class="nav-item" id="watchlist-route" data-toggle="collapse" data-target=".navbar-collapse">
               <a routerLink="/watchlist" id="watchlist-link" href="/watchlist" class="nav-link" data-toggle="pill">&nbsp;&nbsp;Watchlist&nbsp;&nbsp;</a>
           </li>
-          <li class="nav-item active" id="portfolio-route">
+          <li class="nav-item active" id="portfolio-route" data-toggle="collapse" data-target=".navbar-collapse">
               <a routerLink="/portfolio" id="portfolio-link" href="/portfolio" class="nav-link" data-toggle="pill">&nbsp;&nbsp;Portfolio&nbsp;&nbsp;</a>
           </li>
         </ul>
