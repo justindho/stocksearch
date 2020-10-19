@@ -1,4 +1,4 @@
-<div class="container flex-container grid-container">
+<!-- <div class="container flex-container grid-container">
     <div class="flex-child img-container">
         <img src="{{ newsItem.urlToImage }}" />
     </div>
@@ -8,4 +8,8 @@
             {{ newsItem.title }}
         </app-news-modal>
     </div>
+</div> -->
+
+<div class="container flex-container grid-container">
+    <app-news-modal [newsItem]="newsItem"></app-news-modal>
 </div>

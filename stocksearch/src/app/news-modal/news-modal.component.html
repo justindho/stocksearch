@@ -28,4 +28,13 @@
     </ng-container>
 </ng-template>
 
-<button class="text-left" (click)="open(content)">{{ newsItem.title }}</button>
+<button class="text-left" (click)="open(content)">
+    <div class="container flex-container-news-item grid-container">
+        <div class="flex-child img-container">
+            <img src="{{ newsItem.urlToImage }}" />
+        </div>
+        <div class="flex-child news-container">
+            {{ newsItem.title }}
+        </div>
+    </div>
+</button>
