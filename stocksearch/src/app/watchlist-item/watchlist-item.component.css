@@ -7,10 +7,9 @@
 }
 
 #close-icon {
+    margin-bottom: 0;
     margin-right: 5px;
     margin-top: 5px;
-
-    margin-bottom: 0;
 }
 
 .flex-container {
@@ -18,8 +17,46 @@
     justify-content: space-between;
 }
 
-.large {
-    font-weight: bold;
+@media screen and (max-width: 600px) {
+
+    #close-icon {
+        height: 20px;
+        margin-top: 0px;
+    }
+
+    #close-icon button {
+        width: 5px;
+        height: 5px;
+        margin-right: 15px;
+    }
+
+    .flex-child {
+        flex: none;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .flex-container {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+
+    .large {
+        font-weight: bold;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .row .flex-child {
+        width: 50%;
+    }
 }
 
 .larger {

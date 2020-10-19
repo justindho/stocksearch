@@ -78,6 +78,9 @@ export class SummaryChartComponent implements OnInit {
         data: this.dailyChartData,
         showInLegend: false,
       }],
+      scrollbar: {
+        enabled: true
+      },
       title: {
         text: this.ticker,
       },

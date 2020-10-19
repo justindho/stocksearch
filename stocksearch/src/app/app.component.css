@@ -1,15 +1,14 @@
 li .active {
     background-color: transparent!important;
-    border: solid white;
+    border: solid 2px white;
     border-radius: 15px;
-    color: white;
+    color: white!important;
 }
 
 body {
     display: flex;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     flex-direction: column;
-    padding-top: 70px;
 }
 
 .content {
@@ -29,12 +28,22 @@ footer {
     background-color: #6E40F4;
 }
 
-.nav-item li a {
-    color: red;
+.nav-item {
+    text-align: right;
 }
 
-ul li a {
+.nav-item a {
     color: #A682FF;
+}
+
+.nav-link {
+    color: #A682FF;
+}
+
+@media screen and (max-width: 600px) {
+    .nav-item a {
+        padding-right: 20px;
+    }
 }
 
 ul li a:hover {

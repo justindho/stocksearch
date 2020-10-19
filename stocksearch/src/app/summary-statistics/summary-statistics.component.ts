@@ -17,12 +17,9 @@ export class SummaryStatisticsComponent implements OnInit {
     this.formatSummaryStatistics();
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log(`Changes detected inside summary-statistics-component!`)
-  //   for (const inputName in changes) {
-  //     console.log(`new value of ${inputName}: ${changes[inputName][0].high}`)
-  //   }
-  // }
+  ngOnChanges(): void {
+    this.formatSummaryStatistics();
+  }
 
   formatSummaryStatistics(): void {
     // Style decimals
@@ -34,12 +31,27 @@ export class SummaryStatisticsComponent implements OnInit {
     if (this.stockStatistics.bidPrice === null) parseFloat(this.stockStatistics.bidPrice).toFixed(2);
     if (this.stockStatistics.askPrice === null) parseFloat(this.stockStatistics.askPrice).toFixed(2);
 
+    console.log(`Is market open?: ${this.marketIsOpen()}`);
+
+    this.marketIsOpen() ? this.setMarketDependentStatisticsDisplay('block') : this.setMarketDependentStatisticsDisplay('none');
+
     // Check for null values
     if (this.stockStatistics.mid === null) this.stockStatistics.mid = '-';
     if (this.stockStatistics.bidPrice === null) this.stockStatistics.bidPrice = '-';
     if (this.stockStatistics.bidSize === null) this.stockStatistics.bidSize = '-';
     if (this.stockStatistics.askPrice === null) this.stockStatistics.askPrice = '-';
     if (this.stockStatistics.askSize === null) this.stockStatistics.askSize = '-';
+  }
+
+  setMarketDependentStatisticsDisplay(display: string): void {
+    let elements = document.getElementsByClassName('market-dependent');
+    let elementsArray = Array.prototype.slice.call(elements);
+    elementsArray.forEach(x => x.style.display = display);
+  }
+
+  marketIsOpen(): boolean {
+    let lastTimestamp = new Date(this.stockStatistics.timestamp);
+    return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
   }
 
 }

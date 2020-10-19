@@ -8,22 +8,22 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light static-top">
       <a class="navbar-brand mr-auto" href="" style="color:white;">Stock Search</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="nav nav-pills ml-auto">
-          <li class="nav-item" id="search-route">
-              <a routerLink="/" id="search-link" href="/" class="nav-link" data-toggle="pill">Search </a>
+      <div class="navbar-collapse collapse" id="navbarSupportedContent">
+        <ul class="nav nav-pills navbar-nav ml-auto">
+          <li class="nav-item" id="search-route" data-toggle="collapse" data-target=".navbar-collapse">
+              <a routerLink="/" id="search-link" href="/" class="nav-link" data-toggle="pill">&nbsp;&nbsp;Search&nbsp;&nbsp;</a>
           </li>
-          <li class="nav-item" id="watchlist-route">
-              <a routerLink="/watchlist" id="watchlist-link" href="/watchlist" class="nav-link" data-toggle="pill">Watchlist </a>
+          <li class="nav-item" id="watchlist-route" data-toggle="collapse" data-target=".navbar-collapse">
+              <a routerLink="/watchlist" id="watchlist-link" href="/watchlist" class="nav-link" data-toggle="pill">&nbsp;&nbsp;Watchlist&nbsp;&nbsp;</a>
           </li>
-          <li class="nav-item active" id="portfolio-route">
-              <a routerLink="/portfolio" id="portfolio-link" href="/portfolio" class="nav-link" data-toggle="pill">Portfolio </a>
+          <li class="nav-item active" id="portfolio-route" data-toggle="collapse" data-target=".navbar-collapse">
+              <a routerLink="/portfolio" id="portfolio-link" href="/portfolio" class="nav-link" data-toggle="pill">&nbsp;&nbsp;Portfolio&nbsp;&nbsp;</a>
           </li>
         </ul>
       </div>
