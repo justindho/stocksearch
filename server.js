@@ -33,12 +33,17 @@ let returnResponse = (responseObj, url) => {
     responseType: 'json',
   })
     .then(response => {
-      if (response['status'] === 200) {
+      if (response['status'] === 200 && response['data'].length !== 0) {
         responseObj.json(response['data']);
+      } else if (response['status'] === 429) {
+        responseObj.json({'error': true, 'statusCode': response['status'], 'errorMsg': `Reached API limit! Please wait until the top of the hour to try again.`});
       } else {
-        responseObj.json({'error': true, 'statusCode': response['status']});
+        responseObj.json({'error': true, 'statusCode': response['status'], 'errorMsg': `Ticker not found.`});
       }
     })
+    .catch(error => {
+      responseObj.json({'error': true, 'errorMsg': error, 'statusCode': error['response']['status']});
+    });
 }
 
 
@@ -75,9 +80,14 @@ router.get('/api/dailychartdata/:ticker', (req, res) => {
         let json = responseLastTradingDay['data'];
         let startDate = json[0]['timestamp'].substring(0, 10);
         returnResponse(res, `https://api.tiingo.com/iex/${ticker}/prices?startDate=${startDate}&forceFill=true&resampleFreq=${resampleFreq}&token=${TIINGO_API_KEY}`);
+      } else if (response['status'] === 429) {
+        responseObj.json({'error': true, 'statusCode': response['status'], 'errorMsg': `Reached API limit! Please wait until the top of the hour to try again.`});
       } else {
         res.json({'error': true, 'statusCode': responseLastTradingDay['status']});
       }
+    })
+    .catch(error => {
+      responseObj.json({'error': true, 'errorMsg': error, 'statusCode': error['response']['status']});
     });
 })
 
@@ -91,9 +101,14 @@ router.get('/api/autocomplete/:query', (req, res) => {
         data = data.filter(x => x.name !== null);
         if (data.length > 10) data = data.slice(0, 10);
         res.json(data);
+      } else if (response['status'] === 429) {
+        responseObj.json({'error': true, 'statusCode': response['status'], 'errorMsg': `Reached API limit! Please wait until the top of the hour to try again.`});
       } else {
         res.json({'error': true, 'statusCode': response['status']});
       }
+    })
+    .catch(error => {
+      responseObj.json({'error': true, 'errorMsg': error, 'statusCode': error['response']['status']});
     });
 })
 
@@ -121,9 +136,14 @@ router.get('/api/news/:ticker', (req, res) => {
                                 && x['urlToImage'] !== null
                                 && x['publishedAt'] !== null);
         res.json(data);
+      } else if (response['status'] === 429) {
+        responseObj.json({'error': true, 'statusCode': response['status'], 'errorMsg': `Reached API limit! Please wait until the top of the hour to try again.`});
       } else {
         res.json({'error': true, 'statusCode': response['status']});
       }
+    })
+    .catch(error => {
+      responseObj.json({'error': true, 'errorMsg': error, 'statusCode': error['response']['status']});
     });
 })
 
