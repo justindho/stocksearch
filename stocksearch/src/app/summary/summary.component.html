@@ -1,13 +1,5 @@
-<table>
-    <tr>
-        <td width="50%">
-            <app-summary-statistics *ngIf="stockStatistics" [stockStatistics]="stockStatistics"></app-summary-statistics>
-        </td>
-        <td rowspan=2 style="vertical-align: top;">
-            <app-summary-chart [ticker]="companyMeta.ticker" [stockStatistics]="stockStatistics"></app-summary-chart>
-        </td>
-    </tr>
-    <tr>
-        <td><app-summary-description></app-summary-description></td>
-    </tr>
-</table>
+<div class="grid-container">
+    <app-summary-statistics class="stats" *ngIf="stockStatistics" [stockStatistics]="stockStatistics"></app-summary-statistics>
+    <app-summary-description class="description"></app-summary-description>
+    <app-summary-chart class="chart" [ticker]="companyMeta.ticker" [stockStatistics]="stockStatistics"></app-summary-chart>
+</div>

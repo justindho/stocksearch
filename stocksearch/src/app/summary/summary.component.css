@@ -1,0 +1,41 @@
+.grid-container {
+    display: grid;
+    grid-template-areas: 
+        'stats chart'
+        'description chart';
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.stats {
+    grid-area: stats;
+}
+
+.description {
+    grid-area: description;
+}
+
+.chart {
+    grid-area: chart;
+}
+
+@media screen and (max-width: 600px) {
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+            'stats'
+            'description'
+            'chart';
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .grid-container > div {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+}
