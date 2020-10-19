@@ -49,7 +49,9 @@ export class PortfolioComponent implements OnInit {
     this.stockService.getStockStatistics(ticker)
       .subscribe(stats => {
         this.stockStatistics = stats[0];
-        this.portfolio[ticker]['currentPrice'] = this.stockStatistics.last;
+        this.portfolio[ticker]['currentPrice'] = (this.stockStatistics.last).toFixed(2);
+        this.portfolio[ticker]['change'] = (parseFloat(this.portfolio[ticker]['currentPrice']) - parseFloat(this.portfolio[ticker]['avgCost'])).toFixed(2);
+        this.portfolio['marketValue'] = (this.portfolio[ticker]['currentPrice'] * this.portfolio['quantity']).toFixed(2);
       });
   }
 

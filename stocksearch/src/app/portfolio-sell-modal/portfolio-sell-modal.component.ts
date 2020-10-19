@@ -40,7 +40,7 @@ export class PortfolioSellModalComponent implements OnInit {
       
     } else {
       portfolio[ticker].quantity -= numShares;
-      portfolio[ticker].totalCost = parseFloat(portfolio[ticker].totalCost) - numShares * this.stockStatistics.last;
+      portfolio[ticker].totalCost = parseFloat(portfolio[ticker].totalCost) - numShares * portfolio[ticker].avgCost;
       portfolio[ticker].avgCost = portfolio[ticker].totalCost / portfolio[ticker].quantity;
       portfolio[ticker].change = (this.stockStatistics.last - portfolio[ticker].avgCost).toFixed(2);
       portfolio[ticker].marketValue = (this.stockStatistics.last * portfolio[ticker].quantity).toFixed(2);

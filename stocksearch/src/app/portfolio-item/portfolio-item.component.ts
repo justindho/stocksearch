@@ -12,7 +12,7 @@ export class PortfolioItemComponent {
 
   constructor() { }
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     this.updatePortfolioItemColor();
   }
 
