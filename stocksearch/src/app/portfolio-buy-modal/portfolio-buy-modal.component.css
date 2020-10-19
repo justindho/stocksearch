@@ -4,7 +4,7 @@
 
 .flex-container {
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     width: 100%;
 }
 
@@ -31,6 +31,22 @@
 #numShares label {
     margin-bottom: auto;
     margin-top: auto;
+}
+
+@media screen and (max-width: 600px) {
+    #numShares {
+        display: flex;
+        width: 90%;
+    }
+
+    #numShares label {
+        width: 100%;
+    }
+
+    #numShares input {
+        margin-left: 0px;
+        width: 90%;
+    }
 }
 
 #price-quantity {
