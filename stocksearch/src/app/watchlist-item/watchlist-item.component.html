@@ -14,11 +14,11 @@
                 <div [attr.class]="'change-color-' + watchlistItem.ticker">{{ watchlistItem.last }}</div>
             </div>
         </div>
-        <div class="flex-container large">
+        <div class="flex-container large row">
             <div class="flex-child">
-                <div>{{ watchlistItem.name }}</div>
+                <div class="name">{{ watchlistItem.name }}</div>
             </div>
-            <div class="flex-child">
+            <div class="flex-child right">
                 <div [attr.class]="'change-color-' + watchlistItem.ticker">
                     <span [attr.id]="'arrowContainer-' + watchlistItem.ticker"></span>{{ watchlistItem.change }} ({{ watchlistItem.changePercent }}%)
                 </div>

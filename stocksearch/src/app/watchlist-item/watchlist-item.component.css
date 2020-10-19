@@ -34,8 +34,28 @@
         flex: none;
     }
 
+    .right {
+        text-align: right;
+    }
+
+    .flex-container {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+
     .large {
         font-weight: bold;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .row .flex-child {
+        width: 50%;
     }
 }
 
