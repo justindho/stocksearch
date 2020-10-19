@@ -67,8 +67,8 @@ export class BuyModalComponent {
   }
 
 
-  displayTotal(price: number, quantity: number): number {
-    return price * quantity;
+  displayTotal(price: number, quantity: number): string {
+    return (price * quantity).toFixed(2);
   }
 
   open(content) {
