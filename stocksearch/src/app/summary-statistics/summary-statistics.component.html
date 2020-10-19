@@ -1,22 +1,22 @@
 <table>
     <tr>
         <td>High Price: {{ stockStatistics.high }}</td>
-        <td>Mid Price: {{ stockStatistics.mid }}</td>
+        <td class="market-dependent">Mid Price: {{ stockStatistics.mid }}</td>
     </tr>
     <tr>
         <td>Low Price: {{ stockStatistics.low }}</td>
-        <td>Ask Price: {{ stockStatistics.askPrice }}</td>
+        <td class="market-dependent">Ask Price: {{ stockStatistics.askPrice }}</td>
     </tr>
     <tr>
         <td>Open price: {{ stockStatistics.open }}</td>
-        <td>Ask Size: {{ stockStatistics.askSize }}</td>
+        <td class="market-dependent">Ask Size: {{ stockStatistics.askSize }}</td>
     </tr>
     <tr>
         <td>Prev. Close: {{ stockStatistics.prevClose }}</td>
-        <td>Bid Price: {{ stockStatistics.bidPrice }}</td>
+        <td class="market-dependent">Bid Price: {{ stockStatistics.bidPrice }}</td>
     </tr>
     <tr>
         <td>Volume: {{ stockStatistics.volume }}</td>
-        <td>Bid Size: {{ stockStatistics.bidSize }}</td>
+        <td class="market-dependent">Bid Size: {{ stockStatistics.bidSize }}</td>
     </tr>
 </table>
