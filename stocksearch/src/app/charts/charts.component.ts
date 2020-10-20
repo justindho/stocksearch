@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as Highcharts from 'highcharts/highstock';
 import SMA from "highcharts/indicators/indicators"; SMA(Highcharts);
-// import * as HC_VBP from 'highcharts/indicators/volume-by-price';
 import VBP from 'highcharts/indicators/volume-by-price'; VBP(Highcharts);
 
 import { HistoricalData } from '../historical-data';
@@ -34,8 +33,21 @@ export class ChartsComponent implements OnInit {
       });
   }
 
+  resize(): void {
+    let chart = document.getElementById('chart');
+    let width = chart.clientWidth;
+    let height = width * 0.
+
+    // let parentWidth = chart.parentElement.clientWidth;
+    // // chart.clientWidth = parentWidth;
+    // chart.setAttribute('width', parentWidth.toString());
+    // console.log(`parentWidth: ${parentWidth}`);
+  }
+
   createChart(): void {
     this.chartOptions = {
+      // chart: {
+      // },
       navigator: {
         enabled: true,
       },

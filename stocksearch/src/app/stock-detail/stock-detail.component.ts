@@ -13,6 +13,7 @@ import { StockService } from '../stock.service';
 export class StockDetailComponent implements OnInit {
   doneLoading: boolean = false;
   interval: any;
+  loadChart: boolean = false;
 
   companyMeta: CompanyMeta;
   stockStatistics: StockStatistics;
@@ -66,6 +67,12 @@ export class StockDetailComponent implements OnInit {
   marketIsOpen(): boolean {
     let lastTimestamp = new Date(this.stockStatistics.timestamp);
     return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
+  }
+
+  onTabClick(tab): void {
+    if (tab['tab']['textLabel'] === 'Charts') {
+      this.loadChart = true;
+    }
   }
 
 }

@@ -1,6 +1,16 @@
-highcharts-chart {
+#chart {
     margin-left: auto;
     margin-right: auto;
-    width: 90%!important;
-    /* height: 90%; */
+    width: 95%!important;
+    height: 1000px;
+}
+
+@media screen and (max-width: 600px) {
+
+    #chart {
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%!important;
+        height: 500px;
+    }
 }
