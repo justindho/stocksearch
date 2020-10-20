@@ -1,6 +1,6 @@
-<highcharts-chart *ngIf="chartOptions && dailyChartData"
+<highcharts-chart id="chart" *ngIf="chartOptions && dailyChartData"
   [Highcharts]="Highcharts"
   [options]="chartOptions"
- 
+
   style="height: 400px; display: block; margin-top: 30px;"
 ></highcharts-chart>
