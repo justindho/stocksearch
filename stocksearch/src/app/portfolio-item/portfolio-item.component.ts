@@ -28,7 +28,8 @@ export class PortfolioItemComponent {
       this.updatePortfolioItemColor();
     } else {
       // Remove ticker from view
-      document.getElementById('card').style.display = 'none';
+      this.removeFromPortfolio(ticker);
+      // document.getElementById('card').style.display = 'none';
     }
   }
 
@@ -62,6 +63,18 @@ export class PortfolioItemComponent {
     for (let item in items) {
       items[item].style.color = color;
     }
+  }
+
+  removeFromPortfolio(ticker: string): void {
+    this.hidePortfolioItem(ticker);
+    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    delete portfolio[ticker];
+    localStorage.setItem('portfolio', JSON.stringify(portfolio));
+  }
+
+  hidePortfolioItem(ticker: string): void {
+    let element = document.getElementById('portfolioItem-' + ticker);
+    element.style.display = 'none';
   }
 
 }

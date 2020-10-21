@@ -57,10 +57,15 @@ export class PortfolioComponent implements OnInit {
 
   updatePortfolioLatestPrices(): void {
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
-    for (let ticker in this.portfolio) {
-      this.updateStockStatistics(ticker);
+    if (Object.keys(this.portfolio).length === 0) {
+      // Display empty portfolio banner
+      this.sortedPortfolio = [];
+    } else {
+      for (let ticker in this.portfolio) {
+        this.updateStockStatistics(ticker);
+      }
+      localStorage.setItem('portfolio', JSON.stringify(this.portfolio));
     }
-    localStorage.setItem('portfolio', JSON.stringify(this.portfolio));
   }
 
   sleep(ms): Promise<any> {
