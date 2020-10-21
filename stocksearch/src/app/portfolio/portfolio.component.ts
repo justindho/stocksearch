@@ -13,6 +13,7 @@ import { StockStatistics } from '../stock-statistics';
 export class PortfolioComponent implements OnInit {
   companyMeta: CompanyMeta;
   doneLoading: boolean = false;
+  displayBanner: boolean = false;
   portfolio: PortfolioItem[];
   sortedPortfolio: PortfolioItem[] = [];
   stockStatistics: StockStatistics;
@@ -57,19 +58,24 @@ export class PortfolioComponent implements OnInit {
 
   updatePortfolioLatestPrices(): void {
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
-    if (Object.keys(this.portfolio).length === 0) {
-      // Display empty portfolio banner
-      this.sortedPortfolio = [];
-    } else {
-      for (let ticker in this.portfolio) {
-        this.updateStockStatistics(ticker);
-      }
-      localStorage.setItem('portfolio', JSON.stringify(this.portfolio));
+    for (let ticker in this.portfolio) {
+      this.updateStockStatistics(ticker);
     }
+    localStorage.setItem('portfolio', JSON.stringify(this.portfolio));
+    this.updatePortfolioStatusBanner();
   }
 
   sleep(ms): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  updatePortfolioStatusBanner(): void {
+    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    if (Object.keys(portfolio).length === 0) {
+      this.displayBanner = true;
+    } else {
+      this.displayBanner = false;
+    }
   }
 
 }

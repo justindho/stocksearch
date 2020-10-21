@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { reduceEachTrailingCommentRange } from 'typescript';
 import { PortfolioItem } from '../portfolio-item';
 
@@ -9,6 +9,7 @@ import { PortfolioItem } from '../portfolio-item';
 })
 export class PortfolioItemComponent {
   @Input() portfolioItem;
+  @Output() sellEvent = new EventEmitter<void>();
 
   constructor() { }
 
@@ -29,7 +30,6 @@ export class PortfolioItemComponent {
     } else {
       // Remove ticker from view
       this.removeFromPortfolio(ticker);
-      // document.getElementById('card').style.display = 'none';
     }
   }
 
@@ -74,7 +74,14 @@ export class PortfolioItemComponent {
 
   hidePortfolioItem(ticker: string): void {
     let element = document.getElementById('portfolioItem-' + ticker);
-    element.style.display = 'none';
+    if (element != null) {
+      element.style.display = 'none';
+      this.updatePortfolioStatusBanner();
+    }
+  }
+
+  updatePortfolioStatusBanner(): void {
+    this.sellEvent.emit();
   }
 
 }

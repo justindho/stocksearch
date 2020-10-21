@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { WatchlistItem } from '../watchlist-item';
 
 @Component({
@@ -8,6 +8,7 @@ import { WatchlistItem } from '../watchlist-item';
 })
 export class WatchlistItemComponent {
   @Input() watchlistItem: WatchlistItem;
+  @Output() removeWatchlistItemEvent = new EventEmitter<void>();
 
   constructor() { }
 
@@ -52,11 +53,16 @@ export class WatchlistItemComponent {
     let watchlist = JSON.parse(localStorage.getItem('watchlist'));
     delete watchlist[ticker];
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    this.updateWatchlistStatusBanner();
   }
 
   hideWatchlistItem(ticker: string): void {
     let element = document.getElementById('watchlistItem-' + ticker);
     element.style.display = 'none';
+  }
+
+  updateWatchlistStatusBanner(): void {
+    this.removeWatchlistItemEvent.emit();
   }
 
 }

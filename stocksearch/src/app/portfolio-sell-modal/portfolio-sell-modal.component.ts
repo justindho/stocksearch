@@ -37,7 +37,7 @@ export class PortfolioSellModalComponent implements OnInit {
     portfolio = JSON.parse(localStorage.getItem('portfolio'));
     if (Object.keys(portfolio).length == 0) {
       // notify parent component
-
+      this.updatePortfolioItemStats('Empty portfolio');
     }
   }
 

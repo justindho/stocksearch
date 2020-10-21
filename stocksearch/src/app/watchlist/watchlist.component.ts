@@ -10,6 +10,7 @@ import { WatchlistItem } from '../watchlist-item';
 })
 export class WatchlistComponent implements OnInit {
   doneLoading: boolean = false;
+  displayBanner: boolean = false;
   sortedWatchlist: WatchlistItem[] = [];
   watchlist: WatchlistItem[];
 
@@ -54,6 +55,15 @@ export class WatchlistComponent implements OnInit {
 
   sleep(ms): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  updateWatchlistBanner(): void {
+    let watchlist = JSON.parse(localStorage.getItem('watchlist'));
+    if (Object.keys(watchlist).length === 0) {
+      this.displayBanner = true;
+    } else {
+      this.displayBanner = false;
+    }
   }
 
 }
