@@ -40,7 +40,6 @@ export class PortfolioBuyModalComponent {
     portfolio[ticker].totalCost = (portfolio[ticker].totalCost).toFixed(2);
     portfolio[ticker].avgCost = (portfolio[ticker].avgCost).toFixed(2);
 
-    console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));
   }
 

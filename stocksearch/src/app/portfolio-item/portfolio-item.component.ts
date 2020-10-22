@@ -9,6 +9,7 @@ import { PortfolioItem } from '../portfolio-item';
 })
 export class PortfolioItemComponent {
   @Input() portfolioItem;
+  @Output() purchaseEvent = new EventEmitter<void>();
   @Output() sellEvent = new EventEmitter<void>();
 
   constructor() { }
@@ -31,6 +32,7 @@ export class PortfolioItemComponent {
       // Remove ticker from view
       this.removeFromPortfolio(ticker);
     }
+    this.updatePortfolio();
   }
 
   updatePortfolioItemColor(): void {
@@ -78,6 +80,10 @@ export class PortfolioItemComponent {
       element.style.display = 'none';
       this.updatePortfolioStatusBanner();
     }
+  }
+
+  updatePortfolio(): void {
+    this.purchaseEvent.emit();
   }
 
   updatePortfolioStatusBanner(): void {

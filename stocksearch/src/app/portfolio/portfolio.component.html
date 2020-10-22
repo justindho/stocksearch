@@ -12,7 +12,8 @@
     </div>
     <div *ngFor="let portfolioItem of sortedPortfolio">
         <app-portfolio-item [portfolioItem]="portfolioItem" [attr.id]="'portfolioItem-' + portfolioItem.ticker"
-            (sellEvent)="updatePortfolioStatusBanner()">
+            (sellEvent)="updatePortfolioStatusBanner(); updatePortfolioLatestPrices();"
+            (purchaseEvent)="updatePortfolioLatestPrices();">
         </app-portfolio-item>
     </div>
 </div>
