@@ -13,6 +13,7 @@ import { StockStatistics } from '../stock-statistics';
 export class PortfolioComponent implements OnInit {
   companyMeta: CompanyMeta;
   doneLoading: boolean = false;
+  displayBanner: boolean = false;
   portfolio: PortfolioItem[];
   sortedPortfolio: PortfolioItem[] = [];
   stockStatistics: StockStatistics;
@@ -20,15 +21,9 @@ export class PortfolioComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   async ngOnInit(): Promise<void> {
-    this.updatePortfolioLatestPrices();
+    await this.updatePortfolioLatestPrices();
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
-    for (let stock in this.portfolio) {
-      this.sortedPortfolio.push(this.portfolio[stock]);
-    }
-    this.sortedPortfolio.sort((stock1, stock2) => {
-      if (stock1.ticker.toUpperCase() < stock2.ticker.toUpperCase()) { return -1; }
-      if (stock1.ticker.toUpperCase() > stock2.ticker.toUpperCase()) { return 1; }
-    });
+    this.updateSortedPortfolio();
 
     // Sleep for 200ms to prove that loading screen actually shows
     await this.sleep(200);
@@ -51,20 +46,42 @@ export class PortfolioComponent implements OnInit {
         this.stockStatistics = stats[0];
         this.portfolio[ticker]['currentPrice'] = (this.stockStatistics.last).toFixed(2);
         this.portfolio[ticker]['change'] = (parseFloat(this.portfolio[ticker]['currentPrice']) - parseFloat(this.portfolio[ticker]['avgCost'])).toFixed(2);
-        this.portfolio['marketValue'] = (this.portfolio[ticker]['currentPrice'] * this.portfolio['quantity']).toFixed(2);
+        this.portfolio[ticker]['marketValue'] = (this.portfolio[ticker]['currentPrice'] * this.portfolio[ticker]['quantity']).toFixed(2);
       });
   }
 
-  updatePortfolioLatestPrices(): void {
+  async updatePortfolioLatestPrices(): Promise<void> {
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
     for (let ticker in this.portfolio) {
-      this.updateStockStatistics(ticker);
+      await this.updateStockStatistics(ticker);
     }
     localStorage.setItem('portfolio', JSON.stringify(this.portfolio));
+    this.updateSortedPortfolio();
+    this.updatePortfolioStatusBanner();
+  }
+
+  updateSortedPortfolio(): void {
+    this.sortedPortfolio = [];
+    for (let stock in this.portfolio) {
+      this.sortedPortfolio.push(this.portfolio[stock]);
+    }
+    this.sortedPortfolio.sort((stock1, stock2) => {
+      if (stock1.ticker.toUpperCase() < stock2.ticker.toUpperCase()) { return -1; }
+      if (stock1.ticker.toUpperCase() > stock2.ticker.toUpperCase()) { return 1; }
+    });
   }
 
   sleep(ms): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  updatePortfolioStatusBanner(): void {
+    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    if (Object.keys(portfolio).length === 0) {
+      this.displayBanner = true;
+    } else {
+      this.displayBanner = false;
+    }
   }
 
 }

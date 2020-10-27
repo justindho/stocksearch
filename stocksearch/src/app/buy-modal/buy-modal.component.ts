@@ -57,7 +57,7 @@ export class BuyModalComponent {
   }
 
   createPortfolio(): void {
-    if (localStorage.getItem('portfolio') === null) {
+    if (localStorage.getItem('portfolio') === null || localStorage.getItem('portfolio') === 'null') {
       localStorage.setItem('portfolio', JSON.stringify({}));
     }
   }

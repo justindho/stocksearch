@@ -56,7 +56,7 @@ export class StockBannerComponent {
   updateWatchlist(ticker: string, watchlist: Array<WatchlistItem>): Array<WatchlistItem> {
     let starContainer = document.getElementById('starContainer');
     let updatedWatchlist;
-    if (ticker in watchlist) {
+    if (watchlist != null && ticker in watchlist) {
       updatedWatchlist = this.removeFromWatchlist(ticker, watchlist);
       starContainer.innerHTML = this.emptyStar;
       starContainer.style.removeProperty('color');
@@ -89,7 +89,8 @@ export class StockBannerComponent {
   }
 
   createWatchlist(): void {
-    if (localStorage.getItem('watchlist') === null) {
+    let watchlist = localStorage.getItem('watchlist');
+    if (watchlist === null || watchlist === 'null') {
       localStorage.setItem('watchlist', JSON.stringify({}));
     }
   }

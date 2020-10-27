@@ -40,12 +40,11 @@ export class PortfolioBuyModalComponent {
     portfolio[ticker].totalCost = (portfolio[ticker].totalCost).toFixed(2);
     portfolio[ticker].avgCost = (portfolio[ticker].avgCost).toFixed(2);
 
-    console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));
   }
 
   createPortfolio(): void {
-    if (localStorage.getItem('portfolio') === null) {
+    if (localStorage.getItem('portfolio') === null || localStorage.getItem('portfolio') === 'null') {
       localStorage.setItem('portfolio', JSON.stringify({}));
     }
   }

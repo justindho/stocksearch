@@ -7,10 +7,13 @@
 </div>
 
 <div id="portfolio" *ngIf="doneLoading">
-    <div *ngIf="sortedPortfolio.length == 0" id="status-banner" class="alert alert-warning" role="alert">
+    <div *ngIf="sortedPortfolio.length == 0 || portfolio.length == 0 || displayBanner" id="status-banner" class="alert alert-warning" role="alert">
         Currently you don't have any stock.
     </div>
     <div *ngFor="let portfolioItem of sortedPortfolio">
-        <app-portfolio-item [portfolioItem]="portfolioItem"></app-portfolio-item>
+        <app-portfolio-item [portfolioItem]="portfolioItem" [attr.id]="'portfolioItem-' + portfolioItem.ticker"
+            (sellEvent)="updatePortfolioStatusBanner(); updatePortfolioLatestPrices();"
+            (purchaseEvent)="updatePortfolioLatestPrices();">
+        </app-portfolio-item>
     </div>
 </div>

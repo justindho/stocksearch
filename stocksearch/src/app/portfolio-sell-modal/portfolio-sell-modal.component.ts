@@ -32,6 +32,13 @@ export class PortfolioSellModalComponent implements OnInit {
     let quantity = parseInt(numShares);
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
     this.subtractSharesFromPortfolio(ticker, quantity, portfolio);
+
+    // Notify parent component if portfolio becomes empty
+    portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    if (Object.keys(portfolio).length == 0) {
+      // notify parent component
+      this.updatePortfolioItemStats('Empty portfolio');
+    }
   }
 
   subtractSharesFromPortfolio(ticker: string, numShares: number, portfolio): void {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { reduceEachTrailingCommentRange } from 'typescript';
 import { PortfolioItem } from '../portfolio-item';
 
@@ -9,6 +9,8 @@ import { PortfolioItem } from '../portfolio-item';
 })
 export class PortfolioItemComponent {
   @Input() portfolioItem;
+  @Output() purchaseEvent = new EventEmitter<void>();
+  @Output() sellEvent = new EventEmitter<void>();
 
   constructor() { }
 
@@ -28,8 +30,9 @@ export class PortfolioItemComponent {
       this.updatePortfolioItemColor();
     } else {
       // Remove ticker from view
-      document.getElementById('card').style.display = 'none';
+      this.removeFromPortfolio(ticker);
     }
+    this.updatePortfolio();
   }
 
   updatePortfolioItemColor(): void {
@@ -62,6 +65,29 @@ export class PortfolioItemComponent {
     for (let item in items) {
       items[item].style.color = color;
     }
+  }
+
+  removeFromPortfolio(ticker: string): void {
+    this.hidePortfolioItem(ticker);
+    let portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    delete portfolio[ticker];
+    localStorage.setItem('portfolio', JSON.stringify(portfolio));
+  }
+
+  hidePortfolioItem(ticker: string): void {
+    let element = document.getElementById('portfolioItem-' + ticker);
+    if (element != null) {
+      element.style.display = 'none';
+      this.updatePortfolioStatusBanner();
+    }
+  }
+
+  updatePortfolio(): void {
+    this.purchaseEvent.emit();
+  }
+
+  updatePortfolioStatusBanner(): void {
+    this.sellEvent.emit();
   }
 
 }

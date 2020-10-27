@@ -14,6 +14,8 @@ import { Autocompletion } from './autocompletion';
   providedIn: 'root'
 })
 export class StockService {
+  // backendHost: string = `http://justindho-stocksearcher-nodejs-angular.us-west-1.elasticbeanstalk.com`;
+  backendHost: string = `https://stocksearch-nodejs-backend.wl.r.appspot.com`;
 
   constructor(
     private http: HttpClient,
@@ -21,27 +23,27 @@ export class StockService {
 
   /** GET company meta data from the server */
   getCompanyMeta(ticker: string): Observable<CompanyMeta> {
-    return this.http.get<CompanyMeta>(`/api/companydescription/${ticker}`);
+    return this.http.get<CompanyMeta>(`${this.backendHost}/api/companydescription/${ticker}`);
   }
 
   /** GET daily chart data */
   getDailyChartData(ticker: string): Observable<DailyChartData[]> {
-    return this.http.get<DailyChartData[]>(`/api/dailychartdata/${ticker}`);
+    return this.http.get<DailyChartData[]>(`${this.backendHost}/api/dailychartdata/${ticker}`);
   }
 
   /** GET historical chart data */
   getHistoricalData(ticker: string): Observable<HistoricalData[]> {
-    return this.http.get<HistoricalData[]>(`/api/historicaldata/${ticker}`);
+    return this.http.get<HistoricalData[]>(`${this.backendHost}/api/historicaldata/${ticker}`);
   }
 
   /** GET company news from the server */
   getNews(ticker: string): Observable<NewsItem[]> {
-    return this.http.get<NewsItem[]>(`/api/news/${ticker}`);
+    return this.http.get<NewsItem[]>(`${this.backendHost}/api/news/${ticker}`);
   }
 
   /** GET stock statistics from the server */
   getStockStatistics(ticker: string): Observable<StockStatistics> {
-    return this.http.get<StockStatistics>(`/api/latestprice/${ticker}`);
+    return this.http.get<StockStatistics>(`${this.backendHost}/api/latestprice/${ticker}`);
   }
 
 
@@ -50,7 +52,7 @@ export class StockService {
     if (!str.trim()) {
       return of([]);
     }
-    return this.http.get<Autocompletion[]>(`/api/autocomplete/${str}`);
+    return this.http.get<Autocompletion[]>(`${this.backendHost}/api/autocomplete/${str}`);
   }
 
 }
