@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <div id="price-quantity">
                         <div>
-                            <p id="currentPrice">Current Price: {{ stockStatistics.last }}</p>
+                            <p id="currentPrice">Current Price: {{ stockStatistics.last | number }}</p>
                         </div>
                         <div id="numShares" class="form-group input-group">
                             <label for="quantity">Quantity  </label> 
@@ -24,7 +24,7 @@
         </div>
         <div class="modal-footer">
             <div class="flex-container">
-                <div id="total">Total: {{ total }}</div>
+                <div id="total">Total: {{ total | number }}</div>
                 <div id="modal-buy-button">
                     <button [disabled]="total == 0" type="button" class="btn btn-success"
                         (click)="buy(companyMeta.ticker, quantity.value);updatePortfolioItemStats(companyMeta.ticker);modal.close()">
