@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { StockService } from '../stock.service';
 import { StockStatistics } from '../stock-statistics';
 
 @Component({
@@ -11,8 +10,6 @@ import { StockStatistics } from '../stock-statistics';
 export class SummaryStatisticsComponent implements OnInit {
   @Input() stockStatistics: StockStatistics;
 
-  constructor(private stockService: StockService) { }
-
   ngOnInit(): void {
     this.formatSummaryStatistics();
   }
@@ -22,10 +19,6 @@ export class SummaryStatisticsComponent implements OnInit {
   }
 
   formatSummaryStatistics(): void {
-    if (this.stockStatistics.mid === null) this.stockStatistics.mid;
-    if (this.stockStatistics.bidPrice === null) this.stockStatistics.bidPrice;
-    if (this.stockStatistics.askPrice === null) this.stockStatistics.askPrice;
-
     this.marketIsOpen() ? this.setMarketDependentStatisticsDisplay('block') : this.setMarketDependentStatisticsDisplay('none');
   }
 
