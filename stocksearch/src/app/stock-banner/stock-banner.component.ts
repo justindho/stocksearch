@@ -150,12 +150,12 @@ export class StockBannerComponent {
   displayStockStatistics(): void {
     // Styling for when stock price goes up/down
     let arrowContainer = document.getElementById('arrowContainer');
-    if (parseFloat(this.stockStatistics['change']) > 0) {
+    if (this.stockStatistics['change'] > 0.01) {
       let green = '#319008';
       arrowContainer.innerHTML = this.upArrow;
       document.getElementById('lastPrice-cell').setAttribute('style', `color:${green}`);
       document.getElementById('changeStats').setAttribute('style', `color:${green}`);
-    } else if (parseFloat(this.stockStatistics['change']) < 0) {
+    } else if (this.stockStatistics['change'] < -0.01) {
       let red = 'red';
       arrowContainer.innerHTML = this.downArrow;
       document.getElementById('lastPrice-cell').setAttribute('style', `color:${red}`);
