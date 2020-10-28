@@ -15,9 +15,9 @@
                         </div>
                         <div id="numShares" class="form-group input-group">
                             <label for="quantity">Quantity  </label> 
-                            <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0"
+                            <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0" ngbAutofocus
                                 onkeydown="return event.keyCode !== 190"
-                                autofocus (input)="updateTotal(quantity.value)">
+                                (input)="updateTotal(quantity.value)">
                         </div>
                     </div>
                 </div>
