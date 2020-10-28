@@ -29,10 +29,10 @@ export class WatchlistItemComponent {
                     </svg>`;
 
     // Set arrow container and set color
-    if (parseFloat(this.watchlistItem.change) > 0) {
+    if (this.watchlistItem.change > 0.01) {
       arrowContainer.innerHTML = upArrow;
       this.setColor(green);
-    } else if (parseFloat(this.watchlistItem.change) < 0) {
+    } else if (this.watchlistItem.change < -0.01) {
       arrowContainer.innerHTML = downArrow;
       this.setColor(red);
     } else {

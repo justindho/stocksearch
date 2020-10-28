@@ -48,10 +48,10 @@ export class PortfolioItemComponent {
                     </svg>`;
 
     // Set arrow container and set color
-    if (this.portfolioItem.change > 0) {
+    if (this.portfolioItem.change > 0.01) {
       arrowContainer.innerHTML = upArrow;
       this.setColor(green);
-    } else if (this.portfolioItem.change < 0) {
+    } else if (this.portfolioItem.change < -0.01) {
       arrowContainer.innerHTML = downArrow;
       this.setColor(red);
     } else {
