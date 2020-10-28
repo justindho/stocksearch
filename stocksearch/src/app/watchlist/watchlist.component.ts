@@ -36,20 +36,26 @@ export class WatchlistComponent implements OnInit {
     });
   }
 
-  updateStockStatistics(ticker: string): void {
-    this.stockService.getStockStatistics(ticker)
+  updateStockStatistics(tickerString: string): void {
+    this.stockService.getStockStatistics(tickerString)
       .subscribe(stats => {
-        let statistics = stats[0];
-        this.watchlist[ticker]['last'] = statistics.last.toFixed(2);
-        this.watchlist[ticker]['change'] = (statistics.last - statistics.prevClose).toFixed(2);
-        this.watchlist[ticker]['changePercent'] = ((statistics.last - statistics.prevClose) / statistics.prevClose * 100).toFixed(2);
+        for (const [_, tickerData] of Object.entries(stats)) {
+          let ticker = tickerData['ticker'];
+          this.watchlist[ticker]['last'] = tickerData.last;
+          this.watchlist[ticker]['change'] = tickerData.last - tickerData.prevClose;
+          this.watchlist[ticker]['changePercent'] = (tickerData.last - tickerData.prevClose) / tickerData.prevClose * 100;
+        }
       });
   }
 
-  updateWatchlistLatestPrices(): void {
+  async updateWatchlistLatestPrices(): Promise<void> {
+    this.watchlist = JSON.parse(localStorage.getItem('portfolio'));
+    let tickerString = '';
     for (let ticker in this.watchlist) {
-      this.updateStockStatistics(ticker);
+      tickerString += ticker + ',';
     }
+    if (tickerString.length > 0) tickerString.slice(0, -1);
+    await this.updateStockStatistics(tickerString);
     localStorage.setItem('watchlist', JSON.stringify(this.watchlist));
   }
 

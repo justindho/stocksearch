@@ -44,7 +44,6 @@ export class PortfolioComponent implements OnInit {
   }
 
   updateStockStatistics(tickerString: string): void {
-    console.log(`CALLING API getStockStatistics()!!!!!`);
     this.stockService.getStockStatistics(tickerString)
       .subscribe(stats => {
         for (const [_, tickerData] of Object.entries(stats)) {

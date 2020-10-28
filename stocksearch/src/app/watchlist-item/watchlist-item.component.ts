@@ -12,7 +12,7 @@ export class WatchlistItemComponent {
 
   constructor() { }
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     this.updateWatchlistItemColor();
   }
 
