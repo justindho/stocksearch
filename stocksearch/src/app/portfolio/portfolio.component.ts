@@ -21,7 +21,10 @@ export class PortfolioComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   async ngOnInit(): Promise<void> {
-    await this.updatePortfolioLatestPrices();
+    this.createPortfolio();
+    if (!this.portfolioIsEmpty()) {
+      await this.updatePortfolioLatestPrices();
+    }
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
     this.updateSortedPortfolio();
 
@@ -40,21 +43,27 @@ export class PortfolioComponent implements OnInit {
       .subscribe(stats => this.stockStatistics = stats[0]);
   }
 
-  updateStockStatistics(ticker: string): void {
-    this.stockService.getStockStatistics(ticker)
+  updateStockStatistics(tickerString: string): void {
+    console.log(`CALLING API getStockStatistics()!!!!!`);
+    this.stockService.getStockStatistics(tickerString)
       .subscribe(stats => {
-        this.stockStatistics = stats[0];
-        this.portfolio[ticker]['currentPrice'] = (this.stockStatistics.last).toFixed(2);
-        this.portfolio[ticker]['change'] = (parseFloat(this.portfolio[ticker]['currentPrice']) - parseFloat(this.portfolio[ticker]['avgCost'])).toFixed(2);
-        this.portfolio[ticker]['marketValue'] = (this.portfolio[ticker]['currentPrice'] * this.portfolio[ticker]['quantity']).toFixed(2);
+        for (const [_, tickerData] of Object.entries(stats)) {
+          let ticker = tickerData['ticker'];
+          this.portfolio[ticker]['currentPrice'] = tickerData['last'];
+          this.portfolio[ticker]['change'] = this.portfolio[ticker]['currentPrice'] - this.portfolio[ticker]['avgCost'];
+          this.portfolio[ticker]['marketValue'] = this.portfolio[ticker]['currentPrice'] * this.portfolio[ticker]['quantity'];
+        }
       });
   }
 
-  async updatePortfolioLatestPrices(): Promise<void> {
+  updatePortfolioLatestPrices(): void {
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
+    let tickerString = '';
     for (let ticker in this.portfolio) {
-      await this.updateStockStatistics(ticker);
+      tickerString += ticker + ',';
     }
+    if (tickerString.length > 0) tickerString.slice(0, -1);
+    this.updateStockStatistics(tickerString);
     localStorage.setItem('portfolio', JSON.stringify(this.portfolio));
     this.updateSortedPortfolio();
     this.updatePortfolioStatusBanner();
@@ -82,6 +91,17 @@ export class PortfolioComponent implements OnInit {
     } else {
       this.displayBanner = false;
     }
+  }
+
+  createPortfolio(): void {
+    if (localStorage.getItem('portfolio') === null || localStorage.getItem('portfolio') === 'null') {
+      localStorage.setItem('portfolio', JSON.stringify({}));
+    }
+  }
+
+  portfolioIsEmpty(): boolean {
+    let p = localStorage.getItem('portfolio');
+    return p === '{}' || p === undefined || p === null;
   }
 
 }

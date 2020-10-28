@@ -16,7 +16,7 @@ export class PortfolioSellModalComponent implements OnInit {
   companyMeta: CompanyMeta;
   numSharesOwned: number;
   stockStatistics: StockStatistics;
-  total: string = "0.00";
+  total: number = 0;
 
   constructor(
     private modalService: NgbModal,
@@ -47,14 +47,10 @@ export class PortfolioSellModalComponent implements OnInit {
       
     } else {
       portfolio[ticker].quantity -= numShares;
-      portfolio[ticker].totalCost = parseFloat(portfolio[ticker].totalCost) - numShares * portfolio[ticker].avgCost;
+      portfolio[ticker].totalCost = portfolio[ticker].totalCost - numShares * portfolio[ticker].avgCost;
       portfolio[ticker].avgCost = portfolio[ticker].totalCost / portfolio[ticker].quantity;
-      portfolio[ticker].change = (this.stockStatistics.last - portfolio[ticker].avgCost).toFixed(2);
-      portfolio[ticker].marketValue = (this.stockStatistics.last * portfolio[ticker].quantity).toFixed(2);
-
-      // convert values back to strings for formatting purposes
-      portfolio[ticker].totalCost = (portfolio[ticker].totalCost).toFixed(2);
-      portfolio[ticker].avgCost = (portfolio[ticker].avgCost).toFixed(2);
+      portfolio[ticker].change = this.stockStatistics.last - portfolio[ticker].avgCost;
+      portfolio[ticker].marketValue = this.stockStatistics.last * portfolio[ticker].quantity;
 
       this.numSharesOwned = portfolio[this.ticker]['quantity'];
     }
@@ -84,7 +80,7 @@ export class PortfolioSellModalComponent implements OnInit {
   }
 
   updateTotal(quantity: number): void {
-    this.total = (this.stockStatistics.last * quantity).toFixed(2);
+    this.total = this.stockStatistics.last * quantity;
   }
 
 }

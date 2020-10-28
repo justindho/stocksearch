@@ -13,13 +13,12 @@ export class BuyModalComponent {
   @Input() stockStatistics: StockStatistics;
   @Output() newBuyEvent = new EventEmitter<string>();
   quantity: number;
-  total: string = "0.00";
+  total: number = 0;
 
   constructor(private modalService: NgbModal) { }
 
   buy(ticker: string, numShares: string): void {
     let quantity = parseInt(numShares);
-    console.log(`typeof(numShares): ${typeof(quantity)}`);
     this.createPortfolio();
     let portfolio = JSON.parse(localStorage.getItem('portfolio'));
 
@@ -32,11 +31,10 @@ export class BuyModalComponent {
 
   addSharesToPortfolio(ticker: string, numShares: number, portfolio): void {
     portfolio[ticker].quantity += numShares;
-    portfolio[ticker].totalCost = (parseFloat(portfolio[ticker].totalCost) + numShares * this.stockStatistics.last).toFixed(2);
-    portfolio[ticker].avgCost = (portfolio[ticker].totalCost / portfolio[ticker].quantity).toFixed(2);
-    portfolio[ticker].change = (this.stockStatistics.last - portfolio[ticker].avgCost).toFixed(2);
-    portfolio[ticker].marketValue = (this.stockStatistics.last * portfolio[ticker].quantity).toFixed(2);
-    console.log(JSON.stringify(portfolio));
+    portfolio[ticker].totalCost = portfolio[ticker].totalCost + numShares * this.stockStatistics.last;
+    portfolio[ticker].avgCost = portfolio[ticker].totalCost / portfolio[ticker].quantity;
+    portfolio[ticker].change = this.stockStatistics.last - portfolio[ticker].avgCost;
+    portfolio[ticker].marketValue = this.stockStatistics.last * portfolio[ticker].quantity;
     localStorage.setItem('portfolio', JSON.stringify(portfolio));
   }
 
@@ -46,13 +44,12 @@ export class BuyModalComponent {
       'ticker': ticker,
       'name': this.companyMeta.name,
       'quantity': numShares,
-      'avgCost': (this.stockStatistics.last).toFixed(2),
-      'totalCost': (numShares * this.stockStatistics.last).toFixed(2),
-      'change': "0.00", // avgCost - current price
+      'avgCost': this.stockStatistics.last,
+      'totalCost': numShares * this.stockStatistics.last,
+      'change': 0, // avgCost - current price
       'currentPrice': this.stockStatistics.last,
-      'marketValue': (this.stockStatistics.last * numShares).toFixed(2),
+      'marketValue': this.stockStatistics.last * numShares,
     };
-    console.log(JSON.stringify(portfolio));
     localStorage.setItem('portfolio', JSON.stringify(portfolio));
   }
 
@@ -66,17 +63,12 @@ export class BuyModalComponent {
     this.newBuyEvent.emit(value);
   }
 
-
-  displayTotal(price: number, quantity: number): string {
-    return (price * quantity).toFixed(2);
-  }
-
   open(content) {
     this.modalService.open(content, {ariaLabelledBy:'buy-modal-title'});
   }
 
   updateTotal(quantity: number): void {
-    this.total = (this.stockStatistics.last * quantity).toFixed(2);
+    this.total = this.stockStatistics.last * quantity;
   }
 
 }
