@@ -33,21 +33,8 @@ export class ChartsComponent implements OnInit {
       });
   }
 
-  resize(): void {
-    let chart = document.getElementById('chart');
-    let width = chart.clientWidth;
-    let height = width * 0.
-
-    // let parentWidth = chart.parentElement.clientWidth;
-    // // chart.clientWidth = parentWidth;
-    // chart.setAttribute('width', parentWidth.toString());
-    // console.log(`parentWidth: ${parentWidth}`);
-  }
-
   createChart(): void {
     this.chartOptions = {
-      // chart: {
-      // },
       navigator: {
         enabled: true,
       },
@@ -102,19 +89,14 @@ export class ChartsComponent implements OnInit {
       plotOptions: {
           series: {
               dataGrouping: {
-                  units: [[
-                      'day',
-                      [1]
-                  ], [
-                      'week',
-                      [1]
-                  ], [
-                      'month',
-                      [1, 3, 6]
-                  ], [
-                      'year',
-                      null
-                  ]]
+                enabled: true,
+                units: [[
+                  'week', // unit name
+                    [1] // allowed multiples
+                ], [
+                    'month',
+                    [1, 2, 3, 4, 6]
+                ]]
               }
           }
       },
