@@ -14,7 +14,6 @@ import { Autocompletion } from './autocompletion';
   providedIn: 'root'
 })
 export class StockService {
-  // backendHost: string = `http://justindho-stocksearcher-nodejs-angular.us-west-1.elasticbeanstalk.com`;
   backendHost: string = `https://stocksearch-nodejs-backend.wl.r.appspot.com`;
 
   constructor(

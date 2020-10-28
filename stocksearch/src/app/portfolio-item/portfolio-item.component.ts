@@ -8,7 +8,7 @@ import { PortfolioItem } from '../portfolio-item';
   styleUrls: ['./portfolio-item.component.css']
 })
 export class PortfolioItemComponent {
-  @Input() portfolioItem;
+  @Input() portfolioItem: PortfolioItem;
   @Output() purchaseEvent = new EventEmitter<void>();
   @Output() sellEvent = new EventEmitter<void>();
 
@@ -48,10 +48,10 @@ export class PortfolioItemComponent {
                     </svg>`;
 
     // Set arrow container and set color
-    if (parseFloat(this.portfolioItem.change) > 0) {
+    if (this.portfolioItem.change > 0) {
       arrowContainer.innerHTML = upArrow;
       this.setColor(green);
-    } else if (parseFloat(this.portfolioItem.change) < 0) {
+    } else if (this.portfolioItem.change < 0) {
       arrowContainer.innerHTML = downArrow;
       this.setColor(red);
     } else {

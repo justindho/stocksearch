@@ -25,7 +25,7 @@
         </div>
         <div class="modal-footer">
             <div class="flex-container">
-                <div id="total">Total: {{ displayTotal(stockStatistics.last, quantity.value) | number : '1.2-2' }}</div>
+                <div id="total">Total: {{ total | number : '1.2-2' }}</div>
                 <div id="modal-buy-button">
                     <button [disabled]="total == 0" type="button" class="btn btn-success" (click)="buy(companyMeta.ticker, quantity.value);displayBuyBanner();modal.close('Buy click')">Buy</button>
                 </div>
