@@ -2,17 +2,8 @@
     text-align: center;
 }
 
-.card {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.card-body {
-    width: 100%;
-}
-
 #spinner {
-    margin-top: 50px;
+    margin-top: 150px;
     width: 100%;
 }
 
@@ -22,26 +13,9 @@
     text-align: center;
 }
 
-.title {
-    margin-bottom: 30px;
+#title {
+    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
-    width: 80%;
-}
-
-#watchlist {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-}
-
-@media screen and (max-width: 600px) {
-    #watchlist, #title {
-        width: 90%;
-    }
-
-    #title {
-        margin-bottom: 40px;
-    }
 }

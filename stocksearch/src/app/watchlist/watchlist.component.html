@@ -2,21 +2,27 @@
     <mat-spinner diameter="50"></mat-spinner>
 </div>
 
-<div class="title" *ngIf="doneLoading || sortedWatchlist">
-    <h2>My Watchlist</h2>
+<div class="container">
+    <div class="row">
+        <div id="title" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10" *ngIf="doneLoading || sortedWatchlist">
+            <h2>My Watchlist</h2>
+        </div>
+    </div>
 </div>
 
-<div id="watchlist">
-    <!-- Display this banner if watchlist is empty -->
-    <div id="banner" *ngIf="sortedWatchlist.length == 0 || displayBanner" class="alert alert-warning" role="alert">
-        Currently you don't have any stock in your watchlist.
+<div class="container">
+    <div id="watchlist" class="row justify-content-center">
+        <!-- Display this banner if watchlist is empty -->
+        <div id="banner" *ngIf="sortedWatchlist.length == 0 || displayBanner" class="alert alert-warning" role="alert">
+            Currently you don't have any stock in your watchlist.
+        </div>
+    
+        <!-- Display watchlist items-->
+        <div *ngFor="let watchlistItem of sortedWatchlist" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
+            <app-watchlist-item [watchlistItem]="watchlistItem" [attr.id]="'watchlistItem-' + watchlistItem.ticker"
+                (removeWatchlistItemEvent)="updateWatchlistBanner()">
+            </app-watchlist-item>
+        </div>
+    
     </div>
-
-    <!-- Display watchlist items-->
-    <div *ngFor="let watchlistItem of sortedWatchlist">
-        <app-watchlist-item [watchlistItem]="watchlistItem" [attr.id]="'watchlistItem-' + watchlistItem.ticker"
-            (removeWatchlistItemEvent)="updateWatchlistBanner()">
-        </app-watchlist-item>
-    </div>
-
 </div>
