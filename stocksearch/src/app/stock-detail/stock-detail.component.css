@@ -42,12 +42,3 @@ mat-tab-group {
     margin-right: auto;
     width: 70%;
 }
-
-@media screen and (max-width: 600px) {
-
-    app-stock-banner, #error-banner, mat-tab-group {
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
-    }
-}
