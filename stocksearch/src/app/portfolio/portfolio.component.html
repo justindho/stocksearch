@@ -1,19 +1,25 @@
-<div id="title">
-    <h2>My Portfolio</h2>
+<div class="container">
+    <div class="row">
+        <div id="title" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
+            <h2>My Portfolio</h2>
+        </div>
+    </div>    
 </div>
 
 <div id="spinner" *ngIf="!doneLoading">
     <mat-spinner diameter="50"></mat-spinner>
 </div>
 
-<div id="portfolio" *ngIf="doneLoading">
-    <div *ngIf="sortedPortfolio.length == 0 || portfolio.length == 0 || displayBanner" id="status-banner" class="alert alert-warning" role="alert">
-        Currently you don't have any stock.
-    </div>
-    <div *ngFor="let portfolioItem of sortedPortfolio">
-        <app-portfolio-item [portfolioItem]="portfolioItem" [attr.id]="'portfolioItem-' + portfolioItem.ticker"
-            (sellEvent)="updatePortfolioStatusBanner(); updatePortfolioLatestPrices();"
-            (purchaseEvent)="updatePortfolioLatestPrices();">
-        </app-portfolio-item>
+<div class="container">
+    <div id="portfolio" class="row justify-content-center" *ngIf="doneLoading">
+        <div *ngIf="sortedPortfolio.length == 0 || portfolio.length == 0 || displayBanner" id="status-banner" class="alert alert-warning col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" role="alert">
+            Currently you don't have any stock.
+        </div>
+        <div *ngFor="let portfolioItem of sortedPortfolio" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
+            <app-portfolio-item [portfolioItem]="portfolioItem" [attr.id]="'portfolioItem-' + portfolioItem.ticker"
+                (sellEvent)="updatePortfolioStatusBanner(); updatePortfolioLatestPrices();"
+                (purchaseEvent)="updatePortfolioLatestPrices();">
+            </app-portfolio-item>
+        </div>
     </div>
 </div>
