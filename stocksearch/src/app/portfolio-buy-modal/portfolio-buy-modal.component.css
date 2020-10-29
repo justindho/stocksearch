@@ -22,11 +22,6 @@
     margin-left: auto;
     margin-top: auto;
 }
-
-#numShares {
-    vertical-align: middle;
-}
-
 #numShares input {
     margin-left: 15px;
 }

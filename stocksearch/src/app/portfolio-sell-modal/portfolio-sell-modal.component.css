@@ -1,5 +1,5 @@
 #currentPrice {
-    margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 .flex-container {
@@ -10,8 +10,11 @@
 
 .input-group {
     margin-bottom: 10px;
-    margin-left: 20px;
-    margin-top: 10px;
+    margin-top: -10px;
+}
+
+.modal-body {
+    padding-bottom: 0px;
 }
 
 #modal-sell-button {
@@ -20,12 +23,8 @@
     margin-top: auto;
 }
 
-#numShares {
-    width: 50%;
-}
-
 #numShares input {
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
 #numShares label {
@@ -34,7 +33,7 @@
 }
 
 #price-quantity {
-    margin-left: 0;
+    margin-left: 10px;
 }
 
 #total {
