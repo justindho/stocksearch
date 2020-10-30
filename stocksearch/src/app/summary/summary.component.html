@@ -1,5 +1,17 @@
-<div class="grid-container">
-    <app-summary-statistics class="stats" *ngIf="stockStatistics" [stockStatistics]="stockStatistics"></app-summary-statistics>
-    <app-summary-description class="description"></app-summary-description>
-    <app-summary-chart class="chart" [ticker]="companyMeta.ticker" [stockStatistics]="stockStatistics"></app-summary-chart>
+<div class="container-fluid">
+    <div class="row mx-0 mt-3">
+        <!-- Left column for summary statistics and company description -->
+        <div class="row mx-0 mb-3 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0 mx-0 px-0">
+                <app-summary-statistics class="col-6" *ngIf="stockStatistics" [stockStatistics]="stockStatistics"></app-summary-statistics>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0 mx-0">
+                <app-summary-description class="col-12 mt-3"></app-summary-description>
+            </div>
+        </div>
+        <!-- Right column for daily chart -->
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <app-summary-chart class="chart" [ticker]="companyMeta.ticker" [stockStatistics]="stockStatistics"></app-summary-chart>
+        </div>
+    </div>
 </div>
