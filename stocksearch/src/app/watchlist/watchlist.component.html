@@ -2,7 +2,7 @@
     <mat-spinner diameter="50"></mat-spinner>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div id="title" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10" *ngIf="doneLoading || sortedWatchlist">
             <h2>My Watchlist</h2>
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div id="watchlist" class="row justify-content-center">
         <!-- Display this banner if watchlist is empty -->
         <div id="banner" *ngIf="sortedWatchlist.length == 0 || displayBanner" class="alert alert-warning" role="alert">

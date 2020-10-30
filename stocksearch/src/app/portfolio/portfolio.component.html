@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div id="title" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
             <h2>My Portfolio</h2>
@@ -10,7 +10,7 @@
     <mat-spinner diameter="50"></mat-spinner>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div id="portfolio" class="row justify-content-center" *ngIf="doneLoading">
         <div *ngIf="sortedPortfolio.length == 0 || portfolio.length == 0 || displayBanner" id="status-banner" class="alert alert-warning col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" role="alert">
             Currently you don't have any stock.
