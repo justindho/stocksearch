@@ -1,6 +1,10 @@
+.align-super {
+    vertical-align: super;
+}
+
 #arrowContainer {
     margin-right: 5px;
-    margin-top: 30%;
+    vertical-align: middle;
 }
 
 #buy-banner, #watchlist-add-banner, #watchlist-remove-banner {
@@ -41,7 +45,6 @@
 #starContainer {
     background-color: transparent;
     border: none;
-    margin-left: 10px;
     outline: none;
 }
 
