@@ -1,52 +1,62 @@
-<!-- Banner for adding ticker to watchlist -->
-<div id="watchlist-add-banner" class="alert alert-success" role="alert">
-    <span id="watchlist-add-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+<div class="container-fluid">
+    <!-- Banner for adding ticker to watchlist -->
+    <div class="row">
+        <div id="watchlist-add-banner" class="alert alert-success col-11 col-sm-11 col-md-10 col-lg-10 col-xl-10" role="alert">
+            <span id="watchlist-add-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Banner for removing ticker from watchlist -->
+    <div class="row">
+        <div id="watchlist-remove-banner" class="alert alert-danger col-11 col-sm-11 col-md-10 col-lg-10 col-xl-10" role="alert">
+            <span id="watchlist-remove-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Banner for buying ticker -->
+    <div class="row">
+        <div id="buy-banner" class="alert alert-success col-11 col-sm-11 col-md-10 col-lg-10 col-xl-10" role="alert">
+            <span id="ticker"></span> successfully bought!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contains all stock stats and metadata -->
+    <div class="row">
+        <table class="col-11 col-sm-11 col-md-10 col-lg-10 col-xl-10">
+            <tr>
+                <td *ngIf="companyMeta" id="ticker-cell" class="left-cell">
+                    {{ companyMeta.ticker }}
+                    <button id="starContainer" (click)="onStarClick(companyMeta.ticker)"></button>
+                </td>
+                <td *ngIf="stockStatistics" id="lastPrice-cell" class="right-cell">{{ stockStatistics.last | number : '1.2-2' }}</td>
+            </tr>
+            <tr>
+                <td *ngIf="companyMeta" id="companyName" class="left-cell">{{ companyMeta.name }}</td>
+                <td *ngIf="stockStatistics" id="changeStats" class="right-cell"><span id="arrowContainer"></span>{{ stockStatistics.change | number : '1.2-2' }} ({{ stockStatistics.changePercent | number : '1.2-2' }}%)</td>
+            </tr>
+            <tr>
+                <td  *ngIf="companyMeta" id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
+                <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.lastFetchTimestamp }}</td>
+            </tr>
+            <tr>
+                <app-buy-modal *ngIf="companyMeta && stockStatistics"
+                    [companyMeta]="companyMeta"
+                    [stockStatistics]="stockStatistics"
+                    (newBuyEvent)="displayBuyBanner($event)">
+                </app-buy-modal>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Container for market open/close status -->
+    <p id="market-status-container"><span id="market-status"></span></p>
 </div>
-
-<!-- Banner for removing ticker from watchlist -->
-<div id="watchlist-remove-banner" class="alert alert-danger" role="alert">
-    <span id="watchlist-remove-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-
-<!-- Banner for buying ticker -->
-<div id="buy-banner" class="alert alert-success" role="alert">
-    <span id="ticker"></span> successfully bought!
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-
-<!-- Contains all stock stats and metadata -->
-<table>
-    <tr>
-        <td *ngIf="companyMeta" id="ticker-cell" class="left-cell">
-            {{ companyMeta.ticker }}
-            <button id="starContainer" (click)="onStarClick(companyMeta.ticker)"></button>
-        </td>
-        <td *ngIf="stockStatistics" id="lastPrice-cell" class="right-cell">{{ stockStatistics.last | number : '1.2-2' }}</td>
-    </tr>
-    <tr>
-        <td *ngIf="companyMeta" id="companyName" class="left-cell">{{ companyMeta.name }}</td>
-        <td *ngIf="stockStatistics" id="changeStats" class="right-cell"><span id="arrowContainer"></span>{{ stockStatistics.change | number : '1.2-2' }} ({{ stockStatistics.changePercent | number : '1.2-2' }}%)</td>
-    </tr>
-    <tr>
-        <td  *ngIf="companyMeta" id="exchange" class="left-cell">{{ companyMeta.exchangeCode }}</td>
-        <td *ngIf="stockStatistics" id="timestamp" class="right-cell">{{ stockStatistics.lastFetchTimestamp }}</td>
-    </tr>
-    <tr>
-        <app-buy-modal *ngIf="companyMeta && stockStatistics"
-            [companyMeta]="companyMeta"
-            [stockStatistics]="stockStatistics"
-            (newBuyEvent)="displayBuyBanner($event)">
-        </app-buy-modal>
-    </tr>
-</table>
-
-<!-- Container for market open/close status -->
-<p id="market-status-container"><span id="market-status"></span></p>
