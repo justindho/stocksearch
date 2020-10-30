@@ -19,7 +19,6 @@
 }
 
 #companyName {
-    color: #7D6F71;
     font-size: 1.5em;
     font-style: bold;
 }
@@ -34,20 +33,9 @@
     font-style: bolder;
 }
 
-.left-cell {
-    margin-left: 1em;
-    text-align: left;
-}
-
 #market-status-container {
     font-size: 12px;
     margin-top: 10px;
-    text-align: center;
-}
-
-.right-cell {
-    margin-right: 1em;
-    text-align: right;
 }
 
 #starContainer {

@@ -186,10 +186,10 @@ export class StockBannerComponent {
     let marketStatus = document.getElementById('market-status');
     if (this.marketIsOpen()) { // convert milliseconds to seconds
       marketStatus.innerHTML = `Market is Open`;
-      marketStatus.setAttribute('style', 'background-color:#DAF0E0; color:#78A48B');
+      marketStatus.className = "alert-success";
     } else {
       marketStatus.innerHTML = `Market Closed on ${this.stockStatistics['timestamp']}`;
-      marketStatus.setAttribute('style', 'background-color:#F4D4DB; color:#85634E');
+      marketStatus.className = "alert-danger";
     }
   }
 
