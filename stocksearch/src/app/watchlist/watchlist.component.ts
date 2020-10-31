@@ -49,7 +49,7 @@ export class WatchlistComponent implements OnInit {
   }
 
   async updateWatchlistLatestPrices(): Promise<void> {
-    this.watchlist = JSON.parse(localStorage.getItem('portfolio'));
+    this.watchlist = JSON.parse(localStorage.getItem('watchlist'));
     let tickerString = '';
     for (let ticker in this.watchlist) {
       tickerString += ticker + ',';
