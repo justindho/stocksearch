@@ -1,22 +1,50 @@
-<table class="mx-0">
-    <tr>
-        <td>High Price: {{ (stockStatistics.high | number : '1.2-2') || '-' }}</td>
-        <td class="market-dependent">Mid Price: {{ (stockStatistics.mid | number : '1.2-2') || '-' }}</td>
-    </tr>
-    <tr>
-        <td>Low Price: {{ (stockStatistics.low | number : '1.2-2') || '-' }}</td>
-        <td class="market-dependent">Ask Price: {{ (stockStatistics.askPrice | number : '1.2-2') || '-' }}</td>
-    </tr>
-    <tr>
-        <td>Open price: {{ (stockStatistics.open | number : '1.2-2') || '-' }}</td>
-        <td class="market-dependent">Ask Size: {{ (stockStatistics.askSize | number : '1.2-2') || '-' }}</td>
-    </tr>
-    <tr>
-        <td>Prev. Close: {{ (stockStatistics.prevClose | number : '1.2-2') || '-' }}</td>
-        <td class="market-dependent">Bid Price: {{ (stockStatistics.bidPrice | number  : '1.2-2') || '-' }}</td>
-    </tr>
-    <tr>
-        <td>Volume: {{ stockStatistics.volume | number }}</td>
-        <td class="market-dependent">Bid Size: {{ (stockStatistics.bidSize | number : '1.2-2') || '-' }}</td>
-    </tr>
-</table>
+<div class="row mx-0">
+    <div class="col-6 text-left px-0">
+        <table class="border-0 mx-auto">
+            <tr>
+                <td>High Price: </td>
+                <td>{{ (stockStatistics.high | number : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Low Price: </td>
+                <td>{{ (stockStatistics.low | number : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Open price: </td>
+                <td>{{ (stockStatistics.open | number : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Prev. Close: </td>
+                <td>{{ (stockStatistics.prevClose | number : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Volume: </td>
+                <td>{{ stockStatistics.volume | number }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-6 text-left">
+        <table class="border-0 mx-auto market-dependent">
+            <tr>
+                <td>Mid Price: </td>
+                <td>{{ (stockStatistics.mid | number : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Ask Price: </td>
+                <td>{{ (stockStatistics.askPrice | number : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Ask Size: </td>
+                <td>{{ (stockStatistics.askSize | number : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Bid Price: </td>
+                <td>{{ (stockStatistics.bidPrice | number  : '1.2-2') || '-' }}</td>
+            </tr>
+            <tr>
+                <td>Bid Size: </td>
+                <td>{{ (stockStatistics.bidSize | number : '1.2-2') || '-' }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
