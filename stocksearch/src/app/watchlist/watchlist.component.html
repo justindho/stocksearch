@@ -20,7 +20,8 @@
         <!-- Display watchlist items-->
         <div *ngFor="let watchlistItem of sortedWatchlist" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
             <app-watchlist-item [watchlistItem]="watchlistItem" [attr.id]="'watchlistItem-' + watchlistItem.ticker"
-                (removeWatchlistItemEvent)="updateWatchlistBanner()">
+                (removeWatchlistItemEvent)="updateWatchlistBanner()"
+                (updateWatchlistEvent)="updateWatchlistIfMarketOpen()">
             </app-watchlist-item>
         </div>
     

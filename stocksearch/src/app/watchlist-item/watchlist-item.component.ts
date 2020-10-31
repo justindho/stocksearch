@@ -9,6 +9,7 @@ import { WatchlistItem } from '../watchlist-item';
 export class WatchlistItemComponent {
   @Input() watchlistItem: WatchlistItem;
   @Output() removeWatchlistItemEvent = new EventEmitter<void>();
+  @Output() updateWatchlistEvent = new EventEmitter<void>();
 
   constructor() { }
 
@@ -59,6 +60,10 @@ export class WatchlistItemComponent {
   hideWatchlistItem(ticker: string): void {
     let element = document.getElementById('watchlistItem-' + ticker);
     element.style.display = 'none';
+  }
+
+  updateWatchlist(): void {
+    this.updateWatchlistEvent.emit();
   }
 
   updateWatchlistStatusBanner(): void {

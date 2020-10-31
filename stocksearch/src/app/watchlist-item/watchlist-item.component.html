@@ -1,7 +1,7 @@
 <div class="card mb-3">
     <p id="close-icon">
         <button type="button" class="close" aria-label="Close"
-            (click)="removeFromWatchlist(watchlistItem.ticker)">
+            (click)="removeFromWatchlist(watchlistItem.ticker); updateWatchlist();">
             <span aria-hidden="true">&times;</span>
         </button>
     </p>
