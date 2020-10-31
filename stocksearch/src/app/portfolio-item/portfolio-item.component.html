@@ -7,13 +7,13 @@
             </div>
         </button>
     </div>
-    <div class="card-body flex-container">
-        <div class="flex-child">
+    <div class="card-body row">
+        <div class="data-display col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div>Quantity: <span class="right-align">{{ portfolioItem.quantity | number }}</span></div>
             <div>Avg. Cost / Share: <span class="right-align">{{ portfolioItem.avgCost | number : '1.2-2' }}</span></div>
             <div>Total Cost: <span class="right-align">{{ portfolioItem.totalCost | number : '1.2-2' }}</span></div>
         </div>
-        <div class="flex-child">
+        <div class="data-display col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
             <div>Change: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker"><span [attr.id]="'arrowContainer-' + portfolioItem.ticker" style="margin-right:10px;"></span><span class="change-stats">{{ portfolioItem.change | number : '1.2-2' }}</span></span></div>
             <div>Current Price: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker"><span class="change-stats">{{ portfolioItem.currentPrice | number : '1.2-2' }}</span></span></div>
             <div>Market Value: <span [attr.class]="'right-align change-color-' + portfolioItem.ticker"><span class="change-stats">{{ portfolioItem.marketValue | number : '1.2-2' }}</span></span></div>

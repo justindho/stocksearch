@@ -1,7 +1,5 @@
-<div class="grid-container">
-    <div *ngFor="let newsItem of newslist">
+<div class="news-container row display-flex d-flex align-items-stretch mt-4">
+    <div *ngFor="let newsItem of newslist" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4">
         <app-news-item [newsItem]="newsItem"></app-news-item>
     </div>
 </div>
-
-

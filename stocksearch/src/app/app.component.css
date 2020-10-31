@@ -44,12 +44,6 @@ footer {
     color: #A682FF;
 }
 
-@media screen and (max-width: 600px) {
-    .nav-item a {
-        padding-right: 20px;
-    }
-}
-
 ul li a:hover {
     color: white;
 }

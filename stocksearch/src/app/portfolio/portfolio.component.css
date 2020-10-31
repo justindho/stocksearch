@@ -1,7 +1,6 @@
 #portfolio {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
 }
 
 #spinner {
@@ -20,19 +19,12 @@
 }
 
 #title {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
-    width: 80%;
 }
 
-@media screen and (max-width: 600px) {
-    #portfolio, #title {
-        width: 90%;
-    }
-
-    #title {
-        margin-bottom: 40px;
-    }
+#title h2 {
+    padding-left: 15px;
 }

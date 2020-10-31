@@ -13,9 +13,9 @@
                         <div>
                             <p id="currentPrice">Current Price: {{ stockStatistics.last | number : '1.2-2' }}</p>
                         </div>
-                        <div id="numShares" class="form-group input-group">
-                            <label for="quantity">Quantity  </label> 
-                            <input #quantity id="quantity" type="number" class="form-control" placeholder="0" min="0" ngbAutofocus
+                        <div id="numShares" class="form-group input-group row">
+                            <label for="quantity" class="col-sm-2">Quantity  </label> 
+                            <input #quantity id="quantity" type="number" class="form-control col-sm-6" placeholder="0" min="0" ngbAutofocus
                                 onkeydown="return event.keyCode !== 190"
                                 (input)="updateTotal(quantity.value)">
                         </div>
@@ -34,4 +34,4 @@
     </ng-container>
 </ng-template>
 
-<button class="btn btn-success" (click)="open(content)">Buy</button>
+<button class="btn btn-success" (click)="open(content)" style="margin-top:5px;">Buy</button>

@@ -1,6 +1,10 @@
+.align-super {
+    vertical-align: super;
+}
+
 #arrowContainer {
     margin-right: 5px;
-    margin-top: 30%;
+    vertical-align: middle;
 }
 
 #buy-banner, #watchlist-add-banner, #watchlist-remove-banner {
@@ -13,8 +17,12 @@
     width: 80%;
 }
 
+#changeStats {
+    font-size: 1.7em!important;
+    font-style: bold!important;
+}
+
 #companyName {
-    color: #7D6F71;
     font-size: 1.5em;
     font-style: bold;
 }
@@ -26,81 +34,22 @@
 
 #lastPrice-cell, #ticker-cell {
     font-size: 2em;
-    font-style: bold;
-}
-
-.left-cell {
-    margin-left: 1em;
-    text-align: left;
+    font-style: bolder;
 }
 
 #market-status-container {
-    text-align: center;
-}
-
-.right-cell {
-    margin-right: 1em;
-    text-align: right;
+    font-size: 12px;
+    margin-top: 10px;
 }
 
 #starContainer {
     background-color: transparent;
     border: none;
-    margin-left: 10px;
     outline: none;
-}
-
-#starContainer svg {
 }
 
 table {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
-}
-
-@media screen and (max-width: 600px) {
-
-    #buy-banner, #watchlist-add-banner, #watchlist-remove-banner {
-        display: none;
-        margin-bottom: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10px;
-        text-align: center;
-        width: 85%;
-    }
-
-    #changeStats {
-        font-size: 1.7em!important;
-        font-style: bold!important;
-    }
-
-    #companyName {
-        vertical-align: top;
-    }
-
-    #exchange {
-        margin-bottom: 10px;
-    }
-
-    #lastPrice-cell, #ticker-cell {
-        font-size: 2.2em;
-        font-style: bolder;
-    }
-
-    #market-status-container {
-        font-size: 12px;
-        margin-top: 10px;
-    }
-
-    table {
-        margin-left: auto;
-        margin-right: auto;
-        width: 85%;
-    }
-
-    #ticker-cell {
-        white-space: nowrap;
-    }
+    width: 100%;
 }

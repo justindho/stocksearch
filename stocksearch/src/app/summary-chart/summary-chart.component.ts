@@ -93,7 +93,16 @@ export class SummaryChartComponent implements OnInit {
         dateTimeLabelFormats: {
           hour: '%H:%M',
         }
-      }
+      },
+      yAxis: {
+        labels: {
+          enabled: true,
+        },
+        opposite: true,
+        title: {
+          text: null,
+        },
+      },
     };
   }
 
