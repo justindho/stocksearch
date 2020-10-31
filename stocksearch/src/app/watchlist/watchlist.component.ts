@@ -24,8 +24,8 @@ export class WatchlistComponent implements OnInit {
     }
     this.sortWatchlist();
 
-    // Sleep for 200ms to prove that loading screen actually shows
-    await this.sleep(200);
+    // Sleep for 100ms to prove that loading screen actually shows
+    await this.sleep(100);
     this.doneLoading = true;
   }
 
@@ -61,6 +61,10 @@ export class WatchlistComponent implements OnInit {
 
   sleep(ms): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  updateWatchlistIfMarketOpen(): void {
+    this.updateWatchlistLatestPrices();
   }
 
   updateWatchlistBanner(): void {
