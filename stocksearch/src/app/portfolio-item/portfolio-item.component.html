@@ -7,7 +7,7 @@
     </div>
     <div class="card-body row h4 font-weight-normal">
         <div class="data-display col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div>Quantity: <span class="right-align">{{ portfolioItem.quantity | number }}</span></div>
+            <div>Quantity: <span class="right-align">{{ portfolioItem.quantity | number : '1.2-2' }}</span></div>
             <div>Avg. Cost / Share: <span class="right-align">{{ portfolioItem.avgCost | number : '1.2-2' }}</span></div>
             <div>Total Cost: <span class="right-align">{{ portfolioItem.totalCost | number : '1.2-2' }}</span></div>
         </div>
