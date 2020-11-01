@@ -13,8 +13,12 @@ export class NewsItemComponent {
 
   constructor(private modalService: NgbModal) { }
 
+  constructFacebookUrl(): string {
+    return `https://www.facebook.com/sharer/sharer.php?u=` + encodeURIComponent(`${this.newsItem.url}`);
+  }
+
   constructTwitterUrl(): string {
-    return `https://twitter.com/intent/tweet?text=${this.newsItem.title}%20${this.newsItem.url}`
+    return `https://twitter.com/intent/tweet?text=` + encodeURIComponent(`${this.newsItem.title} ${this.newsItem.url}`);
   }
 
   open(content) {
