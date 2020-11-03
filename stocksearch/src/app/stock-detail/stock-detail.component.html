@@ -16,10 +16,11 @@
                 </app-summary>
             </mat-tab>
             <mat-tab label="Top News"><app-news></app-news></mat-tab>
-            <ng-template matTabContent>
-                <!-- <app-charts *ngIf="loadChart" [historicalData]="historicalData" [ticker]="companyMeta.ticker"></app-charts> -->
-                <app-charts *ngIf="loadChart" [ohlc]="ohlc" [volume]="volume" [ticker]="companyMeta.ticker"></app-charts>
-            </ng-template>
+            <mat-tab label="Charts">
+                <ng-template matTabContent>
+                    <app-charts [ohlc]="ohlc" [volume]="volume" [ticker]="companyMeta.ticker"></app-charts>
+                </ng-template>
+            </mat-tab>
         </mat-tab-group>
     </div>
 </div>

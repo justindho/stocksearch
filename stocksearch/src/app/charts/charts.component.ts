@@ -3,7 +3,6 @@ import * as Highcharts from 'highcharts/highstock';
 import SMA from "highcharts/indicators/indicators"; SMA(Highcharts);
 import VBP from 'highcharts/indicators/volume-by-price'; VBP(Highcharts);
 
-import { HistoricalData } from '../historical-data';
 import { StockService } from '../stock.service';
 
 @Component({
@@ -13,9 +12,8 @@ import { StockService } from '../stock.service';
 })
 export class ChartsComponent implements OnInit {
   @Input() ticker: string;
-  historicalData: HistoricalData[];
-  ohlc: number[][];
-  volume: number[][];
+  @Input() ohlc: number[][];
+  @Input() volume: number[][];
 
   Highcharts: typeof Highcharts = Highcharts;
   chartConstructor = "stockChart";
@@ -24,13 +22,7 @@ export class ChartsComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.stockService.getHistoricalData(this.ticker)
-      .subscribe(data => {
-        this.historicalData = data;
-        this.ohlc = this.formatOHLCData(data);
-        this.volume = this.formatVolumeData(data);
-        this.createChart();
-      });
+    this.createChart();
   }
 
   createChart(): void {
@@ -137,24 +129,6 @@ export class ChartsComponent implements OnInit {
           showInLegend: false,
       }]
     }
-  }
-
-  formatOHLCData(data: HistoricalData[]): number[][] {
-    let timeOffsetMinutes = new Date().getTimezoneOffset();
-    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
-    return data.map(x => {
-      let date = new Date(x.date);
-      return [date.valueOf() - timeOffsetMilliseconds, x.open, x.high, x.low, x.close];
-    });
-  }
-
-  formatVolumeData(data: HistoricalData[]): number[][] {
-    let timeOffsetMinutes = new Date().getTimezoneOffset();
-    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
-    return data.map(x => {
-      let date = new Date(x.date);
-      return [date.valueOf() - timeOffsetMilliseconds, x.volume];
-    })
   }
 
 }

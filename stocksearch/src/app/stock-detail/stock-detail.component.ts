@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CompanyMeta } from '../company-meta';
+import { HistoricalData } from '../historical-data';
 import { StockStatistics } from '../stock-statistics';
 import { StockService } from '../stock.service';
 
@@ -13,7 +14,8 @@ import { StockService } from '../stock.service';
 export class StockDetailComponent implements OnInit {
   doneLoading: boolean = false;
   interval: any;
-  loadChart: boolean = false;
+  ohlc: number[][];
+  volume: number[][];
 
   companyMeta: CompanyMeta;
   stockStatistics: StockStatistics;
@@ -42,6 +44,7 @@ export class StockDetailComponent implements OnInit {
         } else {
           this.tickerIsValid = true;
           this.getSummaryStatistics(ticker);
+          this.getHistoricalData(ticker);
 
           this.doneLoading = true;
 
@@ -55,9 +58,35 @@ export class StockDetailComponent implements OnInit {
       });
   }
 
+  getHistoricalData(ticker: string): void {
+    this.stockService.getHistoricalData(ticker)
+      .subscribe(data => {
+        this.ohlc = this.formatOHLCData(data);
+        this.volume = this.formatVolumeData(data);
+      });
+  }
+
   getSummaryStatistics(ticker: string): void {
     this.stockService.getStockStatistics(ticker)
       .subscribe(stats => this.stockStatistics = stats[0]);
+  }
+
+  formatOHLCData(data: HistoricalData[]): number[][] {
+    let timeOffsetMinutes = new Date().getTimezoneOffset();
+    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+    return data.map(x => {
+      let date = new Date(x.date);
+      return [date.valueOf() - timeOffsetMilliseconds, x.open, x.high, x.low, x.close];
+    });
+  }
+
+  formatVolumeData(data: HistoricalData[]): number[][] {
+    let timeOffsetMinutes = new Date().getTimezoneOffset();
+    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+    return data.map(x => {
+      let date = new Date(x.date);
+      return [date.valueOf() - timeOffsetMilliseconds, x.volume];
+    })
   }
 
   sleep(ms): Promise<any> {
@@ -67,12 +96,6 @@ export class StockDetailComponent implements OnInit {
   marketIsOpen(): boolean {
     let lastTimestamp = new Date(this.stockStatistics.timestamp);
     return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
-  }
-
-  onTabClick(tab): void {
-    if (tab['tab']['textLabel'] === 'Charts') {
-      this.loadChart = true;
-    }
   }
 
 }
