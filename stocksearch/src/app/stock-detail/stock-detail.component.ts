@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CompanyMeta } from '../company-meta';
+import { HistoricalData } from '../historical-data';
 import { StockStatistics } from '../stock-statistics';
 import { StockService } from '../stock.service';
 
@@ -13,7 +14,8 @@ import { StockService } from '../stock.service';
 export class StockDetailComponent implements OnInit {
   doneLoading: boolean = false;
   interval: any;
-  loadChart: boolean = false;
+  ohlc: number[][];
+  volume: number[][];
 
   companyMeta: CompanyMeta;
   stockStatistics: StockStatistics;
@@ -42,8 +44,7 @@ export class StockDetailComponent implements OnInit {
         } else {
           this.tickerIsValid = true;
           this.getSummaryStatistics(ticker);
-
-          this.doneLoading = true;
+          this.getHistoricalData(ticker);
 
           // Refresh stock stats and daily chart data every 15 seconds
           this.interval = setInterval(() => {
@@ -55,13 +56,35 @@ export class StockDetailComponent implements OnInit {
       });
   }
 
+  getHistoricalData(ticker: string): void {
+    this.stockService.getHistoricalData(ticker)
+      .subscribe(data => {
+        this.ohlc = this.formatOHLCData(data);
+        this.volume = this.formatVolumeData(data);
+      });
+  }
+
   getSummaryStatistics(ticker: string): void {
     this.stockService.getStockStatistics(ticker)
       .subscribe(stats => this.stockStatistics = stats[0]);
   }
 
-  sleep(ms): Promise<any> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  formatOHLCData(data: HistoricalData[]): number[][] {
+    let timeOffsetMinutes = new Date().getTimezoneOffset();
+    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+    return data.map(x => {
+      let date = new Date(x.date);
+      return [date.valueOf() - timeOffsetMilliseconds, x.open, x.high, x.low, x.close];
+    });
+  }
+
+  formatVolumeData(data: HistoricalData[]): number[][] {
+    let timeOffsetMinutes = new Date().getTimezoneOffset();
+    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+    return data.map(x => {
+      let date = new Date(x.date);
+      return [date.valueOf() - timeOffsetMilliseconds, x.volume];
+    })
   }
 
   marketIsOpen(): boolean {
@@ -69,10 +92,10 @@ export class StockDetailComponent implements OnInit {
     return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
   }
 
-  onTabClick(tab): void {
-    if (tab['tab']['textLabel'] === 'Charts') {
-      this.loadChart = true;
-    }
+  displayPage(): void {
+    this.doneLoading = true;
+    // document.getElementById('display-after-load').style.display= 'block';
+    document.getElementById('display-after-load').style.visibility= 'visible';
   }
 
 }

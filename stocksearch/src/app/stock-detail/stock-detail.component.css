@@ -10,6 +10,11 @@ button {
     width: 100%;
 }
 
+#display-after-load {
+    /* display: none; */
+    visibility: hidden;
+}
+
 #error-banner {
     display: none;
     margin-bottom: 20px;

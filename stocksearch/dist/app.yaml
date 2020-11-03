@@ -6,3 +6,21 @@ handlers:
       upload: stocksearch/index.html
     - url: /
       static_dir: stocksearch
+
+
+    - url: /portfolio
+      static_files: stocksearch/index.html
+      upload: stocksearch/index.html
+    - url: /watchlist
+      secure: always
+      static_files: stocksearch/index.html
+      upload: stocksearch/index.html
+    - url: /details/(.*)
+      secure: always
+      static_files: stocksearch/index.html
+      upload: stocksearch/index.html
+    - url: /
+      static_files: stocksearch/index.html
+      upload: stocksearch/index.html
+    - url: /
+      static_dir: dist/stocksearch

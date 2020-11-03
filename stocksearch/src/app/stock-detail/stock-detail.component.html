@@ -3,20 +3,34 @@
 </div>
 <div id="error-banner" class="alert alert-danger" role="alert"></div>
 
-<app-stock-banner *ngIf="doneLoading && tickerIsValid && companyMeta && stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-stock-banner>
-<div class="container-fluid">
-    <div class="row">
-        <mat-tab-group
-            dynamicHeight mat-stretch-tabs
-            *ngIf="doneLoading && tickerIsValid"
-            (selectedTabChange)="onTabClick($event)"
-            class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
-            <mat-tab label="Summary">
-                <app-summary *ngIf="stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics">
-                </app-summary>
-            </mat-tab>
-            <mat-tab label="Top News"><app-news></app-news></mat-tab>
-            <mat-tab label="Charts"><app-charts *ngIf="loadChart" [ticker]="companyMeta.ticker"></app-charts></mat-tab>
-        </mat-tab-group>
+<div id="display-after-load">
+    <app-stock-banner *ngIf="tickerIsValid && companyMeta && stockStatistics" [companyMeta]="companyMeta" [stockStatistics]="stockStatistics"></app-stock-banner>
+    <div class="container-fluid">
+        <div class="row">
+            <mat-tab-group
+                dynamicHeight mat-stretch-tabs
+                *ngIf="tickerIsValid"
+                class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                <mat-tab label="Summary">
+                    <ng-template matTabContent>
+                        <app-summary *ngIf="companyMeta && stockStatistics"
+                            [companyMeta]="companyMeta"
+                            [stockStatistics]="stockStatistics"
+                            (newChartLoadEvent)="displayPage()">
+                        </app-summary>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="Top News">
+                    <ng-template matTabContent>
+                        <app-news></app-news>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="Charts">
+                    <ng-template matTabContent>
+                        <app-charts [ohlc]="ohlc" [volume]="volume" [ticker]="companyMeta.ticker"></app-charts>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
     </div>
 </div>
