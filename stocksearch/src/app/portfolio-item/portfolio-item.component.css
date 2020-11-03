@@ -3,10 +3,9 @@
     margin-top: 30%;
 }
 
-/* .card {
-    margin-bottom: 20px;
-    margin-top: 20px;
-} */
+div[role=button]:focus {
+    outline: none;
+}
 
 .card-body > div {
     padding-left: 0px;

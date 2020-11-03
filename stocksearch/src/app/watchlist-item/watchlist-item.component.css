@@ -1,3 +1,7 @@
+div[role=button]:focus {
+    outline: none;
+}
+
 #close-icon {
     margin-bottom: 0;
     margin-right: 5px;
