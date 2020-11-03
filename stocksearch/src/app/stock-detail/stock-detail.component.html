@@ -12,13 +12,19 @@
                 *ngIf="tickerIsValid"
                 class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
                 <mat-tab label="Summary">
-                    <app-summary *ngIf="companyMeta && stockStatistics"
-                    [companyMeta]="companyMeta"
-                    [stockStatistics]="stockStatistics"
-                    (newChartLoadEvent)="displayPage()">
-                    </app-summary>
+                    <ng-template matTabContent>
+                        <app-summary *ngIf="companyMeta && stockStatistics"
+                            [companyMeta]="companyMeta"
+                            [stockStatistics]="stockStatistics"
+                            (newChartLoadEvent)="displayPage()">
+                        </app-summary>
+                    </ng-template>
                 </mat-tab>
-                <mat-tab label="Top News"><app-news></app-news></mat-tab>
+                <mat-tab label="Top News">
+                    <ng-template matTabContent>
+                        <app-news></app-news>
+                    </ng-template>
+                </mat-tab>
                 <mat-tab label="Charts">
                     <ng-template matTabContent>
                         <app-charts [ohlc]="ohlc" [volume]="volume" [ticker]="companyMeta.ticker"></app-charts>

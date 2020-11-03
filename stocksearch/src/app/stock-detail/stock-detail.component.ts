@@ -94,7 +94,8 @@ export class StockDetailComponent implements OnInit {
 
   displayPage(): void {
     this.doneLoading = true;
-    document.getElementById('display-after-load').style.display= 'block';
+    // document.getElementById('display-after-load').style.display= 'block';
+    document.getElementById('display-after-load').style.visibility= 'visible';
   }
 
 }

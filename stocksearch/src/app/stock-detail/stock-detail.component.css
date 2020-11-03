@@ -11,7 +11,8 @@ button {
 }
 
 #display-after-load {
-    display: none;
+    /* display: none; */
+    visibility: hidden;
 }
 
 #error-banner {

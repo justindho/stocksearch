@@ -123,7 +123,6 @@ export class SummaryChartComponent implements OnInit {
   }
 
   notifyChartLoadEvent(): void {
-    console.log(`(summary-chart) FIRING EVENT`);
     this.newChartLoadEvent.emit();
   }
 
