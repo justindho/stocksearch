@@ -11,7 +11,11 @@
         </div>
         <!-- Right column for daily chart -->
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <app-summary-chart class="chart" [ticker]="companyMeta.ticker" [stockStatistics]="stockStatistics"></app-summary-chart>
+            <app-summary-chart class="chart"
+                [ticker]="companyMeta.ticker"
+                [stockStatistics]="stockStatistics"
+                (newChartLoadEvent)="notifyChartLoadEvent()">
+            </app-summary-chart>
         </div>
     </div>
 </div>

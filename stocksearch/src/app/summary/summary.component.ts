@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { StockStatistics } from '../stock-statistics';
 import { CompanyMeta } from '../company-meta';
@@ -9,13 +9,15 @@ import { CompanyMeta } from '../company-meta';
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css']
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent {
   @Input() companyMeta: CompanyMeta;
   @Input() stockStatistics: StockStatistics;
+  @Output() newChartLoadEvent = new EventEmitter<void>();
 
   constructor() { }
 
-  ngOnInit(): void {
+  notifyChartLoadEvent(): void {
+    this.newChartLoadEvent.emit();
   }
 
 }

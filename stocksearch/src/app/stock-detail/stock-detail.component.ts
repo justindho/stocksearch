@@ -46,8 +46,6 @@ export class StockDetailComponent implements OnInit {
           this.getSummaryStatistics(ticker);
           this.getHistoricalData(ticker);
 
-          this.doneLoading = true;
-
           // Refresh stock stats and daily chart data every 15 seconds
           this.interval = setInterval(() => {
             if (this.marketIsOpen()) {
@@ -89,13 +87,14 @@ export class StockDetailComponent implements OnInit {
     })
   }
 
-  sleep(ms): Promise<any> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   marketIsOpen(): boolean {
     let lastTimestamp = new Date(this.stockStatistics.timestamp);
     return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
+  }
+
+  displayPage(): void {
+    this.doneLoading = true;
+    document.getElementById('display-after-load').style.display= 'block';
   }
 
 }

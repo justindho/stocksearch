@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as Highcharts from 'highcharts/highstock';
 
@@ -17,6 +17,7 @@ export class SummaryChartComponent implements OnInit {
   interval: any;
   @Input() stockStatistics: StockStatistics;
   @Input() ticker: string;
+  @Output() newChartLoadEvent = new EventEmitter<void>();
 
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options;
@@ -31,6 +32,7 @@ export class SummaryChartComponent implements OnInit {
       .subscribe(data => {
         this.dailyChartData = this.formatDailyChartData(data);
         this.createChart();
+        this.notifyChartLoadEvent();
       });
     
     // Refresh stock stats and daily chart data every 15 seconds
@@ -118,6 +120,11 @@ export class SummaryChartComponent implements OnInit {
   marketIsOpen(): boolean {
     let lastTimestamp = new Date(this.stockStatistics.timestamp);
     return (Date.now() - +(lastTimestamp)) / 1000 < 60; // convert milliseconds to seconds
+  }
+
+  notifyChartLoadEvent(): void {
+    console.log(`(summary-chart) FIRING EVENT`);
+    this.newChartLoadEvent.emit();
   }
 
 }
