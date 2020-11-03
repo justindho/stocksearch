@@ -1,13 +1,6 @@
-runtime: python38
+runtime: nodejs12
 
 handlers:
-    - url: /
-      static_files: stocksearch/index.html
-      upload: stocksearch/index.html
-    - url: /
-      static_dir: stocksearch
-
-
     - url: /portfolio
       static_files: stocksearch/index.html
       upload: stocksearch/index.html
