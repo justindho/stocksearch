@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CompanyMeta } from '../company-meta';
+import { HistoricalData } from '../historical-data';
 import { StockStatistics } from '../stock-statistics';
 import { StockService } from '../stock.service';
 
@@ -16,6 +17,7 @@ export class StockDetailComponent implements OnInit {
   loadChart: boolean = false;
 
   companyMeta: CompanyMeta;
+  historicalData: HistoricalData[];
   stockStatistics: StockStatistics;
   tickerIsValid: boolean;
 
@@ -55,9 +57,32 @@ export class StockDetailComponent implements OnInit {
       });
   }
 
+  getHistoricalData(ticker: string): void {
+    this.stockService.getHistoricalData(ticker)
+      .subscribe(data => this.historicalData = data);
+  }
+
   getSummaryStatistics(ticker: string): void {
     this.stockService.getStockStatistics(ticker)
       .subscribe(stats => this.stockStatistics = stats[0]);
+  }
+
+  formatOHLCData(data: HistoricalData[]): number[][] {
+    let timeOffsetMinutes = new Date().getTimezoneOffset();
+    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+    return data.map(x => {
+      let date = new Date(x.date);
+      return [date.valueOf() - timeOffsetMilliseconds, x.open, x.high, x.low, x.close];
+    });
+  }
+
+  formatVolumeData(data: HistoricalData[]): number[][] {
+    let timeOffsetMinutes = new Date().getTimezoneOffset();
+    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+    return data.map(x => {
+      let date = new Date(x.date);
+      return [date.valueOf() - timeOffsetMilliseconds, x.volume];
+    })
   }
 
   sleep(ms): Promise<any> {

@@ -13,9 +13,12 @@ import { StockService } from '../stock.service';
 })
 export class ChartsComponent implements OnInit {
   @Input() ticker: string;
-  historicalData: HistoricalData[];
-  ohlc: number[][];
-  volume: number[][];
+  @Input() historicalData: HistoricalData[];
+  @Input() ohlc: number[][];
+  @Input() volume: number[][];
+  // historicalData: HistoricalData[];
+  // ohlc: number[][];
+  // volume: number[][];
 
   Highcharts: typeof Highcharts = Highcharts;
   chartConstructor = "stockChart";
@@ -24,13 +27,16 @@ export class ChartsComponent implements OnInit {
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
-    this.stockService.getHistoricalData(this.ticker)
-      .subscribe(data => {
-        this.historicalData = data;
-        this.ohlc = this.formatOHLCData(data);
-        this.volume = this.formatVolumeData(data);
-        this.createChart();
-      });
+    // this.ohlc = this.formatOHLCData(this.historicalData);
+    // this.volume = this.formatVolumeData(this.historicalData);
+    this.createChart();
+    // this.stockService.getHistoricalData(this.ticker)
+    //   .subscribe(data => {
+    //     this.historicalData = data;
+    //     this.ohlc = this.formatOHLCData(data);
+    //     this.volume = this.formatVolumeData(data);
+    //     this.createChart();
+    //   });
   }
 
   createChart(): void {
@@ -139,22 +145,22 @@ export class ChartsComponent implements OnInit {
     }
   }
 
-  formatOHLCData(data: HistoricalData[]): number[][] {
-    let timeOffsetMinutes = new Date().getTimezoneOffset();
-    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
-    return data.map(x => {
-      let date = new Date(x.date);
-      return [date.valueOf() - timeOffsetMilliseconds, x.open, x.high, x.low, x.close];
-    });
-  }
+  // formatOHLCData(data: HistoricalData[]): number[][] {
+  //   let timeOffsetMinutes = new Date().getTimezoneOffset();
+  //   let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+  //   return data.map(x => {
+  //     let date = new Date(x.date);
+  //     return [date.valueOf() - timeOffsetMilliseconds, x.open, x.high, x.low, x.close];
+  //   });
+  // }
 
-  formatVolumeData(data: HistoricalData[]): number[][] {
-    let timeOffsetMinutes = new Date().getTimezoneOffset();
-    let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
-    return data.map(x => {
-      let date = new Date(x.date);
-      return [date.valueOf() - timeOffsetMilliseconds, x.volume];
-    })
-  }
+  // formatVolumeData(data: HistoricalData[]): number[][] {
+  //   let timeOffsetMinutes = new Date().getTimezoneOffset();
+  //   let timeOffsetMilliseconds = timeOffsetMinutes * 60 * 1000;
+  //   return data.map(x => {
+  //     let date = new Date(x.date);
+  //     return [date.valueOf() - timeOffsetMilliseconds, x.volume];
+  //   })
+  // }
 
 }
