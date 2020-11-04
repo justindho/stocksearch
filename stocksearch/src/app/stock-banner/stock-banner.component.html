@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <!-- Banner for adding ticker to watchlist -->
     <div class="row">
-        <div id="watchlist-add-banner" class="alert alert-success col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10" role="alert">
+        <div id="watchlist-add-banner" class="alert alert-success col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3 mb-0" role="alert">
             <span id="watchlist-add-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -11,7 +11,7 @@
 
     <!-- Banner for removing ticker from watchlist -->
     <div class="row">
-        <div id="watchlist-remove-banner" class="alert alert-danger col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10" role="alert">
+        <div id="watchlist-remove-banner" class="alert alert-danger col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3 mb-0" role="alert">
             <span id="watchlist-remove-banner-message">{{ companyMeta.ticker }}&nbsp;</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -21,7 +21,7 @@
 
     <!-- Banner for buying ticker -->
     <div class="row">
-        <div id="buy-banner" class="alert alert-success col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10" role="alert">
+        <div id="buy-banner" class="alert alert-success col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3 mb-0" role="alert">
             <span id="ticker"></span> successfully bought!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -31,7 +31,7 @@
 
     <!-- Contains all stock stats and metadata -->
     <div class="row">
-        <table class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <table class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3">
             <tr>
                 <td *ngIf="companyMeta" id="ticker-cell" class="h1 mb-0 text-left">
                     {{ companyMeta.ticker }}

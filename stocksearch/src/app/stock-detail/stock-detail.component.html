@@ -18,9 +18,7 @@
                         (newChartLoadEvent)="displayPage()">
                     </app-summary>
                 </mat-tab>
-                <mat-tab label="Top News">
-                    <app-news></app-news>
-                </mat-tab>
+                <mat-tab label="Top News"><app-news></app-news></mat-tab>
                 <mat-tab label="Charts">
                     <ng-template matTabContent>
                         <app-charts [ohlc]="ohlc" [volume]="volume" [ticker]="companyMeta.ticker"></app-charts>
