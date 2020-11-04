@@ -1,6 +1,6 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="doneLoading">
     <div class="row">
-        <div id="title" class="pl-4 py-5 col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
+        <div id="title" class="py-5 col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
             <h1>My Portfolio</h1>
         </div>
     </div>    
@@ -15,7 +15,7 @@
         <div *ngIf="sortedPortfolio.length == 0 || portfolio.length == 0 || displayBanner" id="status-banner" class="alert alert-warning col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10" role="alert">
             Currently you don't have any stock.
         </div>
-        <div *ngFor="let portfolioItem of sortedPortfolio" class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
+        <div *ngFor="let portfolioItem of sortedPortfolio" class="px-0 col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
             <app-portfolio-item [portfolioItem]="portfolioItem" [attr.id]="'portfolioItem-' + portfolioItem.ticker"
                 (sellEvent)="updatePortfolioStatusBanner(); updatePortfolioLatestPrices();"
                 (purchaseEvent)="updatePortfolioLatestPrices();">

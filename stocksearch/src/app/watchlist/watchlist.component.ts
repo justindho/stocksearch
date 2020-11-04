@@ -24,8 +24,6 @@ export class WatchlistComponent implements OnInit {
     }
     this.sortWatchlist();
 
-    // Sleep for 100ms to prove that loading screen actually shows
-    await this.sleep(100);
     this.doneLoading = true;
   }
 
@@ -57,10 +55,6 @@ export class WatchlistComponent implements OnInit {
     if (tickerString.length > 0) tickerString.slice(0, -1);
     await this.updateStockStatistics(tickerString);
     localStorage.setItem('watchlist', JSON.stringify(this.watchlist));
-  }
-
-  sleep(ms): Promise<any> {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   updateWatchlistIfMarketOpen(): void {

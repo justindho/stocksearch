@@ -13,7 +13,6 @@ body {
 
 .content {
     flex: 1 0 auto;
-    padding-top: 70px;
 }
 
 footer {
@@ -27,7 +26,6 @@ footer {
 
 .navbar {
     background-color: #6E40F4;
-    position: fixed;
     width: 100%;
     z-index: 100;
 }

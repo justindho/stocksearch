@@ -28,8 +28,6 @@ export class PortfolioComponent implements OnInit {
     this.portfolio = JSON.parse(localStorage.getItem('portfolio'));
     this.updateSortedPortfolio();
 
-    // Sleep for 200ms to prove that loading screen actually shows
-    await this.sleep(200);
     this.doneLoading = true;
   }
 
@@ -77,10 +75,6 @@ export class PortfolioComponent implements OnInit {
       if (stock1.ticker.toUpperCase() < stock2.ticker.toUpperCase()) { return -1; }
       if (stock1.ticker.toUpperCase() > stock2.ticker.toUpperCase()) { return 1; }
     });
-  }
-
-  sleep(ms): Promise<any> {
-    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   updatePortfolioStatusBanner(): void {
