@@ -33,7 +33,7 @@
     <div class="row">
         <table class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3">
             <tr>
-                <td *ngIf="companyMeta" id="ticker-cell" class="h1 mb-0 text-left">
+                <td *ngIf="companyMeta" id="ticker-cell" class="h1 mb-0 text-left col-6 px-0">
                     {{ companyMeta.ticker }}
                     <a id="starContainer" class="btn align-super" (click)="onStarClick(companyMeta.ticker)"></a>
                 </td>
