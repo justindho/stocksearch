@@ -16,4 +16,4 @@ handlers:
       static_files: stocksearch/index.html
       upload: stocksearch/index.html
     - url: /
-      static_dir: dist/stocksearch
+      static_dir: stocksearch
