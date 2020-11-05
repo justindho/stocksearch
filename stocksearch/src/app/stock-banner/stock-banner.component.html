@@ -32,20 +32,20 @@
     <!-- Contains all stock stats and metadata -->
     <div class="row">
         <table class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3">
-            <tr>
-                <td *ngIf="companyMeta" id="ticker-cell" class="h1 mb-0 text-left col-6 px-0">
+            <tr class="row">
+                <td *ngIf="companyMeta" id="ticker-cell" class="h1 mb-0 text-left col-6">
                     {{ companyMeta.ticker }}
                     <a id="starContainer" class="btn align-super" (click)="onStarClick(companyMeta.ticker)"></a>
                 </td>
-                <td *ngIf="stockStatistics" id="lastPrice-cell" class="h1 text-right">{{ stockStatistics.last | number : '1.2-2' }}</td>
+                <td *ngIf="stockStatistics" id="lastPrice-cell" class="h1 text-right col-6">{{ stockStatistics.last | number : '1.2-2' }}</td>
             </tr>
-            <tr>
-                <td *ngIf="companyMeta" id="companyName" class="h3 text-left text-muted">{{ companyMeta.name }}</td>
-                <td *ngIf="stockStatistics" id="changeStats" class="h3 text-right"><span id="arrowContainer"></span>{{ stockStatistics.change | number : '1.2-2' }} ({{ stockStatistics.changePercent | number : '1.2-2' }}%)</td>
+            <tr class="row">
+                <td *ngIf="companyMeta" id="companyName" class="h3 text-left text-muted col-6">{{ companyMeta.name }}</td>
+                <td *ngIf="stockStatistics" id="changeStats" class="h3 text-right col-6"><span id="arrowContainer"></span>{{ stockStatistics.change | number : '1.2-2' }} ({{ stockStatistics.changePercent | number : '1.2-2' }}%)</td>
             </tr>
-            <tr>
-                <td  *ngIf="companyMeta" id="exchange" class="text-left">{{ companyMeta.exchangeCode }}</td>
-                <td *ngIf="stockStatistics" id="timestamp" class="text-right">{{ stockStatistics.lastFetchTimestamp }}</td>
+            <tr class="row">
+                <td  *ngIf="companyMeta" id="exchange" class="text-left col-6">{{ companyMeta.exchangeCode }}</td>
+                <td *ngIf="stockStatistics" id="timestamp" class="text-right col-6">{{ stockStatistics.lastFetchTimestamp }}</td>
             </tr>
             <tr>
                 <app-buy-modal *ngIf="companyMeta && stockStatistics"
