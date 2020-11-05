@@ -21,6 +21,10 @@ export class StockDetailComponent implements OnInit {
   stockStatistics: StockStatistics;
   tickerIsValid: boolean;
 
+  companyMetaSub: any;
+  historicalDataSub: any;
+  summaryStatisticsSub: any;
+
   constructor(
     private stockService: StockService,
     private activatedRoute: ActivatedRoute
@@ -31,8 +35,14 @@ export class StockDetailComponent implements OnInit {
     this.getCompanyMeta(ticker);
   }
 
+  ngOnDestroy(): void {
+    this.companyMetaSub.unsubscribe();
+    this.historicalDataSub.unsubscribe();
+    this.summaryStatisticsSub.unsubscribe();
+  }
+
   getCompanyMeta(ticker: string): any {
-    this.stockService.getCompanyMeta(ticker)
+    this.companyMetaSub = this.stockService.getCompanyMeta(ticker)
       .subscribe(meta => {
         this.companyMeta = meta;
         if ('error' in this.companyMeta) {
@@ -57,7 +67,7 @@ export class StockDetailComponent implements OnInit {
   }
 
   getHistoricalData(ticker: string): void {
-    this.stockService.getHistoricalData(ticker)
+    this.historicalDataSub = this.stockService.getHistoricalData(ticker)
       .subscribe(data => {
         this.ohlc = this.formatOHLCData(data);
         this.volume = this.formatVolumeData(data);
@@ -65,7 +75,7 @@ export class StockDetailComponent implements OnInit {
   }
 
   getSummaryStatistics(ticker: string): void {
-    this.stockService.getStockStatistics(ticker)
+    this.summaryStatisticsSub = this.stockService.getStockStatistics(ticker)
       .subscribe(stats => this.stockStatistics = stats[0]);
   }
 
