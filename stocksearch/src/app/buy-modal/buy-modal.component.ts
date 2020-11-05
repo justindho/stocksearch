@@ -12,10 +12,14 @@ export class BuyModalComponent {
   @Input() companyMeta: CompanyMeta;
   @Input() stockStatistics: StockStatistics;
   @Output() newBuyEvent = new EventEmitter<string>();
-  quantity: number;
+  quantity: number = 0;
   total: number = 0;
 
   constructor(private modalService: NgbModal) { }
+
+  ngOnChanges(): void {
+    this.total = this.stockStatistics.last * this.quantity;
+  }
 
   buy(ticker: string, numShares: string): void {
     let quantity = parseInt(numShares);
@@ -68,6 +72,7 @@ export class BuyModalComponent {
   }
 
   updateTotal(quantity: number): void {
+    this.quantity = quantity;
     this.total = this.stockStatistics.last * quantity;
   }
 
